@@ -1,0 +1,307 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="source">
+      <UniqueIdentifier>{7f37fb28-39fd-48f2-bf6c-7e75bb57be5b}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm</Extensions>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{b8c3a7c3-f930-4c64-8957-787bbf35d42e}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
+    </Filter>
+    <Filter Include="resource">
+      <UniqueIdentifier>{75f5ce0f-56cc-454a-af5d-89b07d438536}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;jpg;jpeg;jpe;png;manifest</Extensions>
+    </Filter>
+    <Filter Include="include\Common">
+      <UniqueIdentifier>{c9c2e469-8413-48cb-99e6-ade6fdc3034f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\Common">
+      <UniqueIdentifier>{9327d2f7-8e90-4ed1-84aa-48d204901645}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Scenes">
+      <UniqueIdentifier>{e2101cdd-a320-47f2-b933-db91962c30bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\Scenes">
+      <UniqueIdentifier>{00d20871-beb9-4b9c-b5e7-8895d6135e08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Scenes\DreamBook">
+      <UniqueIdentifier>{d261bb21-f19b-4188-911c-2a9894a53810}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Scenes\DreamBook\Layers">
+      <UniqueIdentifier>{5a0204a4-5045-4633-ae5a-7df04ddecd99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Scenes\DreamBook\Import">
+      <UniqueIdentifier>{53bf2320-64ab-489d-96b4-b32a3e526af7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Scenes\DreamBook\Export">
+      <UniqueIdentifier>{22979d1c-32fb-4f3d-8e0f-217049870e9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\Scenes\DreamBook">
+      <UniqueIdentifier>{82adfdf0-c2b4-490c-b8f1-f7426d7b344a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\Scenes\DreamBook\Layers">
+      <UniqueIdentifier>{5c8349fa-62c4-4a96-8e48-cdd29fc80604}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\Scenes\DreamBook\Import">
+      <UniqueIdentifier>{72fa1c9a-bd12-495f-b139-51880b52a7c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\Scenes\DreamBook\Export">
+      <UniqueIdentifier>{056b9c61-5a25-49e2-a091-2a863dc9166d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Scenes\PhysicsTech">
+      <UniqueIdentifier>{bcbf7f5d-8537-4a1b-a4a9-2c7efcace5c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\Scenes\PhysicsTech">
+      <UniqueIdentifier>{6e1caef0-f16c-46f3-ad95-be724e396a88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Scenes\ToyBrick">
+      <UniqueIdentifier>{ca4848e8-885d-4746-ae7b-dd5b7981b468}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\Scenes\ToyBrick">
+      <UniqueIdentifier>{67c35023-b92f-4bb2-b444-d46272d59f2d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\DreamBookToolbox.ico">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\fire.png">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\font09.fnt">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\font09.png">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\PlayBox.plist">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\PlayBox.png">
+      <Filter>resource</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DreamBookToolbox.rc">
+      <Filter>resource</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AppDelegate.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GeometricRecognizer.h">
+      <Filter>include\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GeometricRecognizerTypes.h">
+      <Filter>include\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GestureLayer.h">
+      <Filter>include\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GestureTemplate.h">
+      <Filter>include\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SampleGestures.h">
+      <Filter>include\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CCSpriteEx.h">
+      <Filter>include\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ObserveLayer.h">
+      <Filter>include\Scenes\DreamBook\Layers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ObserveLayerContainer.h">
+      <Filter>include\Scenes\DreamBook\Layers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\EnumObserverOrientation.h">
+      <Filter>include\Scenes\DreamBook\Layers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DesignLayer.h">
+      <Filter>include\Scenes\DreamBook\Export</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DBActionSprite.h">
+      <Filter>include\Scenes\DreamBook\Export</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DBData.h">
+      <Filter>include\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DBPropertyData.h">
+      <Filter>include\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DreamBookScene.h">
+      <Filter>include\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PhysicsTechScene.h">
+      <Filter>include\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CustomUserData.h">
+      <Filter>include\Scenes\PhysicsTech</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MenuLayer.h">
+      <Filter>include\Scenes\PhysicsTech</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PhysicsTechLayer.h">
+      <Filter>include\Scenes\PhysicsTech</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PropertyLayer.h">
+      <Filter>include\Scenes\PhysicsTech</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MainScene.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Define.h">
+      <Filter>include\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PhysicsSprite.h">
+      <Filter>include\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\VisibleRect.h">
+      <Filter>include\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\KeyboardNotificationLayer.h">
+      <Filter>include\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PosQuery.h">
+      <Filter>include\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CommonHelper.h">
+      <Filter>include\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PositionQueryCallback.h">
+      <Filter>include\Scenes\ToyBrick</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ToyBrick.h">
+      <Filter>include\Scenes\ToyBrick</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ToyContact.h">
+      <Filter>include\Scenes\ToyBrick</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ToyLayer.h">
+      <Filter>include\Scenes\ToyBrick</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ToyBrickScene.h">
+      <Filter>include\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DynamicLayerContainer.h">
+      <Filter>include\Scenes\DreamBook\Import</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PicPickupLayer.h">
+      <Filter>include\Scenes\DreamBook\Import</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PicSelectionLayer.h">
+      <Filter>include\Scenes\DreamBook\Import</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PicShowLayer.h">
+      <Filter>include\Scenes\DreamBook\Import</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\IInputNotifier.h">
+      <Filter>include\Scenes</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AppDelegate.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GeometricRecognizer.cpp">
+      <Filter>source\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GestureLayer.cpp">
+      <Filter>source\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\CCSpriteEx.cpp">
+      <Filter>source\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ObserveLayer.cpp">
+      <Filter>source\Scenes\DreamBook\Layers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ObserveLayerContainer.cpp">
+      <Filter>source\Scenes\DreamBook\Layers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\DesignLayer.cpp">
+      <Filter>source\Scenes\DreamBook\Export</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\DBActionSprite.cpp">
+      <Filter>source\Scenes\DreamBook\Export</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\DBData.cpp">
+      <Filter>source\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\DBPropertyData.cpp">
+      <Filter>source\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\DreamBookScene.cpp">
+      <Filter>source\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PhysicsTechScene.cpp">
+      <Filter>source\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\CustomUserData.cpp">
+      <Filter>source\Scenes\PhysicsTech</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MenuLayer.cpp">
+      <Filter>source\Scenes\PhysicsTech</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PhysicsTechLayer.cpp">
+      <Filter>source\Scenes\PhysicsTech</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PropertyLayer.cpp">
+      <Filter>source\Scenes\PhysicsTech</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MainScene.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PhysicsSprite.cpp">
+      <Filter>source\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\VisibleRect.cpp">
+      <Filter>source\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\KeyboardNotificationLayer.cpp">
+      <Filter>source\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PosQuery.cpp">
+      <Filter>source\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\CommonHelper.cpp">
+      <Filter>source\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PositionQueryCallback.cpp">
+      <Filter>source\Scenes\ToyBrick</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ToyBrick.cpp">
+      <Filter>source\Scenes\ToyBrick</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ToyContact.cpp">
+      <Filter>source\Scenes\ToyBrick</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ToyLayer.cpp">
+      <Filter>source\Scenes\ToyBrick</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ToyBrickScene.cpp">
+      <Filter>source\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\DynamicLayerContainer.cpp">
+      <Filter>source\Scenes\DreamBook\Import</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PicPickupLayer.cpp">
+      <Filter>source\Scenes\DreamBook\Import</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PicSelectionLayer.cpp">
+      <Filter>source\Scenes\DreamBook\Import</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PicShowLayer.cpp">
+      <Filter>source\Scenes\DreamBook\Import</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
