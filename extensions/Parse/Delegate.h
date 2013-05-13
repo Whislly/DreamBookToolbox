@@ -6,11 +6,11 @@
 
 NS_CC_EXT_BEGIN
 
-template<class ArgsType>
+template<class ObjectType, class ArgsType>
 struct Delegate
 {
-	typedef void (*StaticFun)(CCObject* sender, ArgsType args);
-	typedef void (CCObject::*MemberFun)(CCObject* sender, ArgsType args);
+	typedef void (*StaticFun)(ObjectType obj, ArgsType args);
+	typedef void (CCObject::*MemberFun)(ObjectType sender, ArgsType args);
 
 	CCObject* observer;
 	union
@@ -45,21 +45,21 @@ struct Delegate
 	void Set(CCObject* observer, MemberFun memberFun)
 	{
 		this->~Delegate();
-		this->observer = (Delegate*)observer;
+		this->observer = observer;
 		this->memberFun = memberFun;
 
 		this->observer->retain();
 	}
 
-	void operator ()(CCObject* sender, ArgsType args)
+	void operator ()(ObjectType obj, ArgsType args)
 	{
 		if ((this->observer != 0) && (this->memberFun != 0))
 		{
-			(this->observer->*this->memberFun)(sender, args);
+			(this->observer->*this->memberFun)(obj, args);
 		}
 		else if (this->staticFun != 0)
 		{
-			(this->staticFun)(sender, args);
+			(this->staticFun)(obj, args);
 		}
 	}
 };

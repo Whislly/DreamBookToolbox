@@ -20,6 +20,8 @@ public:
     ~DesignLayer();
 
     void addTimeLabel();
+
+    void runChildrenActions();
 protected:
     float m_time;
     void step(float time);
@@ -28,6 +30,9 @@ protected:
     void stopChildrenActions(int tag);
     void runChildrenActions(int tag);
     void focusChild(cocos2d::CCSprite* pSprite);
+    int m_finishedActionCount;
+private:
+    void addFinishedActionCount();
 };
 
 #endif  // __DesignLayer_H__

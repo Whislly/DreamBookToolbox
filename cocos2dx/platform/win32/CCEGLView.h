@@ -108,10 +108,10 @@ private:
 ///[Biao Feng]
 //////////////////////////////////////////////////////////////////////////
 private:
-    CCLayer *m_pLayWin32Key;
+    CCNode *m_pNodeWin32Key;
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 public:
-    void SetWin32KeyLayer(CCLayer *pLayer);
+    void SetWin32KeyLayer(CCNode *pNode);
 #endif // CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 //////////////////////////////////////////////////////////////////////////    
 };

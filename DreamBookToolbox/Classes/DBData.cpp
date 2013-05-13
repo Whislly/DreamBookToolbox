@@ -4,6 +4,8 @@ USING_NS_CC;
 
 DBData::DBData()
     : m_dic(NULL)
+    , m_startTime(0.0f)
+    , m_endTime(0.0f)
 {
 
 }
@@ -51,6 +53,15 @@ void DBData::addDBPropertyData( float time, DBPropertyData* propertyData )
 {
     int temp = (int)(time * 10.0f);
     this->m_dic->setObject(propertyData, time);
+    float tempTime = temp * 0.1f;
+    if (m_startTime > tempTime)
+    {
+        m_startTime = tempTime;
+    }
+    if (m_endTime < tempTime)
+    {
+        m_endTime = tempTime;
+    }
     propertyData->retain();
 }
 

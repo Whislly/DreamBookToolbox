@@ -4,6 +4,7 @@ USING_NS_CC;
 
 DBPropertyData::DBPropertyData()
     : m_pos(ccp(-999, -999))
+    , m_scale(1.0f)
 {
 
 }

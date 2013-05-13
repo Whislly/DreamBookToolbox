@@ -1379,6 +1379,15 @@ protected:
     int m_nScriptHandler;               ///< script handler for onEnter() & onExit(), used in Javascript binding and Lua binding.
     int m_nUpdateScriptHandler;         ///< script handler for update() callback per frame, which is invoked from lua & javascript.
     ccScriptType m_eScriptType;         ///< type of script binding, lua or javascript
+public:
+    //////////////////////////////////////////////////////////////////////////
+    ///Add for Key press event on windows OS.
+    ///[Biao Feng]
+    //////////////////////////////////////////////////////////////////////////
+    #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+    virtual void processWin32KeyPress(UINT message, WPARAM wParam, LPARAM lParam){ }
+    #endif // CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+    //////////////////////////////////////////////////////////////////////////
 };
 
 //#pragma mark - CCNodeRGBA

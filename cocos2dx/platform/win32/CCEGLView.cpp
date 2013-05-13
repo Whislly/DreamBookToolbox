@@ -195,14 +195,14 @@ CCEGLView::CCEGLView()
 , m_wndproc(NULL)
 , m_fFrameZoomFactor(1.0f)
 , m_bSupportTouch(false)
-, m_pLayWin32Key(NULL)
+, m_pNodeWin32Key(NULL)
 {
     strcpy(m_szViewName, "Cocos2dxWin32");
 }
 
 CCEGLView::~CCEGLView()
 {
-    m_pLayWin32Key = NULL;
+    m_pNodeWin32Key = NULL;
 }
 
 bool CCEGLView::initGL()
@@ -345,9 +345,9 @@ LRESULT CCEGLView::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
     BOOL bProcessed = FALSE;
 
-    if(m_pLayWin32Key)
+    if(m_pNodeWin32Key)
     {
-        m_pLayWin32Key->processWin32KeyPress(message, wParam, lParam);
+        m_pNodeWin32Key->processWin32KeyPress(message, wParam, lParam);
     }
 
     switch (message)
@@ -753,9 +753,9 @@ CCEGLView* CCEGLView::sharedOpenGLView()
 ///[Biao Feng]
 //////////////////////////////////////////////////////////////////////////
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-void CCEGLView::SetWin32KeyLayer( CCLayer *pLayer )
+void CCEGLView::SetWin32KeyLayer( CCNode *pNode )
 {
-    m_pLayWin32Key = pLayer;
+    m_pNodeWin32Key = pNode;
 }
 #endif // CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 //////////////////////////////////////////////////////////////////////////    

@@ -11,6 +11,14 @@ class ParseError
 public:
 	ParseError(void);
 	virtual ~ParseError(void);
+
+	void SetError(const char* str);
+
+	void SetError(const std::string& str);
+
+	const std::string& GetError();
+
+	std::string error;
 };
 
 NS_CC_EXT_END

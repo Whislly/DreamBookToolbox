@@ -23,10 +23,10 @@ public:
 	virtual ~ParseQuery(void);
 
 	void findObjects();
-	Delegate<CCArray*> findObjectsCompleted;
+	Delegate<CCArray*, ParseError*> findObjectsCompleted;
 
 	void findObjectWithId(const char* objectId);
-	Delegate<ParseObject*> findObjectWithIdCompleted;
+	Delegate<ParseObject*, ParseError*> findObjectWithIdCompleted;
 
 private:
 	void findObjectsFinished(CCNode* sender, void* param);

@@ -13,7 +13,7 @@ PropertyInput::~PropertyInput()
 
 bool PropertyInput::init()
 {
-		this->text = CCTextFieldTTF::textFieldWithPlaceHolder("", CCSize(0, 0), CCTextAlignment::kCCTextAlignmentLeft, "Thonburi", 20);
+		this->text = CCTextFieldTTF::textFieldWithPlaceHolder("", CCSize(0, 0), kCCTextAlignmentLeft, "Thonburi", 20);
 		this->text->setAnchorPoint(cocos2d::CCPointZero);
 		this->addChild(this->text);
 

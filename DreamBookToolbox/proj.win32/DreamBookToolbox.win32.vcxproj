@@ -63,7 +63,7 @@
       <TargetMachine>MachineX86</TargetMachine>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libcocos2d.lib;libExtensions.lib;opengl32.lib;glew32.lib;libBox2d.lib;libCocosDenshion.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libcocos2d.lib;libExtensions.lib;opengl32.lib;glew32.lib;libBox2d.lib;libcurl_imp.lib;pthreadVCE2.lib;libCocosDenshion.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <ResourceCompile>
       <Culture>0x0409</Culture>
@@ -101,7 +101,7 @@
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
       <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libcocos2d.lib;libExtensions.lib;opengl32.lib;glew32.lib;libBox2d.lib;libCocosDenshion.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libcocos2d.lib;libExtensions.lib;opengl32.lib;glew32.lib;libBox2d.lib;libCocosDenshion.lib;libcurl_imp.lib;pthreadVCE2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <ResourceCompile>
       <Culture>0x0409</Culture>
@@ -137,6 +137,9 @@
     <ClInclude Include="..\Classes\CCSpriteEx.h" />
     <ClInclude Include="..\Classes\CommonHelper.h" />
     <ClInclude Include="..\Classes\CustomUserData.h" />
+    <ClInclude Include="..\Classes\DancingBoneLayer.h" />
+    <ClInclude Include="..\Classes\DancingBoneMenuLayer.h" />
+    <ClInclude Include="..\Classes\DancingBoneScene.h" />
     <ClInclude Include="..\Classes\DBActionSprite.h" />
     <ClInclude Include="..\Classes\DBData.h" />
     <ClInclude Include="..\Classes\DBPropertyData.h" />
@@ -153,6 +156,7 @@
     <ClInclude Include="..\Classes\KeyboardNotificationLayer.h" />
     <ClInclude Include="..\Classes\MainScene.h" />
     <ClInclude Include="..\Classes\MenuLayer.h" />
+    <ClInclude Include="..\Classes\MultiBodyQueryCallback.h" />
     <ClInclude Include="..\Classes\ObserveLayer.h" />
     <ClInclude Include="..\Classes\ObserveLayerContainer.h" />
     <ClInclude Include="..\Classes\PhysicsSprite.h" />
@@ -178,6 +182,9 @@
     <ClCompile Include="..\Classes\CCSpriteEx.cpp" />
     <ClCompile Include="..\Classes\CommonHelper.cpp" />
     <ClCompile Include="..\Classes\CustomUserData.cpp" />
+    <ClCompile Include="..\Classes\DancingBoneLayer.cpp" />
+    <ClCompile Include="..\Classes\DancingBoneMenuLayer.cpp" />
+    <ClCompile Include="..\Classes\DancingBoneScene.cpp" />
     <ClCompile Include="..\Classes\DBActionSprite.cpp" />
     <ClCompile Include="..\Classes\DBData.cpp" />
     <ClCompile Include="..\Classes\DBPropertyData.cpp" />
@@ -189,6 +196,7 @@
     <ClCompile Include="..\Classes\KeyboardNotificationLayer.cpp" />
     <ClCompile Include="..\Classes\MainScene.cpp" />
     <ClCompile Include="..\Classes\MenuLayer.cpp" />
+    <ClCompile Include="..\Classes\MultiBodyQueryCallback.cpp" />
     <ClCompile Include="..\Classes\ObserveLayer.cpp" />
     <ClCompile Include="..\Classes\ObserveLayerContainer.cpp" />
     <ClCompile Include="..\Classes\PhysicsSprite.cpp" />

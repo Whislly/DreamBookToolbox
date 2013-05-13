@@ -205,6 +205,18 @@
     <ClInclude Include="..\Classes\IInputNotifier.h">
       <Filter>include\Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\DancingBoneLayer.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DancingBoneMenuLayer.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DancingBoneScene.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MultiBodyQueryCallback.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -302,6 +314,18 @@
     </ClCompile>
     <ClCompile Include="..\Classes\PicShowLayer.cpp">
       <Filter>source\Scenes\DreamBook\Import</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\DancingBoneLayer.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\DancingBoneMenuLayer.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\DancingBoneScene.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MultiBodyQueryCallback.cpp">
+      <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

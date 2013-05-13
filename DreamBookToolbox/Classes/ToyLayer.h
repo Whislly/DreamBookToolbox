@@ -50,10 +50,11 @@ public:
 
     virtual void keyBackClicked();
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-    virtual void processWin32KeyPress( UINT message, WPARAM wParam, LPARAM lParam );
     virtual void onEnter();
     virtual void onExit();
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+    virtual void processWin32KeyPress( UINT message, WPARAM wParam, LPARAM lParam );    
 #endif // CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 };
 

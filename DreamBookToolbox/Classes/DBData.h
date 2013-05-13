@@ -16,6 +16,8 @@ public:
     static DBData* create();
     DBPropertyData* getDBPropertyData(float time);
     void removeDBPropertyData(float startTime, float endTime);
+    CC_SYNTHESIZE(float, m_startTime, StartTime);
+    CC_SYNTHESIZE(float, m_endTime, EndTime);
 };
 
 #endif  // __DBData_H__

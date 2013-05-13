@@ -4,6 +4,7 @@
 #include "ObserveLayer.h"
 #include "DBActionSprite.h"
 #include "MainScene.h"
+#include "Define.h"
 
 using namespace cocos2d;
 
@@ -16,12 +17,11 @@ cocos2d::CCParticleSystem* DreamBookLayer::createGestureStyle()
 
 void DreamBookLayer::gestureResult( const char* name, double score )
 {
-    /*CCLabelTTF* lblTest = (CCLabelTTF*)(((CCLayer*)pTarget)->getChildByTag(2));
     if (strcmp(name, "Circle") == 0)
     {
-    lblTest->setString("Circle");
+        m_designLayer->runChildrenActions();
     }
-    else if(strcmp(name, "CheckMark") == 0)
+    /*else if(strcmp(name, "CheckMark") == 0)
     {
     lblTest->setString("CheckMark");
     }
@@ -95,6 +95,29 @@ void DreamBookLayer::activeCell( CCObject* pSender )
         CCSize contentSize = m_designLayer->getContentSize();
         CCPoint position = ccp(contentSize.width * RandomFloat(0.01f, 1.0f), contentSize.height * RandomFloat(0.01f, 1.0f));
         newSprite->setPosition(position);
+        newSprite->setVoiceEnabeld(true);
+
+        //////////////////////////////////////////////////////////////////////////
+        ///Fixed the issue of copies for Actions
+        ///[Biao Feng] Start
+        //////////////////////////////////////////////////////////////////////////
+        cocos2d::CCArray *arr = clickCell->getAllActions();
+        if (arr && arr->count() > 0)
+        {
+            for (int j = 0; j < arr->count(); j++)
+            {
+                cocos2d::CCAction *act = (cocos2d::CCAction*)arr->objectAtIndex(j);
+                if (act->getTag() == FocusActionTag)
+                {
+                    continue;
+                }
+                newSprite->runAction(act);
+            }
+        }
+        //////////////////////////////////////////////////////////////////////////
+        ///Fixed the issue of copies for Actions
+        ///[Biao Feng] End
+        //////////////////////////////////////////////////////////////////////////
     }
     m_designLayer->designSpriteStatus(tag);
 }
@@ -109,7 +132,8 @@ void DreamBookLayer::addNewCell( cocos2d::CCObject* pSender, cocos2d::CCArray* p
         if(pSprite)
         {
             CCSpriteEx* pCell = CCSpriteEx::createWithTexture(pSprite->getTexture(), pSprite->getTextureRect());
-            pCell->setSelectorWithTarget(this, menu_selector(DreamBookLayer::activeCell), menu_selector(DreamBookLayer::activeActions), NULL);
+            pCell->setSelectorForSingleClick(this, menu_selector(DreamBookLayer::activeCell));
+            pCell->setSelectorForDoubleClick(this, menu_selector(DreamBookLayer::activeActions));
             m_observeLayer->addCell(pCell);
 
             cocos2d::CCArray *arr = pSprite->getAllActions();
@@ -135,7 +159,7 @@ void DreamBookLayer::showPicPickupLayer( CCObject* pSender )
 cocos2d::CCSprite* DreamBookLayer::getDefaultCell()
 {
     CCSpriteEx* pDefaultCell = CCSpriteEx::createWithSpriteFrameName("Add.png");
-    pDefaultCell->setSelectorWithTarget(this, menu_selector(DreamBookLayer::showPicPickupLayer), NULL, NULL);
+    pDefaultCell->setSelectorForSingleClick(this, menu_selector(DreamBookLayer::showPicPickupLayer));
     CCActionInterval* pCamerAction = CCOrbitCamera::create(0.5f, 1, 0, 0, 30, 0, 0);
     CCActionInterval* pAction = (CCActionInterval*)CCSequence::create(CCDelayTime::create(1.5f), pCamerAction, pCamerAction->reverse(), NULL);
     pDefaultCell->runAction(CCRepeatForever::create(pAction));

@@ -25,6 +25,7 @@ DesignLayer::DesignLayer()
     : m_lblTime(NULL)
     , m_time(0.0f)
     , m_currentSpriteTag(-1)
+    , m_finishedActionCount(1)
 {
 }
 
@@ -74,20 +75,31 @@ void DesignLayer::focusChild( cocos2d::CCSprite* pSprite )
 {
     float scaleValue = pSprite->getScale();
     CCActionInterval* pAction = CCRepeatForever::create(
-        (CCActionInterval*)CCSequence::create(CCScaleTo::create(0.3f, scaleValue + 0.1f), 
-         CCScaleTo::create(0.3f, scaleValue - 0.1f), NULL)
+        (CCActionInterval*)CCSequence::create(CCScaleTo::create(0.4f, scaleValue + 0.1f), 
+        CCScaleTo::create(0.4f, scaleValue - 0.1f), NULL)
         );
     pSprite->runAction(pAction);
+    pAction->setTag(FocusActionTag);
 }
 
 void DesignLayer::designSpriteStatus( int tag )
 {
     setEnableTime(false);
+    DBActionSprite* pActionSprite = NULL;
+    if(m_currentSpriteTag != -1)
+    {
+        pActionSprite = (DBActionSprite*)(this->getChildByTag(m_currentSpriteTag));
+        if (pActionSprite)
+        {
+            pActionSprite->setScaleEnabled(false);
+        }
+    }
     m_currentSpriteTag = tag;
 
     this->stopChildrenActions(tag);
-    DBActionSprite* pActionSprite = (DBActionSprite*)(this->getChildByTag(tag));
+    pActionSprite = (DBActionSprite*)(this->getChildByTag(tag));
     pActionSprite->designStatus(m_time);
+    pActionSprite->setScaleEnabled(true);
     this->focusChild(pActionSprite);
 }   
 
@@ -103,13 +115,53 @@ void DesignLayer::runChildrenActions( int tag )
     }
 }
 
+void DesignLayer::addFinishedActionCount()
+{
+    this->m_finishedActionCount++;
+}
+
+void DesignLayer::runChildrenActions()
+{
+    DBActionSprite* pActionSprite = NULL;
+    if(m_currentSpriteTag != -1)
+    {
+        pActionSprite = (DBActionSprite*)(this->getChildByTag(m_currentSpriteTag));
+        if (pActionSprite)
+        {
+            pActionSprite->setScaleEnabled(false);
+        }
+    }
+    m_currentSpriteTag = -1;
+    m_lblTime->setString("Time: 0");
+    m_time = 0.0f;
+    setEnableTime(true);
+
+    for (int i = 0; i < getChildrenCount(); i++)
+    {
+        DBActionSprite* pActionSprite = (DBActionSprite*)(this->getChildByTag(i));
+        if (pActionSprite)
+        {
+            pActionSprite->excuteAction(this->m_time, this, callfunc_selector(DesignLayer::addFinishedActionCount));
+        }
+    }
+}
+
 void DesignLayer::activeActions( int tag )
 {
+    DBActionSprite* pActionSprite = NULL;
+    if(m_currentSpriteTag != -1)
+    {
+        pActionSprite = (DBActionSprite*)(this->getChildByTag(m_currentSpriteTag));
+        if (pActionSprite)
+        {
+            pActionSprite->setScaleEnabled(false);
+        }
+    }
     m_currentSpriteTag = tag;
     m_lblTime->setString("Time: 0");
     m_time = 0.0f;
 
-    DBActionSprite* pActionSprite = (DBActionSprite*)(this->getChildByTag(tag));
+    pActionSprite = (DBActionSprite*)(this->getChildByTag(tag));
     if (pActionSprite)
     {
         /*m_time = pActionSprite->getStartTime();
@@ -119,6 +171,7 @@ void DesignLayer::activeActions( int tag )
         pActionSprite->clearAction(m_time);
         pActionSprite->designAction(this->m_time);
         this->focusChild(pActionSprite);
+        pActionSprite->setScaleEnabled(true);
     }
     this->runChildrenActions(tag);
     setEnableTime(true);
@@ -128,6 +181,12 @@ void DesignLayer::step( float time )
 {
     int temp = (int)(time * 10);
     this->m_time += (temp * 0.1);
+
+    /*if (this->m_finishedActionCount == getChildrenCount())
+    {
+    setEnableTime(false);
+    m_finishedActionCount = 1;
+    }*/
 
     CCLOG("DesignLayer::step(%f)", m_time);
 

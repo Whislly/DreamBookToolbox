@@ -2,6 +2,7 @@
 #define Define_Common
 
 #define PTM_RATIO 32
+#define FocusActionTag 999
 
 enum ShapeType
 {

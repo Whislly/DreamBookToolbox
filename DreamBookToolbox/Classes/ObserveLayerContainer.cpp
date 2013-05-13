@@ -1,4 +1,5 @@
 #include "ObserveLayerContainer.h"
+#include "Define.h"
 
 #define DefaultCellTag  0
 #define Offset          2
@@ -89,17 +90,18 @@ void ObserveLayerContainer::highlightColor( int cellTag, const cocos2d::ccColor3
     if (m_oldHighlightCell)
     {
         //m_oldHighlightCell->setColor(ccWHITE);
-        m_oldHighlightCell->stopAllActions();
+        m_oldHighlightCell->stopActionByTag(FocusActionTag);
         m_oldHighlightCell->setScale(m_oldHighlightCellScaleValue);
     }
     CCSprite* pChild = (CCSprite*)(this->getChildByTag(cellTag));
     //pChild->setColor(color3);
     m_oldHighlightCellScaleValue = pChild->getScale();
     CCActionInterval* pAction = CCRepeatForever::create(
-        (CCActionInterval*)CCSequence::create(CCScaleTo::create(0.3f, m_oldHighlightCellScaleValue + 0.1f), 
-         CCScaleTo::create(0.3f, m_oldHighlightCellScaleValue - 0.1f), NULL)
+        (CCActionInterval*)CCSequence::create(CCScaleTo::create(0.4f, m_oldHighlightCellScaleValue + 0.1f), 
+         CCScaleTo::create(0.4f, m_oldHighlightCellScaleValue - 0.1f), NULL)
          );
     pChild->runAction(pAction);
+    pAction->setTag(FocusActionTag);
     m_oldHighlightCell = pChild;
 }
 

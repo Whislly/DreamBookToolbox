@@ -65,7 +65,7 @@ bool PicPickupLayer::init()
 		//CCPoint leftTop = VisibleRect::leftTop();
 
 		//
-		cocos2d::CCLabelTTF *label = CCTextFieldTTF::textFieldWithPlaceHolder("Search :", CCSize(0, 0), CCTextAlignment::kCCTextAlignmentLeft, "Thonburi", 32);
+		cocos2d::CCLabelTTF *label = CCTextFieldTTF::textFieldWithPlaceHolder("Search :", CCSize(0, 0), kCCTextAlignmentLeft, "Thonburi", 32);
 		label->setColor(ccc3(121, 112, 1));
 		label->setPosition(ccp(100, winSize.height - 100));
 		label->setAnchorPoint(CCPointZero);

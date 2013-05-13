@@ -117,7 +117,7 @@ int processGetTask(CCHttpRequest *request, write_callback callback, void *stream
 int processPostTask(CCHttpRequest *request, write_callback callback, void *stream, int32_t *errorCode);
 // int processDownloadTask(HttpRequest *task, write_callback callback, void *stream, int32_t *errorCode);
 // add by Whislly start
-int processPutTask(CCHttpRequest *request, write_callback writeCallback, void *read_stream, read_callback readCallback, void *readStream, int32_t *errorCode);
+int processPutTask(CCHttpRequest *request, write_callback callback, void *stream, int32_t *errorCode);
 int processDeleteTask(CCHttpRequest *request, write_callback callback, void *stream, int32_t *errorCode);
 // add by Whislly end
 
@@ -185,8 +185,6 @@ static void* networkThread(void *data)
                 retValue = processPutTask(request, 
                                           writeData, 
                                           response->getResponseData(),
-										  readData,
-										  new read_buffer(request->getRequestData(), request->getRequestDataSize()),
                                           &responseCode);
                 break;
             
@@ -518,7 +516,7 @@ int processDeleteTask(CCHttpRequest *request, write_callback callback, void *str
 }
 
 //Process POST Request
-int processPutTask(CCHttpRequest *request, write_callback writeCallback, void *writeStream, read_callback readCallback, void* readStream, int32_t *responseCode)
+int processPutTask(CCHttpRequest *request, write_callback callback, void *stream, int *responseCode)
 {
     CURLcode code = CURL_LAST;
     CURL *curl = curl_easy_init();
@@ -551,11 +549,11 @@ int processPutTask(CCHttpRequest *request, write_callback writeCallback, void *w
         if (code != CURLE_OK) {
             break;
         }
-        code = curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writeCallback);
+        code = curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, callback);
         if (code != CURLE_OK) {
             break;
         }
-        code = curl_easy_setopt(curl, CURLOPT_WRITEDATA, writeStream);
+        code = curl_easy_setopt(curl, CURLOPT_WRITEDATA, stream);
         if (code != CURLE_OK) {
             break;
         }
@@ -564,11 +562,13 @@ int processPutTask(CCHttpRequest *request, write_callback writeCallback, void *w
         if (code != CURLE_OK) {
             break;
         }
-		code = curl_easy_setopt(curl, CURLOPT_READFUNCTION, readCallback);
+		code = curl_easy_setopt(curl, CURLOPT_READFUNCTION, readData);
         if (code != CURLE_OK) {
             break;
         }
-        code = curl_easy_setopt(curl, CURLOPT_READDATA, readStream);
+
+		read_buffer* buffer = new read_buffer(request->getRequestData(), request->getRequestDataSize());
+        code = curl_easy_setopt(curl, CURLOPT_READDATA, buffer);
         if (code != CURLE_OK) {
             break;
         }
@@ -581,6 +581,8 @@ int processPutTask(CCHttpRequest *request, write_callback writeCallback, void *w
             break;
         }
         
+		delete buffer;
+
         /* free the linked list for header data */
         curl_slist_free_all(cHeaders);
 
@@ -592,8 +594,6 @@ int processPutTask(CCHttpRequest *request, write_callback writeCallback, void *w
     if (curl) {
         curl_easy_cleanup(curl);
     }
-
-	delete readStream;
     
     return (code == CURLE_OK ? 0 : 1);    
 }

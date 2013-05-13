@@ -2,8 +2,15 @@
 #include "PhysicsTechScene.h"
 #include "DreamBookScene.h"
 #include "ToyBrickScene.h"
+#include "DancingBoneScene.h"
+#include "Parse\Parse.h"
+#include "Parse\Delegate.h"
+#include "Parse\ParseObject.h"
+#include "Parse\ParseQuery.h"
 
 USING_NS_CC;
+
+using namespace cocos2d::extension;
 
 void MainLayer::menuDreamBookCallback( CCObject* pSender )
 {
@@ -20,6 +27,11 @@ void MainLayer::menuToyBrickCallback( CCObject* pSender )
     CCDirector::sharedDirector()->replaceScene(CCTransitionPageTurn::create(1.0f, ToyBrickScene::create(), false));
 }
 
+void MainLayer::menuDancingBoneCallback( CCObject* pSender )
+{
+    CCDirector::sharedDirector()->replaceScene(CCTransitionPageTurn::create(1.0f, DancingBoneScene::create(), false));
+}
+
 void MainLayer::menuCloseCallback( CCObject* pSender )
 {
     CCSpriteFrameCache* cache = CCSpriteFrameCache::sharedSpriteFrameCache();
@@ -28,6 +40,55 @@ void MainLayer::menuCloseCallback( CCObject* pSender )
     // "close" menu item clicked
     CCDirector::sharedDirector()->end();
 }
+
+//void MainLayer::SaveComplet(bool success, ParseError* error)
+//{	
+//	//obj->toString(str);
+//	this->lbDebug->setString("SaveComplet start");
+//
+//	static char buffer[4096] = {0};
+//	sprintf(buffer, "%s, error:", success?"success":"faiture");
+//
+//	this->lbDebug->setString((buffer + error->GetError()).c_str());
+//}
+//
+//void MainLayer::GetComplet(CCArray* array, ParseError* error)
+//{
+//	if (array && array->count() > 0)
+//	{
+//		this->lbDebug->setString("array strat");
+//
+//		cocos2d::extension::ParseObject* obj = (cocos2d::extension::ParseObject*)array->objectAtIndex(0);
+//			
+//		std::string str;
+//		obj->toString(str);
+//
+//		this->lbDebug->setString("get count");
+//		int age = obj->Get<int>("count");
+//
+//		this->lbDebug->setString("set count");
+//		obj->Set("count", age + 1);
+//
+//		this->lbDebug->setString("save()");
+//		obj->saveCompleted.Set(this, (Delegate<bool, ParseError*>::MemberFun)&MainLayer::SaveComplet);
+//		obj->save();
+//
+//		array->removeAllObjects();
+//	}
+//	else
+//	{
+//		this->lbDebug->setString(error->GetError().c_str());
+//
+//		cocos2d::extension::ParseObject* gameTest = new cocos2d::extension::ParseObject("GameTest");
+//		gameTest->Add("name", "shadow");
+//		gameTest->Add("count", 1);
+//		gameTest->Add("age", 29);
+//		gameTest->Add("score", 80);
+//		gameTest->save();
+//		gameTest->saveCompleted.Set(this, (Delegate<bool, ParseError*>::MemberFun)&MainLayer::SaveComplet);
+//		gameTest->release();
+//	}
+//}
 
 bool MainLayer::init()
 {
@@ -58,7 +119,8 @@ bool MainLayer::init()
         CCSize winSize = CCDirector::sharedDirector()->getWinSize();
 
         // Place the menu item bottom-right conner.
-        pCloseItem->setPosition(ccp(winSize.width - 20, 20));
+        pCloseItem->setPosition(ccp(winSize.width - 64, winSize.height - 64));
+        pCloseItem->setScale(2.0f);
 
         // Create a menu with the "close" menu item, it's an auto release object.
         CCMenu* pMenu = CCMenu::create(pCloseItem, NULL);
@@ -68,22 +130,42 @@ bool MainLayer::init()
         // Add the menu to Main layer as a child layer.
         this->addChild(pMenu, 1);
 
-        CCLabelTTF* label = CCLabelTTF::create("DreamBook", "Arial", 24);
+        CCLabelTTF* label = CCLabelTTF::create("DreamBook", "Arial", 46);
         CCMenuItemLabel* pMenuItem = CCMenuItemLabel::create(label, this, menu_selector(MainLayer::menuDreamBookCallback));
         pMenu = CCMenu::create(pMenuItem, NULL);
 
-        label = CCLabelTTF::create("PhysicsTech", "Arial", 24);
+        label = CCLabelTTF::create("PhysicsTech", "Arial", 46);
         pMenuItem = CCMenuItemLabel::create(label, this, menu_selector(MainLayer::menuPhysicsTechCallback));
         pMenu->addChild(pMenuItem);
 
-        label = CCLabelTTF::create("ToyBrick", "Arial", 24);
+        label = CCLabelTTF::create("ToyBrick", "Arial", 46);
         pMenuItem = CCMenuItemLabel::create(label, this, menu_selector(MainLayer::menuToyBrickCallback));
+        pMenu->addChild(pMenuItem);
+
+        label = CCLabelTTF::create("DancingBone", "Arial", 46);
+        pMenuItem = CCMenuItemLabel::create(label, this, menu_selector(MainLayer::menuDancingBoneCallback));
         pMenu->addChild(pMenuItem);
 
         pMenu->alignItemsVertically();
         this->addChild(pMenu);
 
-        pMenu->setPosition(ccp(winSize.width * 0.5f - 20.0f, winSize.height * 0.8f));
+        pMenu->setPosition(ccp(winSize.width * 0.5F, winSize.height * 0.7F));
+
+		/*this->lbDebug = CCLabelTTF::create("Start", "Arial", 24);
+		this->lbDebug->setColor(ccc3(255, 255, 1));
+		this->lbDebug->setPosition(ccp(0, winSize.height - 100));
+		this->lbDebug->setAnchorPoint(CCPointZero);
+		this->addChild(this->lbDebug);*/
+
+		//add Whislly test start
+		/*cocos2d::extension::Parse parse;
+		parse.setApplicationId("n1s82tGoQDgDM09qFNm0UQkKNO7yW1gqpQSavT5n");
+		parse.setApiKey("Nh4K6HM2tohkmQdeu5vfN7ZWP83OMQ72uH0YMtW7");
+
+		cocos2d::extension::ParseQuery* query = new cocos2d::extension::ParseQuery("GameTest");
+		query->findObjectsCompleted.Set(this, (Delegate<CCArray*, ParseError*>::MemberFun)&MainLayer::GetComplet);
+		query->findObjects();
+		query->release();*/
         CC_BREAK_IF(! pMenu);
 
         bRet = true;

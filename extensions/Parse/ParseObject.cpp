@@ -68,11 +68,14 @@ void ParseObject::updateObject()
 void ParseObject::createObjectFinished(CCNode* sender, void* param)
 {
 	bool sucess = false;
+	ParseError* error = new ParseError();
+
 	CCHttpResponse* response = (CCHttpResponse*)param;
+	
 	if (response->getResponseCode() == 201)
 	{
 		rapidjson::Document retValue;
-		if(ParseJson::FromByteArray(*response->getResponseData(), retValue, 0))
+		if(ParseJson::FromByteArray(*response->getResponseData(), retValue, error))
 		{
 			if (retValue.HasMember("createdAt"))
 			{
@@ -81,18 +84,42 @@ void ParseObject::createObjectFinished(CCNode* sender, void* param)
 				sucess = true;
 			}
 		}
+		if (sucess == false)
+		{
+			std::vector<char>* responseData = response->getResponseData();
+			responseData->push_back('\0');
+			error->SetError(error->GetError() + "data:" + &responseData->front());
+		}
 	}
-	this->saveCompleted(this, sucess);
+	else
+	{
+		if (strlen(response->getErrorBuffer()) > 0)
+		{
+			error->SetError(response->getErrorBuffer());
+		}
+		else
+		{
+			std::vector<char>* responseData = response->getResponseData();
+			responseData->push_back('\0');
+			error->SetError(&responseData->front());
+		}
+	}
+
+	this->saveCompleted(sucess, error);
+
+	delete error;
 }
 
 void ParseObject::updateObjectFinished(CCNode* sender, void* param)
 {
 	bool sucess = false;
+	ParseError* error = new ParseError();
+
 	CCHttpResponse* response = (CCHttpResponse*)param;
 	if (response->getResponseCode() == 200)
 	{
 		rapidjson::Document retValue;
-		if (ParseJson::FromByteArray(*response->getResponseData(), retValue, 0))
+		if (ParseJson::FromByteArray(*response->getResponseData(), retValue, error))
 		{
 			if (retValue.HasMember("updatedAt"))
 			{
@@ -100,8 +127,30 @@ void ParseObject::updateObjectFinished(CCNode* sender, void* param)
 				sucess = true;
 			}
 		}
+		if (sucess == false)
+		{
+			std::vector<char>* responseData = response->getResponseData();
+			responseData->push_back('\0');
+			error->SetError(error->GetError() + "data:" + &responseData->front());
+		}
 	}
-	this->saveCompleted(this, sucess);
+	else
+	{
+		if (strlen(response->getErrorBuffer()) > 0)
+		{
+			error->SetError(response->getErrorBuffer());
+		}
+		else
+		{
+			std::vector<char>* responseData = response->getResponseData();
+			responseData->push_back('\0');
+			error->SetError(&responseData->front());
+		}
+	}
+
+	this->saveCompleted(sucess, error);
+
+	delete error;
 }
 
 void ParseObject::erase()
@@ -116,11 +165,13 @@ void ParseObject::erase()
 void ParseObject::eraseFinished(CCNode* sender, void* param)
 {
 	bool sucess = false;
+	ParseError* error = new ParseError();
+
 	CCHttpResponse* response = (CCHttpResponse*)param;
 	if (response->getResponseCode() == 200)
 	{
 		rapidjson::Document retValue;
-		if (ParseJson::FromByteArray(*response->getResponseData(), retValue, 0))
+		if (ParseJson::FromByteArray(*response->getResponseData(), retValue, error))
 		{
 			if (retValue.IsNull())
 			{
@@ -128,9 +179,30 @@ void ParseObject::eraseFinished(CCNode* sender, void* param)
 				sucess = true;
 			}
 		}
-		
+		if (sucess == false)
+		{
+			std::vector<char>* responseData = response->getResponseData();
+			responseData->push_back('\0');
+			error->SetError(error->GetError() + "data:" + &responseData->front());
+		}
 	}
-	this->eraseCompleted(this, sucess);
+	else
+	{
+		if (strlen(response->getErrorBuffer()) > 0)
+		{
+			error->SetError(response->getErrorBuffer());
+		}
+		else
+		{
+			std::vector<char>* responseData = response->getResponseData();
+			responseData->push_back('\0');
+			error->SetError(&responseData->front());
+		}
+	}
+
+	this->eraseCompleted(sucess, error);
+		
+	delete error;
 }
 
 void ParseObject::toString(std::string& str)

@@ -55,10 +55,10 @@ public:
 	}
 
 	void save();
-	Delegate<bool> saveCompleted;
+	Delegate<bool, ParseError*> saveCompleted;
 
 	void erase();
-	Delegate<bool> eraseCompleted;
+	Delegate<bool, ParseError*> eraseCompleted;
 
 	void toString(std::string& str);
 	

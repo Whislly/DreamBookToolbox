@@ -14,8 +14,6 @@ class CCSpriteEx
 {
 public:
     CCB_STATIC_NEW_AUTORELEASE_OBJECT_WITH_INIT_METHOD(CCSpriteEx, create); // 用于CocosBuilder
-    // 设置点击精灵的事件处理器
-    void setSelectorWithTarget(CCObject *target, SEL_MenuHandler singleClickSelector, SEL_MenuHandler doubleClickSelector, SEL_MenuHandler longClickSelector);
 
     static CCSpriteEx* create(const char* pszFileName);
     static CCSpriteEx* createWithSpriteFrameName(const char* pszFrameName);
@@ -30,8 +28,7 @@ public:
         return (now.tv_sec * 1000 + now.tv_usec / 1000);
     }
 public:
-    CCSpriteEx() : m_pListener(NULL), m_singleClickSelector(NULL), m_doubleClickSelector(NULL), m_longClickSelector(NULL), m_lastTouchTime(0), 
-        m_isInTouch(false), m_isInMove(false), m_afterLongPress(false), m_originScale(1.0f) {}
+    CCSpriteEx();
 
 private:
     void onEnter();
@@ -49,12 +46,12 @@ protected:
     virtual void ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent);
     virtual void ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent);
 
+    virtual void ccTouchesBegan( CCSet *pTouches, CCEvent *pEvent );
+    virtual void ccTouchesMoved( CCSet *pTouches, CCEvent *pEvent );
+    virtual void ccTouchesEnded( CCSet *pTouches, CCEvent *pEvent );
+    virtual void ccTouchesCancelled( CCSet *pTouches, CCEvent *pEvent );
+
 private:
-    // 点击事件处理
-    CCObject*       m_pListener;
-    SEL_MenuHandler m_singleClickSelector;
-    SEL_MenuHandler m_doubleClickSelector;
-    SEL_MenuHandler m_longClickSelector;
     float m_originScale;
 
     long m_lastTouchTime;
@@ -78,6 +75,35 @@ private:
     }
 public:
     virtual CCObject* copy();
+    virtual void setSelectorForSingleClick(CCObject *target, SEL_MenuHandler singleClickSelector);
+    virtual void setSelectorForDoubleClick(CCObject *target, SEL_MenuHandler doubleClickSelector);
+    virtual void setSelectorForLongClick(CCObject *target, SEL_MenuHandler longClickSelector);
+    virtual void setSelectorForScale(CCObject* target, SEL_MenuHandler scaleSelector);
+    CC_SYNTHESIZE(bool, m_scaleEnabled, ScaleEnabled);
+    CC_SYNTHESIZE(bool, m_singleClickEnabled, SingleClickEnabled);
+    CC_SYNTHESIZE(bool, m_doubleClickEnabled, DoubleClickEnabled);
+    CC_SYNTHESIZE(bool, m_longClickEnabled, LongClickEnabled);
+protected:
+    CCObject*       m_scaleListener;
+    SEL_MenuHandler m_scaleSelector;
+    float           m_distance;
+
+    // 点击事件处理
+    CCObject*       m_longClickListener;
+    SEL_MenuHandler m_longClickSelector;
+
+    CCObject*       m_singleClickListener;
+    SEL_MenuHandler m_singleClickSelector;
+
+    CCObject*       m_doubleClickListener;
+    SEL_MenuHandler m_doubleClickSelector;
+    float calcDistance(cocos2d::CCTouch *pTouch);
+
+    #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+    virtual void processWin32KeyPress( UINT message, WPARAM wParam, LPARAM lParam );
+    #endif // CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+
+    float calcDistance(CCSet *pTouches);
 };
 
 class CCSpriteExLoader : public cocos2d::extension::CCSpriteLoader {

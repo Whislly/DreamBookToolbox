@@ -2,6 +2,12 @@
 #define __Main_SCENE_H__
 
 #include "cocos2d.h"
+#include "Box2D/Box2D.h"
+//#include "label_nodes\CCLabelTTF.h"
+//#include "Parse\ParseError.h"
+
+USING_NS_CC;
+//using namespace cocos2d::extension;
 
 class MainLayer : public cocos2d::CCLayer
 {
@@ -23,6 +29,15 @@ public:
 
     // a selector callback
     void menuCloseCallback(CCObject* pSender);
+
+	void menuDancingBoneCallback( CCObject* pSender );
+	/*
+	CCLabelTTF* lbDebug;
+
+	void SaveComplet(bool success, ParseError* error);
+
+	void GetComplet(CCArray* array, ParseError* error);*/
+
 
     // implement the "static node()" method manually
     CREATE_FUNC(MainLayer);

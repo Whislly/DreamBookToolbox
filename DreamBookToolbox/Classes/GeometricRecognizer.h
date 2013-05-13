@@ -3,6 +3,7 @@
 
 #include <limits>
 #include <iostream>
+#include <stdlib.h>
 #include "GeometricRecognizerTypes.h"
 #include "GestureTemplate.h"
 #include "SampleGestures.h"

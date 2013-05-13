@@ -11,8 +11,9 @@ public:
     DBPropertyData();
     ~DBPropertyData();
     static DBPropertyData* create();
-    cocos2d::CCPoint getPosition();
+    cocos2d::CCPoint getPosition();    
     void setPosition(cocos2d::CCPoint& pos);
+    CC_SYNTHESIZE(float, m_scale, Scale);
 };
 
 #endif  // __DBPropertyData_H__

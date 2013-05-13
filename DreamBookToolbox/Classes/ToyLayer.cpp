@@ -219,6 +219,27 @@ void ToyLayer::ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent)
 						this->mouseJoint = NULL;
 				}
 		}
+
+#if (CC_TARGET_PLATFORM != CC_PLATFORM_WIN32)
+        if (pTouches->count() == 2)
+        {
+            CCSetIterator iter = pTouches->begin();
+            CCTouch* pTouch = (CCTouch*)(*iter);
+            CCPoint firstLocalPos = pTouch->getLocation();
+
+            iter++;
+
+            iter = pTouches->begin();
+            pTouch = (CCTouch*)(*iter);
+            CCPoint secondLocalPos = pTouch->getLocation();
+            CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+
+            if (firstLocalPos.x < winSize.width * 0.2f && secondLocalPos.x > winSize.width * 0.8f)
+            {
+                CCDirector::sharedDirector()->replaceScene(CCTransitionPageTurn::create(0.5f, MainLayer::scene(), true));
+            }
+        }
+#endif // CC_TARGET_PLATFORM != CC_PLATFORM_WIN32        
 }
 
 void ToyLayer::ccTouchesCancelled(CCSet *pTouches, CCEvent *pEvent)
@@ -237,7 +258,7 @@ void ToyLayer::AddToyBrick(ToyBrick *brick, CCPoint position)
 
 		//create corresponding b2Body
 		b2BodyDef bodyDef;
-		bodyDef.type = b2BodyType::b2_dynamicBody;
+		bodyDef.type = b2_dynamicBody;
 		bodyDef.position.Set(position.x/PTM_RATIO, position.y/PTM_RATIO);
 		
 		b2Body *brickBody = world->CreateBody(&bodyDef);
@@ -305,7 +326,7 @@ ToyBrick* ToyLayer::CreateBrick_Circle()
 
 		CCImage *img = new CCImage();
 		img->autorelease();
-		if (!img->initWithImageFile(path, cocos2d::CCImage::EImageFormat::kFmtPng))
+		if (!img->initWithImageFile(path, cocos2d::CCImage::kFmtPng))
 		{
 				return NULL;
 		}
@@ -336,7 +357,7 @@ ToyBrick* ToyLayer::CreateBrick_Triangle()
 
 		CCImage *img = new CCImage();
 		img->autorelease();
-		if (!img->initWithImageFile(path, cocos2d::CCImage::EImageFormat::kFmtPng))
+		if (!img->initWithImageFile(path, cocos2d::CCImage::kFmtPng))
 		{
 				return NULL;
 		}
@@ -373,7 +394,7 @@ ToyBrick* ToyLayer::CreateBrick_Rectangle()
 
 		CCImage *img = new CCImage();
 		img->autorelease();
-		if (!img->initWithImageFile(path, cocos2d::CCImage::EImageFormat::kFmtPng))
+		if (!img->initWithImageFile(path, cocos2d::CCImage::kFmtPng))
 		{
 				return NULL;
 		}
@@ -412,7 +433,7 @@ ToyBrick* ToyLayer::CreateBrick_BigRectangle()
 
 		CCImage *img = new CCImage();
 		img->autorelease();
-		if (!img->initWithImageFile(path, cocos2d::CCImage::EImageFormat::kFmtPng))
+		if (!img->initWithImageFile(path, cocos2d::CCImage::kFmtPng))
 		{
 				return NULL;
 		}
@@ -491,17 +512,25 @@ void ToyLayer::processWin32KeyPress( UINT message, WPARAM wParam, LPARAM lParam 
         break;
     }
 }
+#endif
 
 void ToyLayer::onEnter()
 {
     CCLayer::onEnter();
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
     CCDirector::sharedDirector()->getOpenGLView()->SetWin32KeyLayer(this);
+#else
+    CCDirector::sharedDirector()->getTouchDispatcher()->addStandardDelegate(this, 0);
+#endif // CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 }
 
 void ToyLayer::onExit()
 {
     CCLayer::onExit();
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
     CCDirector::sharedDirector()->getOpenGLView()->SetWin32KeyLayer(NULL);
-}
-
+#else
+    CCDirector::sharedDirector()->getTouchDispatcher()->addStandardDelegate(this, 0);
 #endif // CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+}

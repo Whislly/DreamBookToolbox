@@ -5,6 +5,7 @@
 #include "CCSpriteEx.h"
 #include "DBData.h"
 #include "DBPropertyData.h"
+#include "Define.h"
 
 enum EnumStatus
 {
@@ -35,16 +36,24 @@ public:
     virtual void ccTouchEnded( cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent );
     virtual void ccTouchMoved( cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent );
     virtual void ccTouchCancelled( cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent );
+
+    virtual void setVoiceEnabeld(bool isEnabled);
 protected:
     void touchMovedDesign(cocos2d::CCTouch *pTouch);
-    void readStatus(float time);
-    void writeStatus(cocos2d::CCPoint pos, float time);
     void transform(float time);
+    void writeStatus(cocos2d::CCPoint pos, float time);
     void touchMovedAction(cocos2d::CCTouch *pTouch);
+    void PressDelayEvent(cocos2d::CCObject* pSender);
 public:
     void excuteAction(float time);
+    void excuteAction(float time, cocos2d::CCObject *target, cocos2d::SEL_CallFunc selector);
     CC_SYNTHESIZE_READONLY(float, m_startTime, StartTime);
     CC_SYNTHESIZE_READONLY(float, m_endTime, EndTime);
+    CC_SYNTHESIZE_READONLY(const char*, m_voiceContent, VoiceContent);
+    void readStatus(float time);
+protected:
+    cocos2d::CCObject*       m_finishedActionListener;
+    cocos2d::SEL_CallFunc    m_finishedActionSelector;
 };
 
 #endif  // __DBAction_Sprite_H__

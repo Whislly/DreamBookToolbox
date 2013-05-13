@@ -70,7 +70,13 @@ spine/Skin.cpp \
 spine/Slot.cpp \
 spine/SlotData.cpp \
 spine/extension.cpp \
-spine/spine-cocos2dx.cpp
+spine/spine-cocos2dx.cpp \
+Parse/Parse.cpp \
+Parse/ParseManager.cpp \
+Parse/ParseObject.cpp \
+Parse/ParseQuery.cpp \
+Parse/ParseJson.cpp \
+Parse/ParseError.cpp
 
 LOCAL_WHOLE_STATIC_LIBRARIES := cocos2dx_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocosdenshion_static
@@ -86,6 +92,8 @@ LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH) \
                            $(LOCAL_PATH)/GUI/CCControlExtension \
                            $(LOCAL_PATH)/GUI/CCScrollView \
                            $(LOCAL_PATH)/network \
+                           $(LOCAL_PATH)/Parse \
+                           $(LOCAL_PATH)/rapidjson \
                            $(LOCAL_PATH)/LocalStorage 
                     
 include $(BUILD_STATIC_LIBRARY)

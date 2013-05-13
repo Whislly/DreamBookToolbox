@@ -35,34 +35,62 @@ void ParseQuery::findObjectWithId(const char* objectId)
 
 void ParseQuery::findObjectsFinished(CCNode* sender, void* param)
 {
+	CCArray* array = 0;
+	ParseError* error = new ParseError();
 	CCHttpResponse* response = (CCHttpResponse*)param;
 
-	CCArray* array = 0;
-	
+	bool sucess = false;
 	if (response->getResponseCode() == 200)
 	{
 		rapidjson::Document retValue;
-		if (ParseJson::FromByteArray(*response->getResponseData(), retValue, NULL))
+		if (ParseJson::FromByteArray(*response->getResponseData(), retValue, error))
 		{
 			array = CCArray::create();
 			array->init();
 
-			rapidjson::Value& resultArray = retValue["results"];
-			for (unsigned int i = 0; i < resultArray.Size(); ++i)
+			if (retValue.HasMember("results") && retValue["results"].IsArray())
 			{
-				ParseObject* obj = new ParseObject(this->_className.c_str(), resultArray[i]);
-				array->addObject(obj);
-				obj->release();
+				rapidjson::Value& resultArray = retValue["results"];
+				for (unsigned int i = 0; i < resultArray.Size(); ++i)
+				{
+					ParseObject* obj = new ParseObject(this->_className.c_str(), resultArray[i]);
+					array->addObject(obj);
+					obj->release();
+				}
+				sucess = true;
 			}
+		}
+		if (sucess == false)
+		{
+			std::vector<char>* responseData = response->getResponseData();
+			responseData->push_back('\0');
+			error->SetError(error->GetError() + "data:" + &responseData->front());
+		}
+	}
+	else
+	{
+		if (strlen(response->getErrorBuffer()) > 0)
+		{
+			error->SetError(response->getErrorBuffer());
+		}
+		else
+		{
+			std::vector<char>* responseData = response->getResponseData();
+			responseData->push_back('\0');
+			error->SetError(&responseData->front());
 		}
 	}
 
-	this->findObjectsCompleted(this, array);
+	this->findObjectsCompleted(array, error);
+
+	delete error;
 }
 
 void ParseQuery::findObjectWithIdFinished(CCNode* sender, void* param)
 {
+	ParseError* error = new ParseError();
 	ParseObject* obj = 0;
+
 	CCHttpResponse* response = (CCHttpResponse*)param;
 	if (response->getResponseCode() == 200)
 	{
@@ -75,7 +103,20 @@ void ParseQuery::findObjectWithIdFinished(CCNode* sender, void* param)
 			}
 		}
 	}
-	this->findObjectWithIdCompleted(this, obj);
+	if (strlen(response->getErrorBuffer()) > 0)
+	{
+		error->SetError(response->getErrorBuffer());
+	}
+	else
+	{
+		std::vector<char>* responseData = response->getResponseData();
+		responseData->push_back('\0');
+		error->SetError(&responseData->front());
+	}
+
+	this->findObjectWithIdCompleted(obj, error);
+
+	delete error;
 }
 
 

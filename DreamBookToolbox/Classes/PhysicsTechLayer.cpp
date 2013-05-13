@@ -22,8 +22,8 @@ bool PhysicsTechLayer::init()
 		{
 				b2BodyDef triangleBodyDef;
 				triangleBodyDef.position.Set(0.0F, 4.0F);
-				//triangleBodyDef.type = b2BodyType::b2_dynamicBody;
-				triangleBodyDef.type = b2BodyType::b2_staticBody;
+				//triangleBodyDef.type = b2_dynamicBody;
+				triangleBodyDef.type = b2_staticBody;
 
 				CustomUserData *userData = new CustomUserData();
 				userData->draw = true;
@@ -58,7 +58,7 @@ bool PhysicsTechLayer::init()
 				b2BodyDef rectBodyDef;
 				rectBodyDef.angle = -0.15F * b2_pi;
 				rectBodyDef.position.Set(4.0F, (4.0F / 0.57735F) + 4.0F);
-				rectBodyDef.type = b2BodyType::b2_dynamicBody;
+				rectBodyDef.type = b2_dynamicBody;
 				rectBodyDef.userData = NULL;
 				b2Body *rectBody = this->world->CreateBody(&rectBodyDef);
 
@@ -90,7 +90,7 @@ bool PhysicsTechLayer::init()
 				this->addChild(rect);
 				CCImage *img = new CCImage();
 				img->autorelease();
-				img->initWithImageFile("Images/PhysicsTech/1.png", cocos2d::CCImage::EImageFormat::kFmtPng);
+				img->initWithImageFile("Images/PhysicsTech/1.png", cocos2d::CCImage::kFmtPng);
 				CCTexture2D *texture = new CCTexture2D();
 				texture->autorelease();
 				texture->initWithImage(img);
@@ -317,7 +317,7 @@ void PhysicsTechLayer::GetPropertyAndShow(b2Body *object, PropertyLayer *layer)
 		float mass = object->GetMass();
 		layer->SetProperty(PropertyType_Mass, &mass);
 
-		bool isStatic = object->GetType() == b2BodyType::b2_staticBody ? true : false;
+		bool isStatic = object->GetType() == b2_staticBody ? true : false;
 		layer->SetProperty(PropertyType_Static, &isStatic);
 }
 
@@ -339,11 +339,11 @@ void PhysicsTechLayer::SetProperty(PropertyLayer *layer, b2Body *object)
 						{
 								if (strcmp(str, "true") == 0)
 								{
-										object->SetType(b2BodyType::b2_staticBody);
+										object->SetType(b2_staticBody);
 								}
 								else
 								{
-										object->SetType(b2BodyType::b2_dynamicBody);
+										object->SetType(b2_dynamicBody);
 								}
 						}
 						break;
