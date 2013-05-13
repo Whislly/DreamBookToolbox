@@ -40,8 +40,16 @@ assets/
 local.properties
 
 # Ignore files built by NaCl
-samples
-test
+samples/
+test/
+template/
+tools/
+test/
+scripting/
+plugin/
+licenses/
+document/
+
 
 # Ignore python compiled files
 *.pyc
