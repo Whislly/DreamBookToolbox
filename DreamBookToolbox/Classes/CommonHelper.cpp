@@ -128,6 +128,9 @@ CCSprite* CommonHelper::CloneSprite(CCSprite *sprite)
 		CCTexture2D *texture = sprite->getTexture();
 		CCSprite *newSprite = CCSprite::create();
 		newSprite->initWithTexture(texture, sprite->getTextureRect());
+		newSprite->setScale(sprite->getScale());
+		newSprite->setContentSize(sprite->getContentSize());
+		newSprite->setAnchorPoint(CCPointZero);
 
 		return newSprite;
 }

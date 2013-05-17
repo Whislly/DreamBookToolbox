@@ -61,6 +61,10 @@ void PicShowLayer::draw()
 
 PicShowLayer* PicShowLayer::create(int startIndex)
 {
+	//CCFileUtils *fileUtil = CCFileUtils::sharedFileUtils();
+	//std::vector<std::string> aa = fileUtil->getSearchResolutionsOrder();
+	//std::vector<std::string> searchPaths = fileUtil->getSearchPaths();
+	
 		PicShowLayer* layer = new PicShowLayer();
 		layer->startIndex = startIndex;
 		layer->autorelease();
@@ -83,19 +87,16 @@ bool PicShowLayer::init()
 		this->setContentSize(CCSize(winSize.width - 30 - 260, winSize.height - 30 - 130));
 		CCSize size = this->getContentSize();
 
-		CCImage *img = new CCImage();
-		img->initWithImageFile("Images/PicPickup/Icons-N2/1.png");
-		img->autorelease();
-		CCSize contentSize = CommonHelper::CountContainerNumber(size, img->getWidth(), xInterval, xMargin,  img->getHeight(), yInterval, yMargin);
+		CCSize contentSize = CommonHelper::CountContainerNumber(size, Size_N2, xInterval, xMargin,  Size_N2, yInterval, yMargin);
 		int xNum = (int)contentSize.width;
 		int yNum = (int)contentSize.height;
 		int x = xMargin;
-		int y = this->getContentSize().height - img->getHeight() - yMargin;
+		int y = this->getContentSize().height - Size_N2 - yMargin;
 		int yCount = 0;
 		// create icons
 		char path[255] = {0};
 		int count = 0;
-		for (int i = this->startIndex + 1; i <= 20; i++)
+		for (int i = this->startIndex + 1; i <= Pic_Count; i++)
 		{
 				count++;
 
@@ -103,17 +104,20 @@ bool PicShowLayer::init()
 				CCSprite *s = CCSprite::create(path);
 				s->setPosition(ccp(x, y));
 				s->setAnchorPoint(CCPointZero);
+				float scale = Size_N2 / s->getContentSize().width;
+				s->setScale(scale);
+				s->setContentSize(CCSize(Size_N2, Size_N2));
 				this->addChild(s);
 				this->elementArr->addObject(s);
 
-				x += xInterval + img->getWidth();
+				x += xInterval + Size_N2;
 
 				if (i % xNum == 0)
 				{
 						//reset - x
 						x = xMargin;
 						//calc y
-						y -= (yInterval + img->getHeight());
+						y -= (yInterval + Size_N2);
 						yCount++;
 
 						if (yCount >= yNum)
@@ -150,7 +154,10 @@ void PicShowLayer::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent)
 				for (int i = 0; i < this->elementArr->count(); i++)
 				{
 						CCSprite *s = (CCSprite*)this->elementArr->objectAtIndex(i);
-						CCRect rect = s->boundingBox();
+						//CCRect rect = s->boundingBox();
+						CCPoint thePos = s->getPosition();
+						CCSize theSize = s->getContentSize();
+						CCRect rect = CCRect(thePos.x, thePos.y, theSize.width, theSize.height);
 						//CCRect rect = CCRect(s->getPosition().x, s->getPosition().y, s->getContentSize().width, s->getContentSize().height);
 						//selected
 						if (rect.containsPoint(location))
@@ -192,7 +199,11 @@ void PicShowLayer::ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent)
 				for (int i = 0; i < this->elementArr->count(); i++)
 				{
 						CCSprite *s = (CCSprite*)this->elementArr->objectAtIndex(i);
-						CCRect rect = s->boundingBox();
+						//CCRect rect = s->boundingBox();
+						
+						CCPoint thePos = s->getPosition();
+						CCSize theSize = s->getContentSize();
+						CCRect rect = CCRect(thePos.x, thePos.y, theSize.width, theSize.height);
 						//selected
 						if (rect.containsPoint(location))
 						{

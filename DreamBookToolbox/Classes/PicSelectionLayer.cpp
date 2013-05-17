@@ -86,9 +86,9 @@ bool PicSelectionLayer::init()
 				"Images/PicPickup/combineT.png",
 				this,
 				menu_selector(PicSelectionLayer::ClickOnCombineTime));
-		combineItem->setScale(0.25);
+		combineItem->setScale(0.5);
 		combineItem->setAnchorPoint(CCPointZero);
-		combineItem->setPosition(20,  -combineItem->getContentSize().height / 8);
+		combineItem->setPosition(20,  -combineItem->getContentSize().height / 4);
 		CCMenu* menu = CCMenu::create(combineItem, NULL);
 		menu->setPosition(0, 0);
 		this->addChild(menu);
@@ -254,7 +254,7 @@ CCSprite* PicSelectionLayer::CombineSpriteOnTime(CCArray* spriteArray, float int
 				CCTexture2D *texture = sprite->getTexture();
 				CCSize size = texture->getContentSize();
 				CCSpriteFrame *frame = CCSpriteFrame::createWithTexture(texture, CCRectMake(0, 0, size.width, size.height));
-				frame->setOriginalSize(CCSize(size.width / 2, size.height / 2));
+				frame->setOriginalSize(CCSize(size.width * sprite->getScale(), size.height * sprite->getScale()));
 				animFrames->addObject(frame);
 		}
 
@@ -262,13 +262,9 @@ CCSprite* PicSelectionLayer::CombineSpriteOnTime(CCArray* spriteArray, float int
 		
 		CCAnimate *animate = CCAnimate::create(animation);
 		CCRepeatForever *repeatAction =  CCRepeatForever::create( animate );
-
+		
 		CCSprite *sprite = (CCSprite*)spriteArray->objectAtIndex(0);
 		CCSprite* newSprite = CommonHelper::CloneSprite(sprite);
-		
-		newSprite->setContentSize(sprite->getContentSize());
-		newSprite->setAnchorPoint(CCPointZero);
-		newSprite->setScale(0.5);
 
 		newSprite->runAction(repeatAction);
 		

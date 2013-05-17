@@ -3,6 +3,11 @@
 
 #define PTM_RATIO 32
 #define FocusActionTag 999
+#define Size_N1 64
+#define Size_N2 128
+#define Size_N3 256
+
+#define Pic_Count 38
 
 enum ShapeType
 {

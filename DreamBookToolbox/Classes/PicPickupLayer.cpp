@@ -44,7 +44,7 @@ bool PicPickupLayer::init()
 	this->addChild(search);
 
 	//
-	this->container = DynamicLayerContainer::create(20);
+	this->container = DynamicLayerContainer::create(Pic_Count);
 	this->container->setAnchorPoint(CCPointZero);
 	this->container->setPosition(0, 0);
 	this->addChild(this->container);
@@ -113,9 +113,11 @@ void PicPickupLayer::draw()
 
 void PicPickupLayer::ClickOnSprite(CCPoint location, CCSprite *sprite)
 {
+	float scale = sprite->getScale();
+
 	//pos
 	CCSize newSize = sprite->getContentSize();
-	newSize = CCSize(newSize.width / 2, newSize.height / 2);
+	newSize = CCSize(newSize.width * 0.5, newSize.height * 0.5);
 	CCPoint newPos = this->selectionLayer->GetPreAddPos(newSize);
 	CCPoint selectLayerPos = this->selectionLayer->getPosition();
 	newPos = ccp(newPos.x + selectLayerPos.x, newPos.y + selectLayerPos.y);
@@ -123,8 +125,8 @@ void PicPickupLayer::ClickOnSprite(CCPoint location, CCSprite *sprite)
 	//add new sprite to right panel
 	CCSprite *newSprite = CommonHelper::CloneSprite(sprite);
 	newSprite->setPosition(newPos);
-	newSprite->setScale(0.5);
-	newSprite->setContentSize(CCSize(newSprite->getContentSize().width / 2, newSprite->getContentSize().height / 2));
+	newSprite->setScale(0.5 * scale);
+	newSprite->setContentSize(newSize);
 	newSprite->setVisible(false);
 	this->selectionLayer->AddElement(newSprite);
 
@@ -133,11 +135,8 @@ void PicPickupLayer::ClickOnSprite(CCPoint location, CCSprite *sprite)
 
 	//run the sport sprite move action
 	CCSprite *sportSprite = CommonHelper::CloneSprite(sprite);
-
 	CCPoint p = sprite->getPosition();
-	sportSprite->setAnchorPoint(CCPointZero);
 	sportSprite->setPosition(ccp(p.x + 30, p.y + 30));
-	//TODO here : add this sprite to another layer ???
 	this->addChild(sportSprite);
 
 	CCFiniteTimeAction *move = CCSequence::create(
@@ -150,8 +149,8 @@ void PicPickupLayer::ClickOnSprite(CCPoint location, CCSprite *sprite)
 	CCActionInterval*  actionBy = CCRotateBy::create(2,  360);
 	sportSprite->runAction(actionBy);
 
-	CCScaleTo *scale = CCScaleTo::create(2, 0.5, 0.5);
-	sportSprite->runAction(scale);
+	CCScaleTo *scaleAction = CCScaleTo::create(2, 0.5 * scale, 0.5 * scale);
+	sportSprite->runAction(scaleAction);
 
 	return;
 }
