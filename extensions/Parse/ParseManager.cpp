@@ -93,6 +93,7 @@ ParseError* ParseManager::request(CCHttpRequest::HttpRequestType op,
 								  size_t size,
 								  CCObject *receiver, 
 								  SEL_CallFuncND selector,
+								  const char* contentType,
 								  bool setMasterKey,
 								  void* param)
 {
@@ -122,6 +123,11 @@ ParseError* ParseManager::request(CCHttpRequest::HttpRequestType op,
 
 	CCHttpClient* client = CCHttpClient::getInstance();
 
+
+	if (contentType)
+	{
+		headers.push_back(contentType);
+	}
 	switch(op)
 	{
 		case CCHttpRequest::kHttpGet:
@@ -132,14 +138,20 @@ ParseError* ParseManager::request(CCHttpRequest::HttpRequestType op,
 			}
 			break;
 		case CCHttpRequest::kHttpPost:
-			headers.push_back("Content-Type: application/json");
+			if (contentType == 0)
+			{
+				headers.push_back("Content-Type: application/json");
+			}
 			if (size > 0)
 			{
 				request->setRequestData(buffer, size);
 			}
 			break;
 		case CCHttpRequest::kHttpPut:
-			headers.push_back("Content-Type: application/json");
+			if (contentType == 0)
+			{
+				headers.push_back("Content-Type: application/json");
+			}
 			if (size > 0)
 			{
 				request->setRequestData(buffer, size);

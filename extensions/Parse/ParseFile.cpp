@@ -6,8 +6,8 @@ NS_CC_EXT_BEGIN
 
 ParseFile::ParseFile(void)
 {
-}
 
+}
 
 ParseFile::~ParseFile(void)
 {
@@ -32,7 +32,8 @@ void ParseFile::uploadFile(const char* dir, const char* fileName)
 		}
 		fseek(file, 0, SEEK_END);
 		size_t size = ftell(file);
-		buffer = new char(size);
+		fseek(file, 0, SEEK_SET);
+		buffer = new char[size];
 		if (buffer == 0)
 		{
 			error = "malloc buffer error!";
@@ -43,12 +44,15 @@ void ParseFile::uploadFile(const char* dir, const char* fileName)
 			error = "read file error!";
 			break;
 		}
+		fclose(file);
+		file = 0;
 		ParseManager::instance()->request(CCHttpRequest::kHttpPost,
 			std::string("/1/files/") + fileName,
 			buffer,
 			size,
 			this,
-			(SEL_CallFuncND)&ParseFile::uploadFileFinished);
+			(SEL_CallFuncND)&ParseFile::uploadFileFinished,
+			getContentType(fileName));
 	}while(0);
 
 	if (error)
@@ -79,7 +83,8 @@ void ParseFile::uploadFileContent(const char* fileName, char* content, size_t le
 		content,
 		length,
 		this,
-		(SEL_CallFuncND)&ParseFile::uploadFileContentFinished);
+		(SEL_CallFuncND)&ParseFile::uploadFileContentFinished,
+		getContentType(fileName));
 }
 
 void ParseFile::deleteFile(const char* fileName)
@@ -90,6 +95,7 @@ void ParseFile::deleteFile(const char* fileName)
 		0,
 		this,
 		(SEL_CallFuncND)&ParseFile::deleteFileFinished,
+		0,
 		true);
 }
 
@@ -217,7 +223,8 @@ void ParseFile::downloadFile(const char* url, const char* savePathName)
 		0,
 		0,
 		this,
-		(SEL_CallFuncND)&ParseFile::deleteFileFinished,
+		(SEL_CallFuncND)&ParseFile::downloadFileFinished,
+		0,
 		false,
 		(void*)savePathName);
 }
@@ -277,6 +284,40 @@ void ParseFile::downloadFileFinished(CCNode* sender, void* param)
 	this->downloadFileCompleted(savePathName, error);
 
 	delete error;
+}
+
+const char* ParseFile::getContentType(const char* fileName)
+{
+	const char* contentType = "Content-Type: text/plain";
+	const char* ext = strrchr(fileName, '.');
+	if (ext)
+	{
+		if(stricmp(ext, ".txt") == 0)
+		{
+			contentType = "Content-Type: text/plain";
+		}
+		else if (stricmp(ext, ".jpg") == 0)
+		{
+			contentType = "Content-Type: image/jpeg";
+		}
+		else if (stricmp(ext, ".png") == 0)
+		{
+			contentType = "Content-Type: image/png";
+		}
+		else if (stricmp(ext, ".xml") == 0)
+		{
+			contentType = "Content-Type: application/xml";
+		}
+		else if (stricmp(ext, ".zip") == 0)
+		{
+			contentType = "Content-Type: application/x-zip";
+		}
+		else if (stricmp(ext, ".json") == 0)
+		{
+			contentType = "Content-Type: application/json";
+		}
+	}
+	return contentType;
 }
 
 NS_CC_EXT_END

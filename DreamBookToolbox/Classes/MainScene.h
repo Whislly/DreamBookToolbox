@@ -5,6 +5,7 @@
 #include "Box2D/Box2D.h"
 //#include "label_nodes\CCLabelTTF.h"
 //#include "Parse\ParseError.h"
+//#include "Parse\ParseFile.h"
 
 USING_NS_CC;
 //using namespace cocos2d::extension;
@@ -37,6 +38,8 @@ public:
 	void SaveComplet(bool success, ParseError* error);
 
 	void GetComplet(CCArray* array, ParseError* error);*/
+
+	//void UploadComplet(FileInfo* fileInfo, ParseError* error);
 
 
     // implement the "static node()" method manually

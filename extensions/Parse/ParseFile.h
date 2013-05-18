@@ -48,6 +48,7 @@ private:
 	void uploadFileContentFinished(CCNode* sender, void* param);
 	void downloadFileFinished(CCNode* sender, void* param);
 	void deleteFileFinished(CCNode* sender, void* param);
+	const char* getContentType(const char* fileName);
 };
 
 NS_CC_EXT_END

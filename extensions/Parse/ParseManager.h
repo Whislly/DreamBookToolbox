@@ -42,6 +42,7 @@ public:
 						size_t size,
 						CCObject *receiver,
 						SEL_CallFuncND selector,
+						const char* contentType = 0,
 						bool setMasterKey = false,
 						void* param = 0);
 

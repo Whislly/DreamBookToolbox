@@ -76,6 +76,7 @@ Parse/ParseManager.cpp \
 Parse/ParseObject.cpp \
 Parse/ParseQuery.cpp \
 Parse/ParseJson.cpp \
+Parse/ParseFile.cpp \
 Parse/ParseError.cpp
 
 LOCAL_WHOLE_STATIC_LIBRARIES := cocos2dx_static
