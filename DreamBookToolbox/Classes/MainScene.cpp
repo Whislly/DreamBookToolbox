@@ -161,6 +161,7 @@ bool MainLayer::init()
 		/*cocos2d::extension::Parse parse;
 		parse.setApplicationId("n1s82tGoQDgDM09qFNm0UQkKNO7yW1gqpQSavT5n");
 		parse.setApiKey("Nh4K6HM2tohkmQdeu5vfN7ZWP83OMQ72uH0YMtW7");
+		parse.setMasterKey("doMxP88XvGkICRrI3gPcCdwWMI26QZfzPMKER33m");
 
 		cocos2d::extension::ParseQuery* query = new cocos2d::extension::ParseQuery("GameTest");
 		query->findObjectsCompleted.Set(this, (Delegate<CCArray*, ParseError*>::MemberFun)&MainLayer::GetComplet);

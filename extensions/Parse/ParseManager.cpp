@@ -42,6 +42,16 @@ void ParseManager::setApiKey(const std::string &apiKey)
 	this->_apiKey = apiKey;
 }
 
+std::string ParseManager::masterKey() const
+{
+	return this->_masterKey;
+}
+
+void ParseManager::setMasterKey(const std::string &masterKey)
+{
+	this->_masterKey = masterKey;
+}
+
 bool ParseManager::trace() const
 {
 	return this->_trace;
@@ -61,51 +71,93 @@ ParseError* ParseManager::request(CCHttpRequest::HttpRequestType op,
 {
 	ParseError* error = NULL;
 
+	size_t size = 0;
+	const char* buffer = 0;
+	std::vector<char> requestData;
+	if (value.IsNull() == false)
+	{
+		ParseJson::ToByteArray(value, requestData, error);
+		buffer = &requestData.front();
+		size = requestData.size();
+	}
+	
+	this->request(op, url, buffer, size, receiver, selector);
+
+	return error;
+}
+
+/// communication
+ParseError* ParseManager::request(CCHttpRequest::HttpRequestType op, 
+								  const std::string &url, 
+								  const char* buffer,
+								  size_t size,
+								  CCObject *receiver, 
+								  SEL_CallFuncND selector,
+								  bool setMasterKey,
+								  void* param)
+{
+	ParseError* error = NULL;
+
 	CCHttpRequest* request = new CCHttpRequest();
 
 	std::vector<std::string> headers;
 
 	request->setRequestType(op);
 
-	std::string fullUrl = "https://api.parse.com" + url;
+	std::string fullUrl;
+	if (strncmp(url.c_str(), "http", 4) != 0)
+	{
+		fullUrl = "https://api.parse.com" + url;
+	}
+	else
+	{
+		fullUrl = url;
+	}
+
 	request->setUrl(fullUrl.c_str());
 
 	request->setResponseCallback(receiver, selector);
 
+	request->setUserData(param);
+
 	CCHttpClient* client = CCHttpClient::getInstance();
 
-	std::vector<char> requestData;
 	switch(op)
 	{
 		case CCHttpRequest::kHttpGet:
-			if (value.IsNull() == false)
+			if (size > 0)
 			{
-				ParseJson::ToByteArray(value, requestData, error);
-
-				char* condition = curl_escape(&requestData.front(), requestData.size());
+				char* condition = curl_escape(buffer, size);
 				request->setUrl((fullUrl + "?" + condition).c_str());
 			}
 			break;
 		case CCHttpRequest::kHttpPost:
-
 			headers.push_back("Content-Type: application/json");
-
-			ParseJson::ToByteArray(value, requestData, error);
-			request->setRequestData(&requestData.front(), requestData.size());
+			if (size > 0)
+			{
+				request->setRequestData(buffer, size);
+			}
 			break;
 		case CCHttpRequest::kHttpPut:
-
 			headers.push_back("Content-Type: application/json");
-
-			ParseJson::ToByteArray(value, requestData, error);
-			request->setRequestData(&requestData.front(), requestData.size());
+			if (size > 0)
+			{
+				request->setRequestData(buffer, size);
+			}
 			break;
 		case CCHttpRequest::kHttpDelete:
 			break;
 	}
 
 	headers.push_back(std::string("X-Parse-Application-Id: ") + this->_applicationId);
-	headers.push_back(std::string("X-Parse-REST-API-Key: ") + this->_apiKey);
+	if (setMasterKey)
+	{
+		headers.push_back(std::string("X-Parse-Master-Key: ") + this->_masterKey);
+	}
+	else
+	{
+		headers.push_back(std::string("X-Parse-REST-API-Key: ") + this->_apiKey);
+	}
 	request->setHeaders(headers);
 
 	client->send(request);

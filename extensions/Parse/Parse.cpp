@@ -33,6 +33,16 @@ void Parse::setApiKey(const std::string &apiKey)
 	ParseManager::instance()->setApiKey(apiKey);
 }
 
+std::string Parse::masterKey() const
+{
+	return ParseManager::instance()->masterKey();
+}
+
+void Parse::setMasterKey(const std::string &masterKey)
+{
+	ParseManager::instance()->setMasterKey(masterKey);
+}
+
 bool Parse::trace() const
 {
 	return ParseManager::instance()->trace();

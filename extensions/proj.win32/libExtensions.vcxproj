@@ -138,6 +138,7 @@
     <ClCompile Include="..\network\HttpClient.cpp" />
     <ClCompile Include="..\Parse\Parse.cpp" />
     <ClCompile Include="..\Parse\ParseError.cpp" />
+    <ClCompile Include="..\Parse\ParseFile.cpp" />
     <ClCompile Include="..\Parse\ParseJson.cpp" />
     <ClCompile Include="..\Parse\ParseManager.cpp" />
     <ClCompile Include="..\Parse\ParseObject.cpp" />
@@ -224,6 +225,7 @@
     <ClInclude Include="..\Parse\Delegate.h" />
     <ClInclude Include="..\Parse\Parse.h" />
     <ClInclude Include="..\Parse\ParseError.h" />
+    <ClInclude Include="..\Parse\ParseFile.h" />
     <ClInclude Include="..\Parse\ParseJson.h" />
     <ClInclude Include="..\Parse\ParseManager.h" />
     <ClInclude Include="..\Parse\ParseObject.h" />

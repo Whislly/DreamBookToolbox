@@ -261,6 +261,9 @@
     <ClCompile Include="..\Parse\ParseQuery.cpp">
       <Filter>Parse</Filter>
     </ClCompile>
+    <ClCompile Include="..\Parse\ParseFile.cpp">
+      <Filter>Parse</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\GUI\CCScrollView\CCScrollView.h">
@@ -543,6 +546,9 @@
     </ClInclude>
     <ClInclude Include="..\rapidjson\internal\strfunc.h">
       <Filter>rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Parse\ParseFile.h">
+      <Filter>Parse</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
