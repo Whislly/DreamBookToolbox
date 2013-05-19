@@ -49,6 +49,9 @@ scripting/
 plugin/
 licenses/
 document/
+install-templates-msvc.bat
+install-templates-xcode.sh
+make-all-linux-project.sh
 
 
 # Ignore python compiled files
