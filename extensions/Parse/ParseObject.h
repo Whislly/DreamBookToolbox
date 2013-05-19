@@ -3,7 +3,7 @@
 
 #include "cocos2d.h"
 #include "ExtensionMacros.h"
-#include "rapidjson\document.h"
+#include "document.h"
 #include "ParseError.h"
 #include "Delegate.h"
 

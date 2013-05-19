@@ -1,5 +1,5 @@
 #include "ParseJson.h"
-#include "rapidjson\writer.h"
+#include "writer.h"
 
 NS_CC_EXT_BEGIN
 

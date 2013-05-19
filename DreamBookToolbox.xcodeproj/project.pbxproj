@@ -339,6 +339,7 @@
 		25D5C8F5173FFDD900412635 /* ParseManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 25D5C8EC173FFDD900412635 /* ParseManager.cpp */; };
 		25D5C8F6173FFDD900412635 /* ParseObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 25D5C8EE173FFDD900412635 /* ParseObject.cpp */; };
 		25D5C8F7173FFDD900412635 /* ParseQuery.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 25D5C8F0173FFDD900412635 /* ParseQuery.cpp */; };
+		25FC8A051748776B009A5DA6 /* ParseFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 25FC8A031748776B009A5DA6 /* ParseFile.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1050,6 +1051,8 @@
 		25D5C901173FFDEF00412635 /* reader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = reader.h; path = rapidjson/reader.h; sourceTree = "<group>"; };
 		25D5C902173FFDEF00412635 /* stringbuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stringbuffer.h; path = rapidjson/stringbuffer.h; sourceTree = "<group>"; };
 		25D5C903173FFDEF00412635 /* wirter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wirter.h; path = rapidjson/writer.h; sourceTree = "<group>"; };
+		25FC8A031748776B009A5DA6 /* ParseFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ParseFile.cpp; path = Parse/ParseFile.cpp; sourceTree = "<group>"; };
+		25FC8A041748776B009A5DA6 /* ParseFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ParseFile.h; path = Parse/ParseFile.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2345,6 +2348,8 @@
 		25D5C8E4173FFDD900412635 /* Parse */ = {
 			isa = PBXGroup;
 			children = (
+				25FC8A031748776B009A5DA6 /* ParseFile.cpp */,
+				25FC8A041748776B009A5DA6 /* ParseFile.h */,
 				25D5C8E5173FFDD900412635 /* Delegate.h */,
 				25D5C8E6173FFDD900412635 /* Parse.cpp */,
 				25D5C8E7173FFDD900412635 /* Parse.h */,
@@ -2786,6 +2791,7 @@
 				25D5C8F5173FFDD900412635 /* ParseManager.cpp in Sources */,
 				25D5C8F6173FFDD900412635 /* ParseObject.cpp in Sources */,
 				25D5C8F7173FFDD900412635 /* ParseQuery.cpp in Sources */,
+				25FC8A051748776B009A5DA6 /* ParseFile.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

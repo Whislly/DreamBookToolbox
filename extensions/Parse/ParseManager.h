@@ -5,7 +5,7 @@
 #include "ExtensionMacros.h"
 #include "ParseError.h"
 #include "network/HttpClient.h"
-#include "rapidjson\document.h"
+#include "document.h"
 
 NS_CC_EXT_BEGIN
 

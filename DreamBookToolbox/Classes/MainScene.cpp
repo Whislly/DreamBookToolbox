@@ -3,11 +3,11 @@
 #include "DreamBookScene.h"
 #include "ToyBrickScene.h"
 #include "DancingBoneScene.h"
-#include "Parse\Parse.h"
-#include "Parse\Delegate.h"
-#include "Parse\ParseObject.h"
-#include "Parse\ParseFile.h"
-#include "Parse\ParseQuery.h"
+#include "Parse.h"
+#include "Delegate.h"
+#include "ParseObject.h"
+#include "ParseFile.h"
+#include "ParseQuery.h"
 
 USING_NS_CC;
 

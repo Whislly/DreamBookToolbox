@@ -1,6 +1,7 @@
 #include "ParseFile.h"
 #include "ParseJson.h"
 #include "ParseManager.h"
+#include <string.h>
 
 NS_CC_EXT_BEGIN
 
@@ -19,7 +20,7 @@ void ParseFile::uploadFile(const char* dir, const char* fileName)
 	pathName += "/";
 	pathName += fileName;
 
-	char* error = 0;
+	const char* error = 0;
 	FILE* file = 0;
 	char* buffer = 0;
 	do
@@ -292,27 +293,27 @@ const char* ParseFile::getContentType(const char* fileName)
 	const char* ext = strrchr(fileName, '.');
 	if (ext)
 	{
-		if(stricmp(ext, ".txt") == 0)
+		if(strcmp(ext, ".txt") == 0)
 		{
 			contentType = "Content-Type: text/plain";
 		}
-		else if (stricmp(ext, ".jpg") == 0)
+		else if (strcmp(ext, ".jpg") == 0)
 		{
 			contentType = "Content-Type: image/jpeg";
 		}
-		else if (stricmp(ext, ".png") == 0)
+		else if (strcmp(ext, ".png") == 0)
 		{
 			contentType = "Content-Type: image/png";
 		}
-		else if (stricmp(ext, ".xml") == 0)
+		else if (strcmp(ext, ".xml") == 0)
 		{
 			contentType = "Content-Type: application/xml";
 		}
-		else if (stricmp(ext, ".zip") == 0)
+		else if (strcmp(ext, ".zip") == 0)
 		{
 			contentType = "Content-Type: application/x-zip";
 		}
-		else if (stricmp(ext, ".json") == 0)
+		else if (strcmp(ext, ".json") == 0)
 		{
 			contentType = "Content-Type: application/json";
 		}
