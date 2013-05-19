@@ -3,6 +3,10 @@
 #include "ParseManager.h"
 #include <string.h>
 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+#define strcasecmp stricmp
+#endif // (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+
 NS_CC_EXT_BEGIN
 
 ParseFile::ParseFile(void)
@@ -293,27 +297,27 @@ const char* ParseFile::getContentType(const char* fileName)
 	const char* ext = strrchr(fileName, '.');
 	if (ext)
 	{
-		if(strcmp(ext, ".txt") == 0)
+		if(strcasecmp(ext, ".txt") == 0)
 		{
 			contentType = "Content-Type: text/plain";
 		}
-		else if (strcmp(ext, ".jpg") == 0)
+		else if (strcasecmp(ext, ".jpg") == 0)
 		{
 			contentType = "Content-Type: image/jpeg";
 		}
-		else if (strcmp(ext, ".png") == 0)
+		else if (strcasecmp(ext, ".png") == 0)
 		{
 			contentType = "Content-Type: image/png";
 		}
-		else if (strcmp(ext, ".xml") == 0)
+		else if (strcasecmp(ext, ".xml") == 0)
 		{
 			contentType = "Content-Type: application/xml";
 		}
-		else if (strcmp(ext, ".zip") == 0)
+		else if (strcasecmp(ext, ".zip") == 0)
 		{
 			contentType = "Content-Type: application/x-zip";
 		}
-		else if (strcmp(ext, ".json") == 0)
+		else if (strcasecmp(ext, ".json") == 0)
 		{
 			contentType = "Content-Type: application/json";
 		}
