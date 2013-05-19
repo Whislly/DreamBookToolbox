@@ -289,9 +289,9 @@ void PicPickupLayer::menuPreCallback( CCObject* pSender )
 
 	//move current
 	current->stopAllActions();
-	CCMoveTo *moveCur = CCMoveTo::create(4, ccp(winSize.width + 30, 30));
+	CCMoveTo *moveCur = CCMoveTo::create(2, ccp(winSize.width + 30, 30));
 	current->runAction(moveCur);
-	CCOrbitCamera *orbitCur = CCOrbitCamera::create(4, 1, 0, 0, 90, 0, 0);
+	CCOrbitCamera *orbitCur = CCOrbitCamera::create(2, 1, 0, 0, 90, 0, 0);
 	current->runAction(orbitCur);
 
 	//move pre
@@ -300,9 +300,9 @@ void PicPickupLayer::menuPreCallback( CCObject* pSender )
 	pre->setPosition(ccp(-winSize.width - 30, 30));
 	//pre->setPosition(-winSize.width - 30, 30);
 	//
-	CCOrbitCamera *orbitPre = CCOrbitCamera::create(4, 1, 0, -90, 90, 0, 0);
+	CCOrbitCamera *orbitPre = CCOrbitCamera::create(2, 1, 0, -90, 90, 0, 0);
 	pre->runAction(orbitPre);
-	CCMoveTo *movePre = CCMoveTo::create(4, ccp(30, 30));
+	CCMoveTo *movePre = CCMoveTo::create(2, ccp(30, 30));
 	pre->runAction(movePre);
 }
 
@@ -320,9 +320,9 @@ void PicPickupLayer::menuSubCallback( CCObject* pSender )
 	current->setPosition(ccp(30, 30));
 	current->stopAllActions();
 	//
-	CCMoveTo *moveCur = CCMoveTo::create(4, ccp(-winSize.width - 30, 30));
+	CCMoveTo *moveCur = CCMoveTo::create(2, ccp(-winSize.width - 30, 30));
 	current->runAction(moveCur);	
-	CCOrbitCamera *orbitCur = CCOrbitCamera::create(4, 1, 0, 0, -90, 0, 0);
+	CCOrbitCamera *orbitCur = CCOrbitCamera::create(2, 1, 0, 0, -90, 0, 0);
 	current->runAction(orbitCur);
 
 	//move next
@@ -330,9 +330,9 @@ void PicPickupLayer::menuSubCallback( CCObject* pSender )
 	next->setPosition(ccp(winSize.width + 30, 30));
 	next->setVisible(true);
 	//
-	CCMoveTo *moveNext = CCMoveTo::create(4, ccp(30, 30));
+	CCMoveTo *moveNext = CCMoveTo::create(2, ccp(30, 30));
 	next->runAction(moveNext);
 	//
-	CCOrbitCamera *orbitNext = CCOrbitCamera::create(4, 1, 0, 90, -90, 0, 0);
+	CCOrbitCamera *orbitNext = CCOrbitCamera::create(2, 1, 0, 90, -90, 0, 0);
 	next->runAction(orbitNext);
 }

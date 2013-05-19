@@ -104,7 +104,9 @@ bool PicShowLayer::init()
 				CCSprite *s = CCSprite::create(path);
 				s->setPosition(ccp(x, y));
 				s->setAnchorPoint(CCPointZero);
-				float scale = Size_N2 / s->getContentSize().width;
+				CCSize size = s->getContentSize();
+				float more = size.width > size.height ? size.width : size.height;
+				float scale = Size_N2 / more;
 				s->setScale(scale);
 				s->setContentSize(CCSize(Size_N2, Size_N2));
 				this->addChild(s);
@@ -129,7 +131,6 @@ bool PicShowLayer::init()
 
 		return true;
 }
-
 
 //=============================== Touches ===============================
 //Begin
