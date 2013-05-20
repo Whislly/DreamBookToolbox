@@ -5,24 +5,13 @@ NS_CC_BEGIN
 void CCSpriteEx::onEnter()
 {
     CCSprite::onEnter();
-    // 注册触摸协议，并吃掉触摸事件
     CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, 0/*priority=??*/, false);
-
-    #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-    CCDirector::sharedDirector()->getOpenGLView()->SetWin32KeyLayer(this);
-    #else
-    CCDirector::sharedDirector()->getTouchDispatcher()->addStandardDelegate(this, 0);
-    #endif // CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 }
 
 void CCSpriteEx::onExit()
 {
     CCDirector::sharedDirector()->getTouchDispatcher()->removeDelegate(this);
     CCSprite::onExit();
-
-    #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-    CCDirector::sharedDirector()->getOpenGLView()->SetWin32KeyLayer(NULL);
-    #endif // CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 }
 
 cocos2d::CCRect CCSpriteEx::rect()
@@ -47,110 +36,37 @@ void CCSpriteEx::checkLongPress( float touchTime )
 {
     this->unschedule(schedule_selector(CCSpriteEx::checkLongPress));
 
-    if (m_isInTouch && !m_isInMove && m_longClickListener && m_longClickSelector && m_longClickEnabled)
+    if (m_excuteLongClick)
     {
-        this->setScale(m_originScale + 0.4f);
-        this->setOpacity(200);
-        m_afterLongPress = true;
-        
-        (m_longClickListener->*m_longClickSelector)(this);
-    }
-}
-
-float CCSpriteEx::calcDistance( cocos2d::CCTouch *pTouch )
-{
-    /*CCRect rc = rect();
-    CCPoint originPoint = rc.origin;*/
-    //originPoint = ccp(originPoint.x + rc.size.width * 0.5f, originPoint.y + rc.size.height * 0.5f);
-    CCPoint localPos = pTouch->getLocation(); // 返回GL坐标
-    localPos = convertToNodeSpace(localPos);
-    return (float)ccpDistance(CCPointZero, localPos);
-}
-
-float CCSpriteEx::calcDistance( CCSet *pTouches )
-{
-    CCSetIterator iter = pTouches->begin();
-    CCTouch* pTouch = (CCTouch*)(*iter);
-    CCPoint firstLocalPos = pTouch->getLocation(); // 返回GL坐标
-    firstLocalPos = convertToNodeSpace(firstLocalPos);
-
-    iter++;
-
-    iter = pTouches->begin();
-    pTouch = (CCTouch*)(*iter);
-    CCPoint secondLocalPos = pTouch->getLocation(); // 返回GL坐标
-    secondLocalPos = convertToNodeSpace(secondLocalPos);
-
-    return ccpDistance(firstLocalPos, secondLocalPos);
-}
-
-void CCSpriteEx::ccTouchesBegan( CCSet *pTouches, CCEvent *pEvent )
-{
-    #if (CC_TARGET_PLATFORM != CC_PLATFORM_WIN32)
-    if(m_scaleEnabled && pTouches->count() == 2)
-    {
-        m_distance = calcDistance(pTouches);
-    }
-    #endif
-}
-
-void CCSpriteEx::ccTouchesMoved( CCSet *pTouches, CCEvent *pEvent )
-{
-    #if (CC_TARGET_PLATFORM != CC_PLATFORM_WIN32)
-    if(m_scaleEnabled && pTouches->count() == 2)
-    {
-        float newDistance = calcDistance(pTouches);
-        float scale = newDistance / m_distance;
-        //CCLog("newDistance(%f) / m_distance(%f) = %f", newDistance, m_distance, scale);
-        setScale(scale);
-
-        if( m_scaleListener && m_scaleSelector)
+        if (m_isInTouch && !m_isInMove && m_longClickListener && m_longClickSelector && m_longClickEnabled)
         {
-            (m_scaleListener->*m_scaleSelector)(this);
+            m_originScale = getScale();
+            this->setScale(m_originScale * 1.2f);
+            this->setOpacity(200);
+            m_afterLongPress = true;
+            m_needRestoreAfterLongClick = true;
+
+            (m_longClickListener->*m_longClickSelector)(this);
         }
     }
-    #endif
-}
-
-void CCSpriteEx::ccTouchesEnded( CCSet *pTouches, CCEvent *pEvent )
-{
-    #if (CC_TARGET_PLATFORM != CC_PLATFORM_WIN32)
-    if(m_scaleEnabled && pTouches->count() == 2)
+    else
     {
-        float newDistance = calcDistance(pTouches);
-        float scale = newDistance / m_distance;
-        //CCLog("newDistance(%f) / m_distance(%f) = %f", newDistance, m_distance, scale);
-        setScale(scale);
-
-        if( m_scaleListener && m_scaleSelector)
-        {
-            (m_scaleListener->*m_scaleSelector)(this);
-        }
+        m_needRestoreAfterLongClick = false;
     }
-    #endif
-}
-
-void CCSpriteEx::ccTouchesCancelled( CCSet *pTouches, CCEvent *pEvent )
-{
-
 }
 
 bool CCSpriteEx::ccTouchBegan( CCTouch *pTouch, CCEvent *pEvent )
 {
-    m_originScale = getScale();
     if (this->isTouchInside(pTouch)) 
     {
         m_isInTouch = true;
-        if (m_scaleEnabled)
-        {
-            //m_distance = calcDistance(pTouch);
-            m_isInTouch = false;
-        }
-        else if ( m_doubleClickEnabled && isDoubleTouch()) 
+        m_excuteLongClick = true;
+        if ( m_doubleClickEnabled && isDoubleTouch()) 
         {
             if (m_doubleClickListener && m_doubleClickSelector)
             {
                 (m_doubleClickListener->*m_doubleClickSelector)(this);
+                m_isInTouch = false;
             }
         }
         else
@@ -171,28 +87,12 @@ bool CCSpriteEx::ccTouchBegan( CCTouch *pTouch, CCEvent *pEvent )
 
 void CCSpriteEx::ccTouchMoved( CCTouch *pTouch, CCEvent *pEvent )
 {
-    if (m_scaleEnabled)
-    {
-        /*
-        float newDistance = calcDistance(pTouch);
-        float scale = newDistance / m_distance;
-        //CCLog("newDistance(%f) / m_distance(%f) = %f", newDistance, m_distance, scale);
-        setScale(scale);
+    m_excuteLongClick = false;
+    CCPoint deltaPoint = pTouch->getDelta();
 
-        if( m_scaleListener && m_scaleSelector)
-        {
-            (m_scaleListener->*m_scaleSelector)(this);
-        }
-        */
-    }
-    else
+    if(fabs(deltaPoint.x) > 1 || fabs(deltaPoint.y) > 1)
     {
-        CCPoint deltaPoint = pTouch->getDelta();
-
-        if(fabs(deltaPoint.x) > 1 || fabs(deltaPoint.y) > 1)
-        {
-            m_isInMove = true;
-        }
+        m_isInMove = true;
     }
 }
 
@@ -201,7 +101,6 @@ void CCSpriteEx::restoreStatus()
     m_isInTouch = false;
     m_isInMove = false;
     m_afterLongPress = false;
-    //恢复精灵
     this->setScale(m_originScale);
     //this->setPosition(m_orignalPoint);
     this->setOpacity(255);
@@ -217,24 +116,21 @@ void CCSpriteEx::ccTouchEnded( CCTouch *pTouch, CCEvent *pEvent )
     (m_pListener->*m_pfnSelector)(this);
     }
     }*/
-    if(m_scaleEnabled)
-    {
-        /*
-        if( m_scaleListener && m_scaleSelector)
-        {
-            (m_scaleListener->*m_scaleSelector)(this);
-        }
-        */
-    }
-    else
+    m_excuteLongClick = false;
+    if(m_needRestoreAfterLongClick)
     {
         restoreStatus();
+        m_needRestoreAfterLongClick = false;
     }
 }
 
 void CCSpriteEx::ccTouchCancelled( CCTouch *pTouch, CCEvent *pEvent )
 {
-    restoreStatus();
+    if(m_excuteLongClick)
+    {
+        restoreStatus();
+        m_excuteLongClick = false;
+    }
 }
 
 void CCSpriteEx::setSelectorForSingleClick( CCObject *target, SEL_MenuHandler singleClickSelector )
@@ -257,43 +153,6 @@ void CCSpriteEx::setSelectorForLongClick( CCObject *target, SEL_MenuHandler long
     m_longClickSelector = longClickSelector;
     m_longClickEnabled = ((target != NULL) && (longClickSelector != NULL));
 }
-
-void CCSpriteEx::setSelectorForScale( CCObject* target, SEL_MenuHandler scaleSelector )
-{
-    m_scaleListener = target;
-    m_scaleSelector = scaleSelector;
-    m_scaleEnabled = ((target != NULL) && (scaleSelector != NULL));
-}
-
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-void CCSpriteEx::processWin32KeyPress( UINT message, WPARAM wParam, LPARAM lParam )
-{
-    float scale = getScale();
-    if (!m_scaleEnabled)
-    {
-        return;
-    }
-    switch(message)
-    {
-    case WM_MOUSEWHEEL:
-        short Delta = (short)HIWORD(wParam);
-        if (Delta > 0)
-        {
-            setScale(scale + 0.1f);
-        }
-        else
-        {
-            setScale(scale - 0.1f);
-        }
-        
-        if( m_scaleListener && m_scaleSelector)
-        {
-            (m_scaleListener->*m_scaleSelector)(this);
-        }
-        break;
-    }
-}
-#endif
 
 CCSpriteEx* CCSpriteEx::createWithSpriteFrameName( const char* pszFrameName )
 {
@@ -359,18 +218,17 @@ CCSpriteEx::CCSpriteEx()
     , m_isInMove(false)
     , m_afterLongPress(false)
     , m_originScale(1.0f)
-    , m_scaleEnabled(false)
     , m_singleClickEnabled(false)
     , m_doubleClickEnabled(false)
     , m_longClickEnabled(false)
-    , m_scaleListener(NULL)
-    , m_scaleSelector(NULL)
     , m_longClickListener(NULL)
     , m_longClickSelector(NULL)
     , m_singleClickListener(NULL)
     , m_singleClickSelector(NULL)
     , m_doubleClickListener(NULL)
     , m_doubleClickSelector(NULL)
+    , m_excuteLongClick(false)
+    , m_needRestoreAfterLongClick(false)
 {
 
 }

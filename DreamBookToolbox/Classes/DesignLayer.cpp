@@ -26,7 +26,22 @@ DesignLayer::DesignLayer()
     , m_time(0.0f)
     , m_currentSpriteTag(-1)
     , m_finishedActionCount(1)
+    , m_enlarge(NULL)
+    , m_reduce(NULL)
+    , m_currentSprite(NULL)
 {
+    m_enlarge = CCSpriteEx::create("enhance.png");
+    addChild(m_enlarge, 1);
+    m_enlarge->setScale(0.3f);
+    m_enlarge->setSelectorForSingleClick(this, menu_selector(DesignLayer::enlarge));
+    m_enlarge->setVisible(false);
+
+    m_reduce = CCSpriteEx::create("small.png");
+    addChild(m_reduce, 1);
+    m_reduce->setScale(0.3f);
+    //m_reduce->setPosition(ccp(300, 300));
+    m_reduce->setSelectorForSingleClick(this, menu_selector(DesignLayer::reduce));
+    m_reduce->setVisible(false);
 }
 
 DesignLayer::~DesignLayer()
@@ -38,13 +53,15 @@ DesignLayer::~DesignLayer()
     m_lblTime = NULL;
 }
 
-void DesignLayer::addSpriteEx( cocos2d::CCSprite* pSprite )
+void DesignLayer::addSpriteEx( cocos2d::CCSpriteEx* pSprite )
 {
+    pSprite->setSelectorForDoubleClick(this, menu_selector(DesignLayer::showScaleToolButtons));
     this->addChild(pSprite, 0, pSprite->getTag());
 }
 
-void DesignLayer::addSpriteEx( cocos2d::CCSprite* pSprite, int zOrder )
+void DesignLayer::addSpriteEx( cocos2d::CCSpriteEx* pSprite, int zOrder )
 {
+    pSprite->setSelectorForDoubleClick(this, menu_selector(DesignLayer::showScaleToolButtons));
     this->addChild(pSprite, zOrder, pSprite->getTag());
 }
 
@@ -75,8 +92,8 @@ void DesignLayer::focusChild( cocos2d::CCSprite* pSprite )
 {
     float scaleValue = pSprite->getScale();
     CCActionInterval* pAction = CCRepeatForever::create(
-        (CCActionInterval*)CCSequence::create(CCScaleTo::create(0.4f, scaleValue + 0.1f), 
-        CCScaleTo::create(0.4f, scaleValue - 0.1f), NULL)
+        (CCActionInterval*)CCSequence::create(CCScaleTo::create(0.4f, scaleValue * 1.1f), 
+        CCScaleTo::create(0.4f, scaleValue * 0.9f), NULL)
         );
     pSprite->runAction(pAction);
     pAction->setTag(FocusActionTag);
@@ -91,7 +108,7 @@ void DesignLayer::designSpriteStatus( int tag )
         pActionSprite = (DBActionSprite*)(this->getChildByTag(m_currentSpriteTag));
         if (pActionSprite)
         {
-            pActionSprite->setScaleEnabled(false);
+            //pActionSprite->setScaleEnabled(false);
         }
     }
     m_currentSpriteTag = tag;
@@ -99,7 +116,7 @@ void DesignLayer::designSpriteStatus( int tag )
     this->stopChildrenActions(tag);
     pActionSprite = (DBActionSprite*)(this->getChildByTag(tag));
     pActionSprite->designStatus(m_time);
-    pActionSprite->setScaleEnabled(true);
+    //pActionSprite->setScaleEnabled(true);
     this->focusChild(pActionSprite);
 }   
 
@@ -128,7 +145,7 @@ void DesignLayer::runChildrenActions()
         pActionSprite = (DBActionSprite*)(this->getChildByTag(m_currentSpriteTag));
         if (pActionSprite)
         {
-            pActionSprite->setScaleEnabled(false);
+            //pActionSprite->setScaleEnabled(false);
         }
     }
     m_currentSpriteTag = -1;
@@ -154,7 +171,7 @@ void DesignLayer::activeActions( int tag )
         pActionSprite = (DBActionSprite*)(this->getChildByTag(m_currentSpriteTag));
         if (pActionSprite)
         {
-            pActionSprite->setScaleEnabled(false);
+            //pActionSprite->setScaleEnabled(false);
         }
     }
     m_currentSpriteTag = tag;
@@ -171,7 +188,7 @@ void DesignLayer::activeActions( int tag )
         pActionSprite->clearAction(m_time);
         pActionSprite->designAction(this->m_time);
         this->focusChild(pActionSprite);
-        pActionSprite->setScaleEnabled(true);
+        //pActionSprite->setScaleEnabled(true);
     }
     this->runChildrenActions(tag);
     setEnableTime(true);
@@ -205,4 +222,61 @@ void DesignLayer::setEnableTime( bool isTime )
     {
         this->unschedule(schedule_selector(DesignLayer::step));
     }
+}
+
+void DesignLayer::enlarge( cocos2d::CCObject* pSender )
+{
+    if (!m_currentSprite)
+    {
+        return;
+    }
+    float scale = m_currentSprite->getScale();
+    m_currentSprite->setScale(scale * 1.1f);
+}
+
+void DesignLayer::reduce( cocos2d::CCObject* pSender )
+{
+    if (!m_currentSprite)
+    {
+        return;
+    }
+    float scale = m_currentSprite->getScale();
+    m_currentSprite->setScale(scale * 0.9f);
+}
+
+void DesignLayer::showScaleToolButtons( cocos2d::CCObject* pSender )
+{
+    CCSprite* pSprite = (CCSprite*)pSender;
+    CCPoint pos = pSprite->getPosition();
+    CCSize contentSize = pSprite->getContentSize();
+    m_enlarge->setVisible(true);
+    m_reduce->setVisible(true);
+    m_enlarge->setPosition(ccpAdd(pos, ccp(40.0f, 0.0f)));
+    m_reduce->setPosition(ccpSub(pos, ccp(40.0f, 0.0f)));
+    m_currentSprite = pSprite;
+}
+
+bool DesignLayer::ccTouchBegan( CCTouch *pTouch, CCEvent *pEvent )
+{
+    CCPoint touchLocation = pTouch->getLocation();
+    if (!m_reduce->boundingBox().containsPoint(touchLocation) && 
+        !m_enlarge->boundingBox().containsPoint(touchLocation) &&
+        m_currentSprite && (!m_currentSprite->boundingBox().containsPoint(touchLocation)))
+    {
+        m_enlarge->setVisible(false);
+        m_reduce->setVisible(false);
+    }
+    return false;
+}
+
+void DesignLayer::onEnter()
+{
+    CCLayerColor::onEnter();
+    CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, 0/*priority=??*/, false);
+}
+
+void DesignLayer::onExit()
+{
+    CCDirector::sharedDirector()->getTouchDispatcher()->removeDelegate(this);
+    CCLayerColor::onExit();
 }

@@ -33,9 +33,7 @@ public:
 private:
     void onEnter();
     void onExit();
-    // 取得精灵的位置与尺寸
     CCRect rect();
-    // 触摸点是否在精灵上
     bool isTouchInside(CCTouch* touch);
     void restoreStatus();
 
@@ -45,11 +43,6 @@ protected:
     // optional
     virtual void ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent);
     virtual void ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent);
-
-    virtual void ccTouchesBegan( CCSet *pTouches, CCEvent *pEvent );
-    virtual void ccTouchesMoved( CCSet *pTouches, CCEvent *pEvent );
-    virtual void ccTouchesEnded( CCSet *pTouches, CCEvent *pEvent );
-    virtual void ccTouchesCancelled( CCSet *pTouches, CCEvent *pEvent );
 
 private:
     float m_originScale;
@@ -78,32 +71,20 @@ public:
     virtual void setSelectorForSingleClick(CCObject *target, SEL_MenuHandler singleClickSelector);
     virtual void setSelectorForDoubleClick(CCObject *target, SEL_MenuHandler doubleClickSelector);
     virtual void setSelectorForLongClick(CCObject *target, SEL_MenuHandler longClickSelector);
-    virtual void setSelectorForScale(CCObject* target, SEL_MenuHandler scaleSelector);
-    CC_SYNTHESIZE(bool, m_scaleEnabled, ScaleEnabled);
     CC_SYNTHESIZE(bool, m_singleClickEnabled, SingleClickEnabled);
     CC_SYNTHESIZE(bool, m_doubleClickEnabled, DoubleClickEnabled);
     CC_SYNTHESIZE(bool, m_longClickEnabled, LongClickEnabled);
 protected:
-    CCObject*       m_scaleListener;
-    SEL_MenuHandler m_scaleSelector;
-    float           m_distance;
+    CCObject*        m_longClickListener;
+    SEL_MenuHandler  m_longClickSelector;
 
-    // 点击事件处理
-    CCObject*       m_longClickListener;
-    SEL_MenuHandler m_longClickSelector;
+    CCObject*        m_singleClickListener;
+    SEL_MenuHandler  m_singleClickSelector;
 
-    CCObject*       m_singleClickListener;
-    SEL_MenuHandler m_singleClickSelector;
-
-    CCObject*       m_doubleClickListener;
-    SEL_MenuHandler m_doubleClickSelector;
-    float calcDistance(cocos2d::CCTouch *pTouch);
-
-    #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-    virtual void processWin32KeyPress( UINT message, WPARAM wParam, LPARAM lParam );
-    #endif // CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
-
-    float calcDistance(CCSet *pTouches);
+    CCObject*        m_doubleClickListener;
+    SEL_MenuHandler  m_doubleClickSelector;
+    bool             m_excuteLongClick;
+    bool             m_needRestoreAfterLongClick;
 };
 
 class CCSpriteExLoader : public cocos2d::extension::CCSpriteLoader {

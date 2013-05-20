@@ -57,7 +57,7 @@ DBActionSprite* DBActionSprite::createWithTexture( cocos2d::CCTexture2D *pTextur
 bool DBActionSprite::ccTouchBegan( CCTouch *pTouch, CCEvent *pEvent )
 {
     stopActionByTag(FocusActionTag);
-    setScale(1.0f);
+    //setScale(1.0f);
     return CCSpriteEx::ccTouchBegan(pTouch, pEvent);
 }
 

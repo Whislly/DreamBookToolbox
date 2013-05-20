@@ -97,8 +97,8 @@ void ObserveLayerContainer::highlightColor( int cellTag, const cocos2d::ccColor3
     //pChild->setColor(color3);
     m_oldHighlightCellScaleValue = pChild->getScale();
     CCActionInterval* pAction = CCRepeatForever::create(
-        (CCActionInterval*)CCSequence::create(CCScaleTo::create(0.4f, m_oldHighlightCellScaleValue + 0.1f), 
-         CCScaleTo::create(0.4f, m_oldHighlightCellScaleValue - 0.1f), NULL)
+        (CCActionInterval*)CCSequence::create(CCScaleTo::create(0.4f, m_oldHighlightCellScaleValue * 1.1f), 
+         CCScaleTo::create(0.4f, m_oldHighlightCellScaleValue * 0.9f), NULL)
          );
     pChild->runAction(pAction);
     pAction->setTag(FocusActionTag);
