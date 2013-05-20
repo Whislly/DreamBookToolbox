@@ -3,10 +3,10 @@
 
 #include "cocos2d.h"
 #include "ExtensionMacros.h"
-#include "rapidjson\document.h"
+#include "document.h"
 #include "ParseError.h"
 #include "Delegate.h"
-#include "cocoa\CCArray.h"
+#include "CCArray.h"
 
 NS_CC_EXT_BEGIN
 

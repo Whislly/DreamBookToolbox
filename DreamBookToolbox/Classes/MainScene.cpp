@@ -3,10 +3,11 @@
 #include "DreamBookScene.h"
 #include "ToyBrickScene.h"
 #include "DancingBoneScene.h"
-#include "Parse\Parse.h"
-#include "Parse\Delegate.h"
-#include "Parse\ParseObject.h"
-#include "Parse\ParseQuery.h"
+#include "Parse.h"
+#include "Delegate.h"
+#include "ParseObject.h"
+#include "ParseFile.h"
+#include "ParseQuery.h"
 
 USING_NS_CC;
 
@@ -41,7 +42,20 @@ void MainLayer::menuCloseCallback( CCObject* pSender )
     CCDirector::sharedDirector()->end();
 }
 
-//void MainLayer::SaveComplet(bool success, ParseError* error)
+//void MainLayer::UploadComplet(FileInfo* fileInfo, ParseError* error)
+//{	
+//	//obj->toString(str);
+//	//this->lbDebug->setString("SaveComplet start");
+//	static char buffer[4096] = {0};
+//	if (fileInfo)
+//	{
+//		sprintf(buffer, "%s, %s:", fileInfo->GetUrl().c_str(), fileInfo->GetFileName().c_str());
+//	}
+//
+//	//this->lbDebug->setString((buffer + error->GetError()).c_str());
+//}
+//
+////void MainLayer::SaveComplet(bool success, ParseError* error)
 //{	
 //	//obj->toString(str);
 //	this->lbDebug->setString("SaveComplet start");
@@ -161,7 +175,15 @@ bool MainLayer::init()
 		/*cocos2d::extension::Parse parse;
 		parse.setApplicationId("n1s82tGoQDgDM09qFNm0UQkKNO7yW1gqpQSavT5n");
 		parse.setApiKey("Nh4K6HM2tohkmQdeu5vfN7ZWP83OMQ72uH0YMtW7");
+		parse.setMasterKey("doMxP88XvGkICRrI3gPcCdwWMI26QZfzPMKER33m");*/
 
+		//ParseFile* file = new ParseFile();
+		/*file->uploadFileCompleted.Set(this, (Delegate<FileInfo*, ParseError*>::MemberFun)&MainLayer::UploadComplet);
+		file->uploadFile("D:", "smbios.zip");*/
+		//file->downloadFile("http://files.parse.com/148a2d0f-6637-47cf-b4d1-0c2083de23ef/03e0430a-ee2f-4e36-81fa-48c91607afa7-smbios.zip","D:\\Test.zip");
+		//file->deleteFile("03e0430a-ee2f-4e36-81fa-48c91607afa7-smbios.zip");
+		//file->release();
+		/*
 		cocos2d::extension::ParseQuery* query = new cocos2d::extension::ParseQuery("GameTest");
 		query->findObjectsCompleted.Set(this, (Delegate<CCArray*, ParseError*>::MemberFun)&MainLayer::GetComplet);
 		query->findObjects();

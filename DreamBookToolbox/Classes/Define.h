@@ -7,7 +7,7 @@
 #define Size_N2 128
 #define Size_N3 256
 
-#define Pic_Count 38
+#define Pic_Count 65
 
 enum ShapeType
 {

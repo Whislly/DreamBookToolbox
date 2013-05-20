@@ -17,6 +17,8 @@ public:
 	void setApplicationId(const std::string &applicationId);
 	std::string apiKey() const;
 	void setApiKey(const std::string &apiKey);
+	std::string masterKey() const;
+	void setMasterKey(const std::string &masterKey);
 	bool trace() const;
 	void setTrace(bool trace);
 };
