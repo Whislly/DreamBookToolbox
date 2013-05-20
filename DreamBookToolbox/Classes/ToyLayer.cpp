@@ -95,6 +95,22 @@ bool ToyLayer::init()
 		this->AddRandomToyBrick(ccp(200, 200));
 		this->AddRandomToyBrick(ccp(300, 300));
 		this->AddRandomToyBrick(ccp(500, 500));
+		
+		CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+
+		//Menu -Close
+		CCMenuItemImage *closeItem = CCMenuItemImage::create(
+				"close.png",
+				"close.png",
+				this,
+				menu_selector(ToyLayer::Back));
+		closeItem->setAnchorPoint(CCPointZero);
+		closeItem->setScale(2);
+		CCSize itemSize = closeItem->getContentSize();
+		closeItem->setPosition(winSize.width - (itemSize.width + 15) *  2,  winSize.height - (itemSize.height + 15) * 2);
+		CCMenu* menu = CCMenu::create(closeItem, NULL);
+		menu->setPosition(0, 0);
+		this->addChild(menu);
 
 		//=================== Common Setting =====================
 		scheduleUpdate();
@@ -533,4 +549,9 @@ void ToyLayer::onExit()
 #else
     CCDirector::sharedDirector()->getTouchDispatcher()->addStandardDelegate(this, 0);
 #endif // CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+}
+
+void ToyLayer::Back(CCObject* pSender)
+{
+    CCDirector::sharedDirector()->replaceScene(CCTransitionPageTurn::create(0.5f, MainLayer::scene(), true));
 }

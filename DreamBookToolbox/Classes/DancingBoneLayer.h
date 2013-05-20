@@ -16,13 +16,19 @@
 
 USING_NS_CC;
 
+class MouseJointObject : public CCObject
+{
+public :
+	b2MouseJoint *mouseJoint;
+};
+
 class DancingBoneLayer : public CCLayer
 {
 private:		
     b2World *world;
     b2Body *groundBody;
 
-    b2MouseJoint *mouseJoint;
+    //b2MouseJoint *mouseJoint;
     CCArray *boneArray;
 
 	CCMenuItemImage *pushpin;
@@ -32,6 +38,8 @@ private:
 
 	CCSprite *pushpinNormal;
 	CCSprite *pushpinDown;
+
+	CCDictionary *touchDic;
 
 public:
     DancingBoneLayer(void);

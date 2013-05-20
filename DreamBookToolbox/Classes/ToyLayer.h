@@ -53,6 +53,8 @@ public:
     virtual void onEnter();
     virtual void onExit();
 
+	void Back(CCObject* pSender);
+
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
     virtual void processWin32KeyPress( UINT message, WPARAM wParam, LPARAM lParam );    
 #endif // CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
