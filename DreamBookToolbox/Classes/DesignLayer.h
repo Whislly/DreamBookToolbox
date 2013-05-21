@@ -44,6 +44,8 @@ private:
     virtual bool ccTouchBegan( cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent );
     virtual void onEnter();
     virtual void onExit();
+public:
+    void saveData();
 };
 
 #endif  // __DesignLayer_H__

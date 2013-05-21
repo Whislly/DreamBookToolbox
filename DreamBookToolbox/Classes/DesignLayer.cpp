@@ -132,6 +132,20 @@ void DesignLayer::runChildrenActions( int tag )
     }
 }
 
+void DesignLayer::saveData()
+{
+    CCObject* pObj = NULL;
+    CCArray* pChildren = getChildren();
+    CCARRAY_FOREACH(pChildren, pObj)
+    {
+        DBActionSprite* pActionSprite = (DBActionSprite*)(pObj);
+        if (pActionSprite && (pActionSprite->getTag() != -1))
+        {
+            pActionSprite->save();
+        }
+    }
+}
+
 void DesignLayer::addFinishedActionCount()
 {
     this->m_finishedActionCount++;

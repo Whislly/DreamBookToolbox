@@ -164,6 +164,11 @@ void DBActionSprite::excuteAction( float time, cocos2d::CCObject *target, cocos2
     }
 }
 
+void DBActionSprite::save()
+{
+    this->m_data->save(this->getTag());
+}
+
 void DBActionSprite::transform( float time )
 {
     DBPropertyData* propertyData = m_data->getDBPropertyData(time);

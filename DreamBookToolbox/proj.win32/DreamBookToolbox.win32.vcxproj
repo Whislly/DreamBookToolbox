@@ -127,6 +127,7 @@
     <None Include="..\Resources\font09.png" />
     <None Include="..\Resources\PlayBox.plist" />
     <None Include="..\Resources\PlayBox.png" />
+    <None Include="..\Resources\save.png" />
     <None Include="res\DreamBookToolbox.ico" />
   </ItemGroup>
   <ItemGroup>

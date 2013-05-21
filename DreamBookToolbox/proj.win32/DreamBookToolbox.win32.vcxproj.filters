@@ -81,6 +81,9 @@
     <None Include="..\Resources\PlayBox.png">
       <Filter>resource</Filter>
     </None>
+    <None Include="..\Resources\save.png">
+      <Filter>resource</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DreamBookToolbox.rc">

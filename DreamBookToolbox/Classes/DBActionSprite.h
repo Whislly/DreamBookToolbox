@@ -54,6 +54,8 @@ public:
 protected:
     cocos2d::CCObject*       m_finishedActionListener;
     cocos2d::SEL_CallFunc    m_finishedActionSelector;
+public:
+    void save();
 };
 
 #endif  // __DBAction_Sprite_H__

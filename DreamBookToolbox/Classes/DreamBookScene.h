@@ -10,6 +10,16 @@
 #include "ObserveLayer.h"
 #include "PicPickupLayer.h"
 
+#include "Parse\ParseError.h"
+#include "Parse\ParseFile.h"
+
+#include "Parse.h"
+#include "Delegate.h"
+#include "ParseObject.h"
+#include "ParseFile.h"
+#include "ParseQuery.h"
+
+
 #define    RAND_LIMIT    32767
 
 class DreamBookLayer : public cocos2d::CCLayer
@@ -29,6 +39,7 @@ private:
     ObserveLayer* m_observeLayer;
     DesignLayer* m_designLayer;
     PicPickupLayer* m_picPickupLayer;
+    cocos2d::extension::ParseFile* file;
 public:
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
     virtual bool init();  
@@ -48,6 +59,11 @@ public:
 
     // implement the "static node()" method manually
     CREATE_FUNC(DreamBookLayer);
+
+    void saveDataToCloud(CCObject* pSender);
+    void readyUploadFile();
+
+    void UploadComplet(cocos2d::extension::FileInfo* fileInfo, cocos2d::extension::ParseError* error);
 
     DreamBookLayer();
     ~DreamBookLayer();

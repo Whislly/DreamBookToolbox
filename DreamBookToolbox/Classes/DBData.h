@@ -10,6 +10,7 @@ protected:
     cocos2d::CCDictionary* m_dic;
     virtual bool init();
     void addDBPropertyData(float time, DBPropertyData* propertyData);
+    cocos2d::CCArray* m_resourceFileArray;
 public:
     DBData();
     ~DBData();
@@ -18,6 +19,7 @@ public:
     void removeDBPropertyData(float startTime, float endTime);
     CC_SYNTHESIZE(float, m_startTime, StartTime);
     CC_SYNTHESIZE(float, m_endTime, EndTime);
+    void save(int tag);
 };
 
 #endif  // __DBData_H__

@@ -14,6 +14,7 @@ public:
     cocos2d::CCPoint getPosition();    
     void setPosition(cocos2d::CCPoint& pos);
     CC_SYNTHESIZE(float, m_scale, Scale);
+    void save(int tag, int time);
 };
 
 #endif  // __DBPropertyData_H__

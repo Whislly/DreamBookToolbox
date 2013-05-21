@@ -5,8 +5,12 @@
 #include "DBActionSprite.h"
 #include "MainScene.h"
 #include "Define.h"
+#include "CCSpriteEx.h"
 
 using namespace cocos2d;
+using namespace cocos2d::extension;
+
+#define USER_DEFAULT_NAME "UserDefault.xml"
 
 cocos2d::CCParticleSystem* DreamBookLayer::createGestureStyle()
 {
@@ -193,6 +197,17 @@ void DreamBookLayer::addDesignLayer()
     m_designLayer->addTimeLabel();
 }
 
+void DreamBookLayer::saveDataToCloud( CCObject* pSender )
+{
+    CCLabelTTF* lbDebug = CCLabelTTF::create("Start upload...", "Arial", 40);
+    lbDebug->setColor(ccWHITE);
+    addChild(lbDebug, 1, 99);
+    lbDebug->setPosition(ccp(CCDirector::sharedDirector()->getWinSize().width * 0.5f, CCDirector::sharedDirector()->getWinSize().height * 0.5f));
+    lbDebug->runAction(CCRepeatForever::create(CCBlink::create(1.0f, 1)));
+    m_designLayer->saveData();
+    this->file->uploadFile(CCFileUtils::sharedFileUtils()->getWritablePath().c_str(), USER_DEFAULT_NAME);
+}
+
 // on "init" you need to initialize your instance
 bool DreamBookLayer::init()
 {
@@ -218,7 +233,7 @@ bool DreamBookLayer::init()
         CC_BREAK_IF(! pBackItem);
 
         // Place the menu item bottom-right conner.
-        pBackItem->setPosition(ccp(CCDirector::sharedDirector()->getWinSize().width - 50, 20));
+        pBackItem->setPosition(ccp(CCDirector::sharedDirector()->getWinSize().width - 50, 25));
 
         // Create a menu with the "close" menu item, it's an auto release object.
         CCMenu* pMenu = CCMenu::create(pBackItem, NULL);
@@ -242,6 +257,14 @@ bool DreamBookLayer::init()
         this->addObserveLayer();
         this->addDesignLayer();
 
+        this->readyUploadFile();
+
+        CCSpriteEx* saveButton = CCSpriteEx::create("save.png");
+        saveButton->setSelectorForSingleClick(this, menu_selector(DreamBookLayer::saveDataToCloud));
+        saveButton->setScale(0.5f);
+        addChild(saveButton);
+        saveButton->setPosition(ccp(CCDirector::sharedDirector()->getWinSize().width - 130, 30));
+
         bRet = true;
     } while (0);
 
@@ -252,6 +275,7 @@ DreamBookLayer::DreamBookLayer()
     : m_designLayer(NULL)
     , m_observeLayer(NULL)
     , m_picPickupLayer(NULL)
+    , file(NULL)
 {
 
 }
@@ -270,4 +294,37 @@ DreamBookLayer::~DreamBookLayer()
     {
         m_picPickupLayer->release();
     }
+    if (file)
+    {
+        file->release();
+    }
+}
+
+void DreamBookLayer::UploadComplet( FileInfo* fileInfo, ParseError* error )
+{
+    removeChildByTag(99, true);
+    static char buffer[4096] = {0};
+    if (fileInfo)
+    {
+        sprintf(buffer, "%s, %s:", fileInfo->GetUrl().c_str(), fileInfo->GetFileName().c_str());
+        file->uploadFileContent("filePath.txt", buffer, strlen(buffer));
+    }
+}
+
+void DreamBookLayer::readyUploadFile()
+{
+    /*this->lbDebug = CCLabelTTF::create("Start", "Arial", 24);
+    this->lbDebug->setColor(ccc3(255, 255, 1));
+    this->lbDebug->setPosition(ccp(0, winSize.height - 100));
+    this->lbDebug->setAnchorPoint(CCPointZero);
+    this->addChild(this->lbDebug);*/
+
+	//add Whislly test start
+	cocos2d::extension::Parse parse;
+	parse.setApplicationId("n1s82tGoQDgDM09qFNm0UQkKNO7yW1gqpQSavT5n");
+	parse.setApiKey("Nh4K6HM2tohkmQdeu5vfN7ZWP83OMQ72uH0YMtW7");
+	parse.setMasterKey("doMxP88XvGkICRrI3gPcCdwWMI26QZfzPMKER33m");
+
+	file = new ParseFile();
+	file->uploadFileCompleted.Set(this, (Delegate<FileInfo*, ParseError*>::MemberFun)&DreamBookLayer::UploadComplet);
 }

@@ -6,6 +6,7 @@ DBData::DBData()
     : m_dic(NULL)
     , m_startTime(0.0f)
     , m_endTime(0.0f)
+    , m_resourceFileArray(NULL)
 {
 
 }
@@ -92,4 +93,27 @@ void DBData::removeDBPropertyData( float startTime, float endTime )
         }
         this->m_dic->removeObjectForKey(i);
     }
+}
+
+void DBData::save(int tag)
+{
+    CCUserDefault* pUserData = CCUserDefault::sharedUserDefault();
+    CCObject* pObj = NULL;
+    char key[255];
+    int idx = 1;
+    CCARRAY_FOREACH(m_resourceFileArray, pObj)
+    {
+        CCString* str = (CCString*)pObj;
+        sprintf(key, "tag%d_frame%d", tag, idx);
+        pUserData->setStringForKey(key, str->m_sString);
+        idx++;
+    }
+
+    CCDictElement* pElement;
+    CCDICT_FOREACH(m_dic, pElement)
+    {
+        DBPropertyData* pPropertyData = (DBPropertyData*)pElement->getObject();
+        pPropertyData->save(tag, pElement->getIntKey());
+    }
+    pUserData->flush();
 }
