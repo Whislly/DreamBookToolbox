@@ -148,6 +148,8 @@
     <ClInclude Include="..\Classes\DesignLayer.h" />
     <ClInclude Include="..\Classes\DynamicLayerContainer.h" />
     <ClInclude Include="..\Classes\EnumObserverOrientation.h" />
+    <ClInclude Include="..\Classes\FileSprite.h" />
+    <ClInclude Include="..\Classes\FrameSprite.h" />
     <ClInclude Include="..\Classes\GeometricRecognizer.h" />
     <ClInclude Include="..\Classes\GeometricRecognizerTypes.h" />
     <ClInclude Include="..\Classes\GestureLayer.h" />
@@ -191,6 +193,8 @@
     <ClCompile Include="..\Classes\DBPropertyData.cpp" />
     <ClCompile Include="..\Classes\DesignLayer.cpp" />
     <ClCompile Include="..\Classes\DynamicLayerContainer.cpp" />
+    <ClCompile Include="..\Classes\FileSprite.cpp" />
+    <ClCompile Include="..\Classes\FrameSprite.cpp" />
     <ClCompile Include="..\Classes\GeometricRecognizer.cpp" />
     <ClCompile Include="..\Classes\GestureLayer.cpp" />
     <ClCompile Include="..\Classes\DreamBookScene.cpp" />

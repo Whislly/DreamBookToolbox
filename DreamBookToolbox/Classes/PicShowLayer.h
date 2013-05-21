@@ -10,6 +10,8 @@
 
 #include "IInputNotifier.h"
 
+#include "FileSprite.h"
+
 USING_NS_CC;
 
 

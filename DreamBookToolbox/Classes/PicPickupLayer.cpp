@@ -123,7 +123,7 @@ void PicPickupLayer::ClickOnSprite(CCPoint location, CCSprite *sprite)
 	newPos = ccp(newPos.x + selectLayerPos.x, newPos.y + selectLayerPos.y);
 
 	//add new sprite to right panel
-	CCSprite *newSprite = CommonHelper::CloneSprite(sprite);
+	FileSprite *newSprite = CommonHelper::CloneFileSprite((FileSprite*)sprite);
 	newSprite->setPosition(newPos);
 	newSprite->setScale(0.5 * scale);
 	newSprite->setContentSize(newSize);

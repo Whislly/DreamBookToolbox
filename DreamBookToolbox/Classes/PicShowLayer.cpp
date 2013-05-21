@@ -47,16 +47,6 @@ void PicShowLayer::draw()
 		//debug
 		CCSize size = this->getContentSize();
 		ccDrawRect(ccp(0,0), ccp(size.width, size.height));
-
-		//debug
-		/*
-		for (int i = 0; i < this->elementArr->count(); i++)
-		{
-				CCSprite *s = (CCSprite*)this->elementArr->objectAtIndex(i);
-				CCRect rect = s->boundingBox();
-				ccDrawRect(ccp(s->getPosition().x, s->getPosition().y), ccp(rect.getMaxX(), rect.getMaxY()));
-		}
-		*/
 }
 
 PicShowLayer* PicShowLayer::create(int startIndex)
@@ -94,14 +84,15 @@ bool PicShowLayer::init()
 		int y = this->getContentSize().height - Size_N2 - yMargin;
 		int yCount = 0;
 		// create icons
-		char path[255] = {0};
+		
 		int count = 0;
 		for (int i = this->startIndex + 1; i <= Pic_Count; i++)
 		{
 				count++;
 
-				sprintf(path, "Images/PicPickup/Icons-N2/%d.png", i);
-				CCSprite *s = CCSprite::create(path);
+				FileSprite *s = FileSprite::create();
+				sprintf(s->path, "Images/PicPickup/Icons-N2/%d.png", i);
+				s->initWithFile(s->path);
 				s->setPosition(ccp(x, y));
 				s->setAnchorPoint(CCPointZero);
 				CCSize size = s->getContentSize();
@@ -154,7 +145,7 @@ void PicShowLayer::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent)
 
 				for (int i = 0; i < this->elementArr->count(); i++)
 				{
-						CCSprite *s = (CCSprite*)this->elementArr->objectAtIndex(i);
+						FileSprite *s = (FileSprite*)this->elementArr->objectAtIndex(i);
 						//CCRect rect = s->boundingBox();
 						CCPoint thePos = s->getPosition();
 						CCSize theSize = s->getContentSize();
@@ -196,10 +187,10 @@ void PicShowLayer::ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent)
 				location.x -= this->getPositionX();
 				location.y -= this->getPositionY();
 
-				CCSprite* sEnd = NULL;
+				FileSprite* sEnd = NULL;
 				for (int i = 0; i < this->elementArr->count(); i++)
 				{
-						CCSprite *s = (CCSprite*)this->elementArr->objectAtIndex(i);
+						FileSprite *s = (FileSprite*)this->elementArr->objectAtIndex(i);
 						//CCRect rect = s->boundingBox();
 						
 						CCPoint thePos = s->getPosition();

@@ -226,6 +226,7 @@ void DancingBoneLayer::InitBones()
 	this->AddToyBrick(arm8, ccp(350, 150));
 
 	//--------------------------------Toys------------------------------
+	/*
 	ToyBrick *tri1 = this->CreateBrick_Triangle();
 	this->AddToyBrick(tri1, ccp(480, 400));
 	ToyBrick *tri2 = this->CreateBrick_Triangle();
@@ -245,6 +246,7 @@ void DancingBoneLayer::InitBones()
 
 	ToyBrick *big1 = this->CreateBrick_BigRectangle();
 	this->AddToyBrick(big1, ccp(600, 350));
+	*/
 }
 
 void DancingBoneLayer::SetMode(bool isReal)
