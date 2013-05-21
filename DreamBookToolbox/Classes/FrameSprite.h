@@ -20,6 +20,8 @@ public:
 	~FrameSprite(void);
 
 	CREATE_FUNC(FrameSprite);
+	
+	virtual const char* description(void);
 
 	void AddPath(char* path);
 };

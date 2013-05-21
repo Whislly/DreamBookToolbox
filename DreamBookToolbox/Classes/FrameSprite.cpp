@@ -29,3 +29,7 @@ void FrameSprite::AddPath(char* path)
 	pathObj->retain();
 }
 
+const char* FrameSprite::description(void)
+{
+	return "DBT.FrameSprite";
+}

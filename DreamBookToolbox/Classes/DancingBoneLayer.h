@@ -28,8 +28,8 @@ private:
     b2World *world;
     b2Body *groundBody;
 
-    //b2MouseJoint *mouseJoint;
     CCArray *boneArray;
+	CCArray *pushpinSpriteArray;
 
 	CCMenuItemImage *pushpin;
 
