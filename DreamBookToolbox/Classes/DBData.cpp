@@ -99,14 +99,39 @@ void DBData::save(int tag)
 {
     CCUserDefault* pUserData = CCUserDefault::sharedUserDefault();
     CCObject* pObj = NULL;
-    char key[255];
-    int idx = 1;
-    CCARRAY_FOREACH(m_resourceFileArray, pObj)
+    char key[255] = {0};
+    int idx = 0;
+    if(m_resourceFileArray)
     {
-        CCString* str = (CCString*)pObj;
-        sprintf(key, "tag%d_frame%d", tag, idx);
-        pUserData->setStringForKey(key, str->m_sString);
-        idx++;
+        sprintf(key, "tag%d_frameCount", tag);
+        pUserData->setIntegerForKey(key, m_resourceFileArray->count());
+        CCARRAY_FOREACH(m_resourceFileArray, pObj)
+        {
+            CCString* str = (CCString*)pObj;
+            sprintf(key, "tag%d_frame%d", tag, idx);
+            pUserData->setStringForKey(key, str->m_sString);
+            idx++;
+        }
+    }
+
+    char content[255] = {0};
+    idx = 0;
+    CCArray* keyArrays = m_dic->allKeys();
+    CCARRAY_FOREACH(keyArrays, pObj)
+    {
+        CCInteger* pKey = (CCInteger*)pObj;
+        sprintf(key, "tag%d_propertyDataArray%d", tag, idx);
+        sprintf(content, "%s,%d", content, pKey->getValue());
+        if (strlen(content + 1) >= 248)
+        {
+            pUserData->setStringForKey(key, content + 1);
+            idx++;
+            memset(content, 0, 255);
+        }
+    }
+    if (strlen(content + 1) > 0)
+    {
+        pUserData->setStringForKey(key, content + 1);
     }
 
     CCDictElement* pElement;
@@ -116,4 +141,9 @@ void DBData::save(int tag)
         pPropertyData->save(tag, pElement->getIntKey());
     }
     pUserData->flush();
+}
+
+void DBData::load( int tag )
+{
+
 }
