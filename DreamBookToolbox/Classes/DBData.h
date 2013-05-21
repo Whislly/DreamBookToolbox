@@ -20,6 +20,7 @@ public:
     CC_SYNTHESIZE(float, m_startTime, StartTime);
     CC_SYNTHESIZE(float, m_endTime, EndTime);
     void save(int tag);
+    void load(int tag);
 };
 
 #endif  // __DBData_H__

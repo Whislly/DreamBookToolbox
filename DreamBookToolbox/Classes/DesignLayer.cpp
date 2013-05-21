@@ -136,6 +136,32 @@ void DesignLayer::saveData()
 {
     CCObject* pObj = NULL;
     CCArray* pChildren = getChildren();
+
+    char key[255] = {0};
+    char content[255] = {0};
+    int idx = 0;
+    CCUserDefault* pUserData = CCUserDefault::sharedUserDefault();
+    CCARRAY_FOREACH(pChildren, pObj)
+    {
+        CCNode* pNode = (CCNode*)pObj;
+        if (pNode->getTag() == -1)
+        {
+            continue;
+        }
+        sprintf(key, "tagArray%d", idx);
+        sprintf(content, "%s,%d", content, pNode->getTag());
+        if (strlen(content + 1) >= 248)
+        {
+            pUserData->setStringForKey(key, content + 1);
+            idx++;
+            memset(content, 0, 255);
+        }
+    }
+    if (strlen(content + 1) > 0)
+    {
+        pUserData->setStringForKey(key, content + 1);
+    }
+
     CCARRAY_FOREACH(pChildren, pObj)
     {
         DBActionSprite* pActionSprite = (DBActionSprite*)(pObj);
