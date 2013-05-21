@@ -303,11 +303,13 @@ DreamBookLayer::~DreamBookLayer()
 void DreamBookLayer::UploadComplet( FileInfo* fileInfo, ParseError* error )
 {
     removeChildByTag(99, true);
-    static char buffer[4096] = {0};
     if (fileInfo)
     {
-        sprintf(buffer, "%s, %s:", fileInfo->GetUrl().c_str(), fileInfo->GetFileName().c_str());
-        file->uploadFileContent("filePath.txt", buffer, strlen(buffer));
+        ParseObject* object = new ParseObject("DataFile");
+        object->Add("url", fileInfo->GetUrl().c_str());
+        object->Add("name", fileInfo->GetFileName().c_str());
+        object->save();
+        object->release();
     }
 }
 
