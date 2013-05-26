@@ -5,12 +5,6 @@
 
 USING_NS_CC;
 
-class PathObject : public CCObject
-{
-public:
-	char path[255];
-};
-
 class FrameSprite : public CCSprite
 {
 public:
@@ -21,9 +15,9 @@ public:
 
 	CREATE_FUNC(FrameSprite);
 	
-	virtual const char* description(void);
-
 	void AddPath(char* path);
+
+    virtual const char* objectInfor();
 };
 
 #endif

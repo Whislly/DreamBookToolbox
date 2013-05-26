@@ -14,8 +14,7 @@ public:
 	~FileSprite(void);
 
 	CREATE_FUNC(FileSprite);
-
-	virtual const char* description(void);
+    virtual const char* objectInfor();
 };
 
 #endif

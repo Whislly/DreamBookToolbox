@@ -21,6 +21,9 @@ public:
     CC_SYNTHESIZE(float, m_endTime, EndTime);
     void save(int tag);
     void load(int tag);
+public:
+    void addResourcePath(char* path);
+    void addResourcePath(cocos2d::CCArray* pathArray);
 };
 
 #endif  // __DBData_H__

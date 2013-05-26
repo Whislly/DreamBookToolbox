@@ -8,7 +8,7 @@ FileSprite::~FileSprite()
 {
 }
 
-const char* FileSprite::description(void)
+const char* FileSprite::objectInfor()
 {
-	return "DBT.FileSprite";
+    return "DBT.FileSprite";
 }

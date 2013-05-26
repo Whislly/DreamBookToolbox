@@ -58,6 +58,9 @@ public:
     void save();
     void load();
     static DBActionSprite* create();
+public:
+    void addResourcePath(char* path);
+    void addResourcePath(cocos2d::CCArray* pathArray);
 };
 
 #endif  // __DBAction_Sprite_H__

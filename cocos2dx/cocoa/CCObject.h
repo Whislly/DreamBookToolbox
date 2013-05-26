@@ -72,6 +72,9 @@ public:
     virtual void update(float dt) {CC_UNUSED_PARAM(dt);};
     
     friend class CCAutoreleasePool;
+
+public:
+    virtual const char* objectInfor() {return "CCObject";}
 };
 
 

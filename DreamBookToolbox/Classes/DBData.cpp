@@ -9,7 +9,7 @@ DBData::DBData()
     , m_endTime(0.0f)
     , m_resourceFileArray(NULL)
 {
-
+    m_resourceFileArray = CCArray::createWithCapacity(1);
 }
 
 DBData::~DBData()
@@ -209,4 +209,14 @@ void DBData::load( int tag )
         pPropertyData->load(tag, pInt->getValue());
         m_dic->setObject(pPropertyData, pInt->getValue());
     }
+}
+
+void DBData::addResourcePath( char* path )
+{
+    m_resourceFileArray->addObject(CCString::create(path));
+}
+
+void DBData::addResourcePath( CCArray* pathArray )
+{
+    m_resourceFileArray->addObjectsFromArray(pathArray);
 }

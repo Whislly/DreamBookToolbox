@@ -6,6 +6,8 @@
 #include "MainScene.h"
 #include "Define.h"
 #include "CCSpriteEx.h"
+#include "FileSprite.h"
+#include "FrameSprite.h"
 
 using namespace cocos2d;
 using namespace cocos2d::extension;
@@ -135,9 +137,18 @@ void DreamBookLayer::addNewCell( cocos2d::CCObject* pSender, cocos2d::CCArray* p
         CCSprite* pSprite = (CCSprite*)pElementArray->objectAtIndex(i);
         if(pSprite)
         {
-            CCSpriteEx* pCell = CCSpriteEx::createWithTexture(pSprite->getTexture(), pSprite->getTextureRect());
+            DBActionSprite* pCell = DBActionSprite::createWithTexture(pSprite->getTexture(), pSprite->getTextureRect());
             pCell->setSelectorForSingleClick(this, menu_selector(DreamBookLayer::activeCell));
             pCell->setSelectorForDoubleClick(this, menu_selector(DreamBookLayer::activeActions));
+            const char* information = pSprite->objectInfor();
+            if (strstr(information, "FileSprite"))
+            {
+                pCell->addResourcePath(((FileSprite*)pSprite)->path);
+            }
+            else if(strstr(information, "FrameSprite"))
+            {
+                pCell->addResourcePath(((FrameSprite*)pSprite)->pathArray);
+            }
             m_observeLayer->addCell(pCell);
 
             cocos2d::CCArray *arr = pSprite->getAllActions();

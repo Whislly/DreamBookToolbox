@@ -271,3 +271,13 @@ DBActionSprite* DBActionSprite::create()
     CC_SAFE_DELETE(pActionSprite);
     return NULL;
 }
+
+void DBActionSprite::addResourcePath( char* path )
+{
+    m_data->addResourcePath(path);
+}
+
+void DBActionSprite::addResourcePath( CCArray* pathArray )
+{
+    m_data->addResourcePath(pathArray);
+}

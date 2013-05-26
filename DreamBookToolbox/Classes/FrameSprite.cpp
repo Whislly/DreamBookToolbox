@@ -13,7 +13,7 @@ FrameSprite::~FrameSprite()
 	{
 		for (int i = 0; i < this->pathArray->count(); i++)
 		{
-			PathObject *pathObj = (PathObject*)this->pathArray->objectAtIndex(i);
+			CCString* pathObj = (CCString*)this->pathArray->objectAtIndex(i);
 			pathObj->release();
 		}
 		this->pathArray->release();
@@ -22,14 +22,12 @@ FrameSprite::~FrameSprite()
 
 void FrameSprite::AddPath(char* path)
 {
-	PathObject *pathObj = new PathObject();
-	pathObj->autorelease();
-	sprintf(pathObj->path, path);
+	CCString *pathObj = CCString::create(path);
 
 	pathObj->retain();
 }
 
-const char* FrameSprite::description(void)
+const char* FrameSprite::objectInfor()
 {
-	return "DBT.FrameSprite";
+    return "DBT.FrameSprite";
 }
