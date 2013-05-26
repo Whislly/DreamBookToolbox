@@ -15,6 +15,9 @@
 
 #include "CCSpriteEx.h"
 
+#include "FileSprite.h"
+#include "FrameSprite.h"
+
 USING_NS_CC;
 
 class PicSelectionLayer : public CCLayerColor
@@ -42,7 +45,7 @@ public:
 		CCPoint GetPreAddPos(CCSize spriteSize);
 		void AddElement(CCSprite *sprite);
 
-		CCSprite* CombineSpriteOnTime(CCArray *spriteArray, float interval);
+		FrameSprite* CombineSpriteOnTime(CCArray *spriteArray, float interval);
 		void AdjustSprite(CCArray *spriteArray, CCSprite *newSprite);
 
 		void ClickOnCombineTime(CCObject* pSender);

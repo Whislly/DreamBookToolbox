@@ -32,13 +32,14 @@ DesignLayer::DesignLayer()
     , m_currentSprite(NULL)
 {
     m_enlarge = CCSpriteEx::create("enhance.png");
-    addChild(m_enlarge, 1);
+    addChild(m_enlarge, 5);
     m_enlarge->setScale(0.3f);
     m_enlarge->setSelectorForSingleClick(this, menu_selector(DesignLayer::enlarge));
     m_enlarge->setVisible(false);
+    //m_enlarge->setPosition(ccp(300, 300));
 
     m_reduce = CCSpriteEx::create("small.png");
-    addChild(m_reduce, 1);
+    addChild(m_reduce, 5);
     m_reduce->setScale(0.3f);
     //m_reduce->setPosition(ccp(300, 300));
     m_reduce->setSelectorForSingleClick(this, menu_selector(DesignLayer::reduce));
@@ -340,7 +341,9 @@ void DesignLayer::showScaleToolButtons( cocos2d::CCObject* pSender )
     m_enlarge->setVisible(true);
     m_reduce->setVisible(true);
     m_enlarge->setPosition(ccpAdd(pos, ccp(40.0f, 0.0f)));
+    m_enlarge->runAction(CCShow::create());
     m_reduce->setPosition(ccpSub(pos, ccp(40.0f, 0.0f)));
+    m_reduce->runAction(CCShow::create());
     m_currentSprite = pSprite;
 }
 

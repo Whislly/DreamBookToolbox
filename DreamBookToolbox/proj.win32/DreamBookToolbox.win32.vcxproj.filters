@@ -220,6 +220,12 @@
     <ClInclude Include="..\Classes\MultiBodyQueryCallback.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\FileSprite.h">
+      <Filter>include\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\FrameSprite.h">
+      <Filter>include\Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -329,6 +335,12 @@
     </ClCompile>
     <ClCompile Include="..\Classes\MultiBodyQueryCallback.cpp">
       <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\FileSprite.cpp">
+      <Filter>source\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\FrameSprite.cpp">
+      <Filter>source\Common</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

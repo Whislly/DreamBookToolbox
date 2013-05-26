@@ -8,6 +8,7 @@ DancingBoneLayer::DancingBoneLayer(void)
 	this->world = NULL;
 	this->groundBody = NULL;
 	this->boneArray = NULL;
+	this->pushpinSpriteArray = NULL;
 
 	this->pushpinNormal = NULL;
 	this->pushpinDown = NULL;
@@ -20,6 +21,11 @@ DancingBoneLayer::~DancingBoneLayer()
 	if (this->boneArray != NULL)
 	{
 		this->boneArray->release();
+	}
+
+	if (this->pushpinSpriteArray != NULL)
+	{
+		this->pushpinSpriteArray->release();
 	}
 
 	if (this->pushpinNormal != NULL)
@@ -128,7 +134,6 @@ void DancingBoneLayer::update(float dt)
 			b2Body *b1 = joint->GetBodyA();
 			b2Body *b2 = joint->GetBodyB();
 
-			
 			if ((b1 != this->groundBody) &&
 				(b2 != this->groundBody))
 			{
@@ -144,6 +149,18 @@ void DancingBoneLayer::update(float dt)
 			}
 
 			joint = joint->GetNext();
+		}
+	}
+
+	if (!this->isReal)
+	{
+		for (int i = 0; i < this->pushpinSpriteArray->count(); i++)
+		{
+			CCSprite* sprite = (CCSprite*)this->pushpinSpriteArray->objectAtIndex(i);
+			b2Joint* joint = (b2Joint*)sprite->getUserData();
+			b2Vec2 vec = joint->GetAnchorA();
+			CCPoint pos = ccp(vec.x * PTM_RATIO, vec.y * PTM_RATIO);
+			sprite->setPosition(pos);
 		}
 	}
 
@@ -174,31 +191,64 @@ void DancingBoneLayer::draw()
 	ccDrawColor4B(124,1,1,128);
 	cocos2d::ccDrawLine(ccp(0, 4 * PTM_RATIO), ccp(VisibleRect::rightBottom().x, 4 * PTM_RATIO));
 
+	/*
+	if (this->world == NULL)
+	{
+		return;
+	}
+	for (int i = 0; i < this->boneArray->count(); i++)
+	{
+		b2Body *body = ((PhysicsSprite*)this->boneArray->objectAtIndex(i))->body;
+		//body->set;
+		b2Shape *shape = body->GetFixtureList()->GetShape();
+		b2Vec2 pos = body->GetPosition();
+
+		if (shape->GetType() == b2Shape::e_circle)
+		{
+		}
+		else if (shape->GetType() == b2Shape::e_polygon)
+		{
+			b2PolygonShape *polShape = (b2PolygonShape*)shape;
+			for (int i = 0; i < polShape->GetVertexCount(); i++)
+			{
+				b2Vec2 vec = polShape->GetVertex(i);
+				CCPoint posVec = ccp((vec.x + pos.x) * PTM_RATIO, (vec.y + pos.y) * PTM_RATIO);
+				cocos2d::ccDrawCircle(posVec, 16, 0, 16, true);
+			}
+		}
+	};
+	*/
+	
+	/*
 	//draw joint
 	if ((!this->isReal) && (this->world != NULL))
 	{
-		int count = this->world->GetJointCount();
-		b2Joint *joint = this->world->GetJointList();
-		for (int i = 0; i < count; i++)
-		{
-			if ((joint->GetBodyA() != this->groundBody) &&
-				(joint->GetBodyB() != this->groundBody))
-			{
-				b2Vec2 vec = joint->GetAnchorA();
-				CCPoint pos = ccp(vec.x * PTM_RATIO, vec.y * PTM_RATIO);
+	int count = this->world->GetJointCount();
+	b2Joint *joint = this->world->GetJointList();
+	for (int i = 0; i < count; i++)
+	{
+	if ((joint->GetBodyA() != this->groundBody) &&
+	(joint->GetBodyB() != this->groundBody))
+	{
+	b2Vec2 vec = joint->GetAnchorA();
+	CCPoint pos = ccp(vec.x * PTM_RATIO, vec.y * PTM_RATIO);
 
-				cocos2d::ccDrawCircle(pos, 32, 0, 32, true);
-				//cocos2d::ccDrawSolidRect(pos, ccp(pos.x + 64, pos.y + 64), ccc4f(101, 11, 12, 21));
-			}
-			joint = joint->GetNext();
-		}
+	cocos2d::ccDrawCircle(pos, 32, 0, 32, true);
+	//cocos2d::ccDrawSolidRect(pos, ccp(pos.x + 64, pos.y + 64), ccc4f(101, 11, 12, 21));
 	}
+	joint = joint->GetNext();
+	}
+	}
+	*/
 }
 
 void DancingBoneLayer::InitBones()
 {
 	this->boneArray = CCArray::create();
 	this->boneArray->retain();
+
+	this->pushpinSpriteArray = CCArray::create();
+	this->pushpinSpriteArray->retain();
 
 	//--------------------------------Bones------------------------------
 	ToyBrick *head = this->CreateHead();
@@ -226,6 +276,7 @@ void DancingBoneLayer::InitBones()
 	this->AddToyBrick(arm8, ccp(350, 150));
 
 	//--------------------------------Toys------------------------------
+	/*
 	ToyBrick *tri1 = this->CreateBrick_Triangle();
 	this->AddToyBrick(tri1, ccp(480, 400));
 	ToyBrick *tri2 = this->CreateBrick_Triangle();
@@ -245,6 +296,7 @@ void DancingBoneLayer::InitBones()
 
 	ToyBrick *big1 = this->CreateBrick_BigRectangle();
 	this->AddToyBrick(big1, ccp(600, 350));
+	*/
 }
 
 void DancingBoneLayer::SetMode(bool isReal)
@@ -253,6 +305,8 @@ void DancingBoneLayer::SetMode(bool isReal)
 
 	//reset pushpin
 	this->isPushpinDown = false;
+	this->pushpin->setNormalImage(this->pushpinNormal);
+	this->pushpin->setSelectedImage(this->pushpinNormal);
 	this->pushpin->setVisible(!isReal);
 
 	//gravity
@@ -277,6 +331,13 @@ void DancingBoneLayer::SetMode(bool isReal)
 
 			fixture = fixture->GetNext();
 		};
+	}
+
+	//pushpin sprite
+	for (int i = 0; i < this->pushpinSpriteArray->count(); i++)
+	{
+		CCSprite* sprite = (CCSprite*)this->pushpinSpriteArray->objectAtIndex(i);
+		sprite->setVisible(!isReal);
 	}
 }
 
@@ -368,6 +429,7 @@ void DancingBoneLayer::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent)
 					}
 
 					end = queryNode->body;
+
 					//create joint here.
 					b2RevoluteJointDef jointDef;
 					jointDef.Initialize(front, end, pos);
@@ -377,6 +439,14 @@ void DancingBoneLayer::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent)
 					jointDef.lowerAngle = -0.125f * b2_pi;
 					jointDef.upperAngle = 0.125f * b2_pi;
 					b2Joint *pushpinJoint = this->world->CreateJoint(&jointDef);
+
+					//creat drawing pushpin here.
+					CCSprite *pushpinSprite = CCSprite::create();
+					pushpinSprite->initWithTexture(this->pushpinDown->getTexture());
+					pushpinSprite->setScale(0.5);
+					pushpinSprite->setUserData(pushpinJoint);
+					this->pushpinSpriteArray->addObject(pushpinSprite);
+					this->addChild(pushpinSprite);
 
 					front = end;
 				}
@@ -610,7 +680,6 @@ ToyBrick* DancingBoneLayer::CreateBrick_BigRectangle()
 	return brick;
 }
 
-
 ToyBrick* DancingBoneLayer::CreateHead()
 {
 	//image && texture
@@ -770,3 +839,5 @@ void DancingBoneLayer::AddToyBrick(ToyBrick *brick, CCPoint position)
 	//bind body with Sprite
 	brick->setPhysicsBody(brickBody);
 }
+
+

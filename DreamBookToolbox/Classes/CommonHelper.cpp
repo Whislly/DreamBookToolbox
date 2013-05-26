@@ -122,15 +122,19 @@ CCSize CommonHelper::CountContainerNumber(CCSize containerSize, int width, int x
 		return CCSize(roughXNum, roughYNum);
 }
 
+void CommonHelper::CopySpriteProperty(CCSprite* target, CCSprite* origin)
+{
+		CCTexture2D *texture = origin->getTexture();
+		target->initWithTexture(texture, origin->getTextureRect());
+		target->setScale(origin->getScale());
+		target->setContentSize(origin->getContentSize());
+		target->setAnchorPoint(CCPointZero);
+}
+
 CCSprite* CommonHelper::CloneSprite(CCSprite *sprite)
 {
-		//...
-		CCTexture2D *texture = sprite->getTexture();
 		CCSprite *newSprite = CCSprite::create();
-		newSprite->initWithTexture(texture, sprite->getTextureRect());
-		newSprite->setScale(sprite->getScale());
-		newSprite->setContentSize(sprite->getContentSize());
-		newSprite->setAnchorPoint(CCPointZero);
+		CommonHelper::CopySpriteProperty(newSprite, sprite);
 
 		return newSprite;
 }
@@ -155,3 +159,11 @@ CCArray* CommonHelper::getIntArray( char* content )
     return pIntArray;
 }
 
+FileSprite* CommonHelper::CloneFileSprite(FileSprite *sprite)
+{
+		FileSprite *newSprite = FileSprite::create();
+		sprintf(newSprite->path, sprite->path);
+		CommonHelper::CopySpriteProperty(newSprite, sprite);
+
+		return newSprite;
+}
