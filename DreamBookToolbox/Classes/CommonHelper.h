@@ -26,6 +26,8 @@ public:
 		static CCSize CountContainerNumber(CCSize containerSize, int width, int xInterval, int xMargin, int height, int yInterval, int yMargin);
 
 		static CCSprite* CloneSprite(CCSprite *sprite);
+
+        static CCArray* getIntArray(char* content);
 };
 
 #endif

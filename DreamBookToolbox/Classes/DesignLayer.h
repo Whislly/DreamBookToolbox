@@ -46,6 +46,7 @@ private:
     virtual void onExit();
 public:
     void saveData();
+    void loadData();
 };
 
 #endif  // __DesignLayer_H__

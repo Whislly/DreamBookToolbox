@@ -230,24 +230,44 @@ void DBActionSprite::setVoiceEnabeld( bool isEnabled )
 
 void DBActionSprite::PressDelayEvent(CCObject* pSender)
 {
-		PropertyInput *input1 = PropertyInput::create();
+	PropertyInput *input1 = PropertyInput::create();
 
-		//sprite - 1
-		input1->sprite = CCSprite::create("Images/PhysicsTech/Prop_Quality.png");
-		input1->sprite->setAnchorPoint(cocos2d::CCPointZero);
-		input1->sprite->setPosition(ccp(0, 100));
-		input1->addChild(input1->sprite);
-		//input - sprite - 1
-		input1->inputSprite = CCSprite::create("Images/PhysicsTech/QualityInput.png");
-		input1->inputSprite->setAnchorPoint(cocos2d::CCPointZero);
-		input1->inputSprite->setPosition(ccp(input1->sprite->getPositionX() + 32 + 5, 95));
-		input1->addChild(input1->inputSprite);
-		//input - 1
-		input1->text->setPosition(ccp(input1->sprite->getPositionX() + 32 + 25, 105));
-		input1->inputRect = CCSize(100, 20);
-		input1->text->setContentSize(input1->inputRect);		
+	//sprite - 1
+	input1->sprite = CCSprite::create("Images/PhysicsTech/Prop_Quality.png");
+	input1->sprite->setAnchorPoint(cocos2d::CCPointZero);
+	input1->sprite->setPosition(ccp(0, 100));
+	input1->addChild(input1->sprite);
+	//input - sprite - 1
+	input1->inputSprite = CCSprite::create("Images/PhysicsTech/QualityInput.png");
+	input1->inputSprite->setAnchorPoint(cocos2d::CCPointZero);
+	input1->inputSprite->setPosition(ccp(input1->sprite->getPositionX() + 32 + 5, 95));
+	input1->addChild(input1->inputSprite);
+	//input - 1
+	input1->text->setPosition(ccp(input1->sprite->getPositionX() + 32 + 25, 105));
+	input1->inputRect = CCSize(100, 20);
+	input1->text->setContentSize(input1->inputRect);		
 
-		input1->OnEnter();
+	input1->OnEnter();
 
-		this->addChild(input1);
+	this->addChild(input1);
+}
+
+void DBActionSprite::load()
+{
+    this->m_data->load(getTag());
+    
+}
+
+DBActionSprite* DBActionSprite::create()
+{
+    DBActionSprite* pActionSprite = new DBActionSprite();
+    if (pActionSprite)
+    {
+        pActionSprite->autorelease();
+        pActionSprite->m_data = DBData::create();
+        pActionSprite->m_data->retain();
+        return pActionSprite;
+    }
+    CC_SAFE_DELETE(pActionSprite);
+    return NULL;
 }

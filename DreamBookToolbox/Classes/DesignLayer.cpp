@@ -1,5 +1,6 @@
 #include "DesignLayer.h"
 #include "DBActionSprite.h"
+#include "CommonHelper.h"
 
 USING_NS_CC;
 
@@ -169,6 +170,53 @@ void DesignLayer::saveData()
         {
             pActionSprite->save();
         }
+    }
+}
+
+void DesignLayer::loadData()
+{
+    CCUserDefault* pUserData = CCUserDefault::sharedUserDefault();
+    int idx = 0;
+    char key[255] = {0};
+    sprintf(key, "tagArray%d", idx);
+    char content[255] = {0};
+    sprintf(content, "%s", pUserData->getStringForKey(key).c_str());
+    CCArray* pIntArray = NULL;
+    while(strlen(content) > 0)
+    {
+        if (!pIntArray)
+        {
+            pIntArray = CommonHelper::getIntArray(content);
+        }
+        else
+        {
+            CCArray* anotherIntArray = CommonHelper::getIntArray(content);
+            if (anotherIntArray)
+            {
+                pIntArray->addObjectsFromArray(anotherIntArray);
+            }
+        }
+
+        if (strlen(content) < 248)
+        {
+            break;
+        }
+        else
+        {
+            idx++;
+            sprintf(key, "tagArray%d", idx);
+            sprintf(content, "%s", pUserData->getStringForKey(key).c_str());
+        }
+    }
+
+    CCObject* pObj = NULL;
+    CCARRAY_FOREACH(pIntArray, pObj)
+    {
+        CCInteger* pInt = (CCInteger*)pObj;
+        DBActionSprite* pActionSprite = DBActionSprite::create();
+        pActionSprite->setTag(pInt->getValue());
+        pActionSprite->load();
+        addSpriteEx(pActionSprite);
     }
 }
 

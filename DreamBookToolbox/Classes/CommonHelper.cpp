@@ -135,3 +135,23 @@ CCSprite* CommonHelper::CloneSprite(CCSprite *sprite)
 		return newSprite;
 }
 
+CCArray* CommonHelper::getIntArray( char* content )
+{
+    CCArray* pIntArray = NULL;
+    int count = strlen(content);
+    if (count > 0)
+    {
+        pIntArray = CCArray::create();
+        for (int i = 1, startIdx = 0; i < count; i++)
+        {
+            if (content[i] = ',')
+            {
+                CCString* pTemp = CCString::createWithData((unsigned char*)(content + startIdx), i - startIdx);
+                CCInteger* pInt = CCInteger::create(pTemp->intValue());
+                pIntArray->addObject(pInt);
+            }
+        }
+    }
+    return pIntArray;
+}
+

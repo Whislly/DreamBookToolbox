@@ -1,4 +1,5 @@
 #include "DBData.h"
+#include "CommonHelper.h"
 
 USING_NS_CC;
 
@@ -145,5 +146,67 @@ void DBData::save(int tag)
 
 void DBData::load( int tag )
 {
+    CCUserDefault* pUserData = CCUserDefault::sharedUserDefault();
+    CCObject* pObj = NULL;
+    char key[255] = {0};
+    int idx = 0;
+    sprintf(key, "tag%d_frameCount", tag);
+    int resourceFileCount = pUserData->getIntegerForKey(key);
+    if (resourceFileCount > 0)
+    {
+        m_resourceFileArray = CCArray::createWithCapacity(resourceFileCount);
+        for (int i = 0; i < resourceFileCount; i++)
+        {
+            sprintf(key, "tag%d_frame%d", tag, i);
+            CCString* pStr = CCString::create(pUserData->getStringForKey(key));
+            m_resourceFileArray->addObject(pStr);
+        }
+    }
 
+    sprintf(key, "tag%d_propertyDataArray%d", tag, idx);
+    char content[255] = {0};
+    sprintf(content, "%s", pUserData->getStringForKey(key).c_str());
+    CCArray* pIntArray = NULL;
+    while(strlen(content) > 0)
+    {
+        if (!pIntArray)
+        {
+            pIntArray = CommonHelper::getIntArray(content);
+        }
+        else
+        {
+            CCArray* anotherIntArray = CommonHelper::getIntArray(content);
+            if (anotherIntArray)
+            {
+                pIntArray->addObjectsFromArray(anotherIntArray);
+            }
+        }
+
+        if (strlen(content) < 248)
+        {
+            break;
+        }
+        else
+        {
+            idx++;
+            sprintf(key, "tag%d_propertyDataArray%d", tag, idx);
+            sprintf(content, "%s", pUserData->getStringForKey(key).c_str());
+        }
+    }
+
+    if (m_dic)
+    {
+        m_dic->removeAllObjects();
+    }
+    else
+    {
+        m_dic = CCDictionary::create();
+    }
+    CCARRAY_FOREACH(pIntArray, pObj)
+    {
+        CCInteger* pInt = (CCInteger*)pObj;
+        DBPropertyData* pPropertyData = DBPropertyData::create();
+        pPropertyData->load(tag, pInt->getValue());
+        m_dic->setObject(pPropertyData, pInt->getValue());
+    }
 }

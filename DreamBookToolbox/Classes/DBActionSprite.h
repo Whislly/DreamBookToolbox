@@ -56,6 +56,8 @@ protected:
     cocos2d::SEL_CallFunc    m_finishedActionSelector;
 public:
     void save();
+    void load();
+    static DBActionSprite* create();
 };
 
 #endif  // __DBAction_Sprite_H__
