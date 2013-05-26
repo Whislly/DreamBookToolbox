@@ -10,7 +10,6 @@ protected:
     cocos2d::CCDictionary* m_dic;
     virtual bool init();
     void addDBPropertyData(float time, DBPropertyData* propertyData);
-    cocos2d::CCArray* m_resourceFileArray;
 public:
     DBData();
     ~DBData();
@@ -24,6 +23,7 @@ public:
 public:
     void addResourcePath(char* path);
     void addResourcePath(cocos2d::CCArray* pathArray);
+    cocos2d::CCArray* m_resourceFileArray;
 };
 
 #endif  // __DBData_H__

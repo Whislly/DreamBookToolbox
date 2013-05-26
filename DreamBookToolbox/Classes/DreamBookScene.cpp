@@ -96,6 +96,7 @@ void DreamBookLayer::activeCell( CCObject* pSender )
     if (!m_designLayer->isContainsChild(tag))
     {
         DBActionSprite* newSprite = DBActionSprite::createWithTexture(clickCell->getTexture(), clickCell->getTextureRect(), clickCell->getTag());
+        newSprite->addResourcePath(clickCell->getResourceFileArray());
         m_designLayer->addSpriteEx(newSprite);
 
         CCSize contentSize = m_designLayer->getContentSize();
@@ -137,7 +138,7 @@ void DreamBookLayer::addNewCell( cocos2d::CCObject* pSender, cocos2d::CCArray* p
         CCSprite* pSprite = (CCSprite*)pElementArray->objectAtIndex(i);
         if(pSprite)
         {
-            DBActionSprite* pCell = DBActionSprite::createWithTexture(pSprite->getTexture(), pSprite->getTextureRect());
+            CCSpriteEx* pCell = CCSpriteEx::createWithTexture(pSprite->getTexture(), pSprite->getTextureRect());
             pCell->setSelectorForSingleClick(this, menu_selector(DreamBookLayer::activeCell));
             pCell->setSelectorForDoubleClick(this, menu_selector(DreamBookLayer::activeActions));
             const char* information = pSprite->objectInfor();
@@ -216,7 +217,7 @@ void DreamBookLayer::saveDataToCloud( CCObject* pSender )
     lbDebug->setPosition(ccp(CCDirector::sharedDirector()->getWinSize().width * 0.5f, CCDirector::sharedDirector()->getWinSize().height * 0.5f));
     lbDebug->runAction(CCRepeatForever::create(CCBlink::create(1.0f, 1)));
     m_designLayer->saveData();
-    this->file->uploadFile(CCFileUtils::sharedFileUtils()->getWritablePath().c_str(), USER_DEFAULT_NAME);
+    //this->file->uploadFile(CCFileUtils::sharedFileUtils()->getWritablePath().c_str(), USER_DEFAULT_NAME);
 }
 
 // on "init" you need to initialize your instance

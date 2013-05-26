@@ -10,6 +10,7 @@ DBData::DBData()
     , m_resourceFileArray(NULL)
 {
     m_resourceFileArray = CCArray::createWithCapacity(1);
+    m_resourceFileArray->retain();
 }
 
 DBData::~DBData()
@@ -28,6 +29,8 @@ DBData::~DBData()
         m_dic->release();
     }
     m_dic = NULL;
+
+    CCARRAY_RELEASE(m_resourceFileArray);
 }
 
 bool DBData::init()

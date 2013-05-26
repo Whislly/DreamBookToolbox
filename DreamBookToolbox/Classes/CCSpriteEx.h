@@ -29,14 +29,13 @@ public:
     }
 public:
     CCSpriteEx();
-
+    ~CCSpriteEx();
 private:
     void onEnter();
     void onExit();
     CCRect rect();
     bool isTouchInside(CCTouch* touch);
     void restoreStatus();
-
 protected:
     virtual bool ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent);
     virtual void ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent);
@@ -85,6 +84,12 @@ protected:
     SEL_MenuHandler  m_doubleClickSelector;
     bool             m_excuteLongClick;
     bool             m_needRestoreAfterLongClick;
+protected:
+    cocos2d::CCArray* m_resourceFileArray;
+public:
+    virtual void addResourcePath(char* path);
+    virtual void addResourcePath(cocos2d::CCArray* pathArray);
+    cocos2d::CCArray* getResourceFileArray();
 };
 
 class CCSpriteExLoader : public cocos2d::extension::CCSpriteLoader {

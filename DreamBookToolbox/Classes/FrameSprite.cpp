@@ -1,4 +1,5 @@
 #include "FrameSprite.h"
+#include "Define.h"
 
 FrameSprite::FrameSprite(void)
 {
@@ -9,22 +10,14 @@ FrameSprite::FrameSprite(void)
 
 FrameSprite::~FrameSprite()
 {
-	if (this->pathArray != NULL)
-	{
-		for (int i = 0; i < this->pathArray->count(); i++)
-		{
-			CCString* pathObj = (CCString*)this->pathArray->objectAtIndex(i);
-			pathObj->release();
-		}
-		this->pathArray->release();
-	}
+    CCARRAY_RELEASE(pathArray);
 }
 
 void FrameSprite::AddPath(char* path)
 {
 	CCString *pathObj = CCString::create(path);
-
 	pathObj->retain();
+    pathArray->addObject(pathObj);
 }
 
 const char* FrameSprite::objectInfor()

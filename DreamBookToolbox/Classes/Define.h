@@ -45,4 +45,24 @@ static __TYPE__* create(b2World* world) \
 typedef void (cocos2d::CCObject::*SEL_ImportElementsHandler)(cocos2d::CCObject* pSender, cocos2d::CCArray* pElementArray);
 #define importElement_selector(_SELECTOR) (SEL_ImportElementsHandler)(&_SELECTOR)
 
+
+#define CCARRAY_RELEASE(__array__)                                                                                             \
+    if ((__array__))                                                                                                           \
+    {                                                                                                                          \
+        if((__array__)->data->num > 0)                                                                                         \
+        {                                                                                                                      \
+            CCObject* __object__ = NULL;                                                                                       \
+            for(CCObject** __arr__ = (__array__)->data->arr, **__end__ = (__array__)->data->arr + (__array__)->data->num-1;    \
+            __arr__ <= __end__ && (((__object__) = *__arr__) != NULL/* || true*/);                                             \
+            __arr__++)                                                                                                         \
+            {                                                                                                                  \
+                if ((__object__))                                                                                              \
+                {                                                                                                              \
+                    (__object__)->release();                                                                                   \
+                }                                                                                                              \
+            }                                                                                                                  \
+        }                                                                                                                      \
+        (__array__)->release();                                                                                                \
+        (__array__) = NULL;                                                                                                    \
+    }
 #endif

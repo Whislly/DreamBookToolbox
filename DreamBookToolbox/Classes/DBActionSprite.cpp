@@ -13,7 +13,9 @@ DBActionSprite::DBActionSprite()
     , m_finishedActionListener(NULL)
     , m_finishedActionSelector(NULL)
 {
-
+    m_data = DBData::create();
+    m_data->retain();
+    m_data->m_resourceFileArray = this->m_resourceFileArray;
 }
 
 DBActionSprite::~DBActionSprite()
@@ -23,6 +25,7 @@ DBActionSprite::~DBActionSprite()
         m_data->release();
     }
     m_data = NULL;
+    CCSpriteEx::~CCSpriteEx();
 }
 
 DBActionSprite* DBActionSprite::createWithTexture( cocos2d::CCTexture2D *pTexture, const cocos2d::CCRect& rect )
@@ -46,8 +49,6 @@ DBActionSprite* DBActionSprite::createWithTexture( cocos2d::CCTexture2D *pTextur
     {
         pActionSprite->autorelease();
         pActionSprite->setTag(tag);
-        pActionSprite->m_data = DBData::create();
-        pActionSprite->m_data->retain();
         return pActionSprite;
     }
     CC_SAFE_DELETE(pActionSprite);
@@ -270,14 +271,4 @@ DBActionSprite* DBActionSprite::create()
     }
     CC_SAFE_DELETE(pActionSprite);
     return NULL;
-}
-
-void DBActionSprite::addResourcePath( char* path )
-{
-    m_data->addResourcePath(path);
-}
-
-void DBActionSprite::addResourcePath( CCArray* pathArray )
-{
-    m_data->addResourcePath(pathArray);
 }

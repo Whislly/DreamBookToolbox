@@ -1,4 +1,5 @@
 #include "CCSpriteEx.h"
+#include "Define.h"
 
 NS_CC_BEGIN
 
@@ -212,6 +213,18 @@ CCObject* CCSpriteEx::copy()
     return NULL;
 }
 
+void CCSpriteEx::addResourcePath( char* path )
+{
+    CCString* pResourcePath = CCString::create(path);
+    pResourcePath->retain();
+    m_resourceFileArray->addObject(pResourcePath);
+}
+
+void CCSpriteEx::addResourcePath( CCArray* pathArray )
+{
+    m_resourceFileArray->addObjectsFromArray(pathArray);
+}
+
 CCSpriteEx::CCSpriteEx()
     : m_lastTouchTime(0)
     , m_isInTouch(false)
@@ -229,8 +242,20 @@ CCSpriteEx::CCSpriteEx()
     , m_doubleClickSelector(NULL)
     , m_excuteLongClick(false)
     , m_needRestoreAfterLongClick(false)
+    , m_resourceFileArray(NULL)
 {
+    m_resourceFileArray = CCArray::createWithCapacity(1);
+    m_resourceFileArray->retain();
+}
 
+CCSpriteEx::~CCSpriteEx()
+{
+    CCARRAY_RELEASE(m_resourceFileArray);
+}
+
+cocos2d::CCArray* CCSpriteEx::getResourceFileArray()
+{
+    return m_resourceFileArray;
 }
 
 NS_CC_END
