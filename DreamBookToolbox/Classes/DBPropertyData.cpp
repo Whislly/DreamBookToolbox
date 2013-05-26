@@ -56,20 +56,19 @@ void DBPropertyData::load( int tag, int time )
     char content[255];
 
     sprintf(key, "tag%d_time%d_position", tag, time);
-    sprintf(content, "(%.3f,%.3f)", m_pos.x, m_pos.y);
-    const char* pPosStr = pUserData->getStringForKey(key, content).c_str();
+    sprintf(content, "%s", pUserData->getStringForKey(key).c_str());
 
     int idx = 0;
-    int count = strlen(pPosStr);
+    int count = strlen(content);
     for (; idx < count; idx++)
     {
-        if (pPosStr[idx] == ',')
+        if (content[idx] == ',')
         {
             break;
         }
     }
-    m_pos.x = CCString::createWithData((const unsigned char*)(pPosStr + 1), idx - 1)->floatValue();
-    m_pos.y = CCString::createWithData((const unsigned char*)(pPosStr + idx + 1), count - idx - 2)->floatValue();
+    m_pos.x = CCString::createWithData((const unsigned char*)(content + 1), idx - 1)->floatValue();
+    m_pos.y = CCString::createWithData((const unsigned char*)(content + idx + 1), count - idx - 2)->floatValue();
 
     sprintf(key, "tag%d_time%d_scale", tag, time);
     m_scale = pUserData->getFloatForKey(key);

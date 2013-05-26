@@ -277,7 +277,7 @@ bool DreamBookLayer::init()
         addChild(saveButton);
         saveButton->setPosition(ccp(CCDirector::sharedDirector()->getWinSize().width - 130, 30));
 
-        //m_designLayer->loadData();
+        m_designLayer->loadData();
 
         bRet = true;
     } while (0);

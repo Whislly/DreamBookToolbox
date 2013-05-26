@@ -146,14 +146,22 @@ CCArray* CommonHelper::getIntArray( char* content )
     if (count > 0)
     {
         pIntArray = CCArray::create();
-        for (int i = 1, startIdx = 0; i < count; i++)
+        int startIdx = 0;
+        for (int i = 1; i < count; i++)
         {
-            if (content[i] = ',')
+            if (content[i] == ',')
             {
                 CCString* pTemp = CCString::createWithData((unsigned char*)(content + startIdx), i - startIdx);
                 CCInteger* pInt = CCInteger::create(pTemp->intValue());
                 pIntArray->addObject(pInt);
+                startIdx = i + 1;
             }
+        }
+        if (startIdx != count)
+        {
+            CCString* pTemp = CCString::createWithData((unsigned char*)(content + startIdx), count - startIdx);
+            CCInteger* pInt = CCInteger::create(pTemp->intValue());
+            pIntArray->addObject(pInt);
         }
     }
     return pIntArray;
