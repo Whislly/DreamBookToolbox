@@ -40,6 +40,8 @@ private:
     DesignLayer* m_designLayer;
     PicPickupLayer* m_picPickupLayer;
     cocos2d::extension::ParseFile* file;
+    cocos2d::extension::ParseObject* object;
+
 public:
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
     virtual bool init();  
@@ -63,9 +65,11 @@ public:
     void saveDataToCloud(CCObject* pSender);
     void readyUploadFile();
 
-    void UploadComplet(cocos2d::extension::FileInfo* fileInfo, cocos2d::extension::ParseError* error);
+    void DeleteCompleted(bool isSuccess, cocos2d::extension::ParseError* error);
+    void UploadCompleted(cocos2d::extension::FileInfo* fileInfo, cocos2d::extension::ParseError* error);
+    void DownloadCompleted(const char* path, cocos2d::extension::ParseError* error);
     void DownloadFile();
-    void DownloadComplet(cocos2d::CCArray* array, cocos2d::extension::ParseError* error);
+    void FindCompleted(cocos2d::CCArray* array, cocos2d::extension::ParseError* error);
 
     DreamBookLayer();
     ~DreamBookLayer();

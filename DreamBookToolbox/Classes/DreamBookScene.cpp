@@ -216,7 +216,7 @@ void DreamBookLayer::saveDataToCloud( CCObject* pSender )
     lbDebug->setPosition(ccp(CCDirector::sharedDirector()->getWinSize().width * 0.5f, CCDirector::sharedDirector()->getWinSize().height * 0.5f));
     lbDebug->runAction(CCRepeatForever::create(CCBlink::create(1.0f, 1)));
     m_designLayer->saveData();
-    this->file->uploadFile(CCFileUtils::sharedFileUtils()->getWritablePath().c_str(), USER_DEFAULT_NAME);
+    this->file->deleteFile(this->object->Get<const char*>("name"));
 }
 
 // on "init" you need to initialize your instance
@@ -311,18 +311,20 @@ DreamBookLayer::~DreamBookLayer()
     {
         file->release();
     }
+	if (this->object)
+    {
+        this->object->release();
+    }
 }
 
-void DreamBookLayer::UploadComplet( FileInfo* fileInfo, ParseError* error )
+void DreamBookLayer::UploadCompleted( FileInfo* fileInfo, ParseError* error )
 {
     removeChildByTag(99, true);
     if (fileInfo)
     {
-        ParseObject* object = new ParseObject("DataFile");
-        object->Add("url", fileInfo->GetUrl().c_str());
-        object->Add("name", fileInfo->GetFileName().c_str());
+        object->Set("url", fileInfo->GetUrl().c_str());
+        object->Set("name", fileInfo->GetFileName().c_str());
         object->save();
-        object->release();
     }
 }
 
@@ -341,20 +343,46 @@ void DreamBookLayer::readyUploadFile()
 	parse.setMasterKey("doMxP88XvGkICRrI3gPcCdwWMI26QZfzPMKER33m");
 
 	file = new ParseFile();
-	file->uploadFileCompleted.Set(this, (Delegate<FileInfo*, ParseError*>::MemberFun)&DreamBookLayer::UploadComplet);
+	file->deleteFileCompleted.Set(this, (Delegate<bool, ParseError*>::MemberFun)&DreamBookLayer::DeleteCompleted);
+	file->uploadFileCompleted.Set(this, (Delegate<FileInfo*, ParseError*>::MemberFun)&DreamBookLayer::UploadCompleted);
+	file->downloadFileCompleted.Set(this, (Delegate<const char*, ParseError*>::MemberFun)&DreamBookLayer::DownloadCompleted);
 }
 
-void DreamBookLayer::DownloadComplet( cocos2d::CCArray* array, cocos2d::extension::ParseError* error )
+void DreamBookLayer::DeleteCompleted( bool isSuccess, cocos2d::extension::ParseError* error )
+{
+	if (isSuccess)
+	{
+		this->file->uploadFile(CCFileUtils::sharedFileUtils()->getWritablePath().c_str(), USER_DEFAULT_NAME);
+	}
+    removeChildByTag(98, true);
+}
+
+void DreamBookLayer::FindCompleted( cocos2d::CCArray* array, cocos2d::extension::ParseError* error )
 {
     if (array && array->count() > 0)
     {
-        ParseObject* obj = (ParseObject*)array->objectAtIndex(0);
-        const char* url = obj->Get<const char*>("url");
-        ParseFile* file = new ParseFile();
-        std::string filePath = CCFileUtils::sharedFileUtils()->getWritablePath() + USER_DEFAULT_NAME;
-        file->downloadFile(url, filePath.c_str());
-        array->removeAllObjects();
+        this->object = (ParseObject*)array->objectAtIndex(0);
+		this->object->retain();
 
+        const char* url = this->object->Get<const char*>("url");
+        std::string filePath = CCFileUtils::sharedFileUtils()->getWritablePath() + USER_DEFAULT_NAME;
+        this->file->downloadFile(url, filePath.c_str());
+        array->removeAllObjects();
+    }
+	else
+	{
+		this->object = new ParseObject("DataFile");
+		this->object->Add("url", "");
+		this->object->Add("name", "");
+	}
+
+    removeChildByTag(98, true);
+}
+
+void DreamBookLayer::DownloadCompleted( const char* path, cocos2d::extension::ParseError* error )
+{
+    if (path)
+    {
         m_designLayer->loadData();
     }
 
@@ -370,7 +398,7 @@ void DreamBookLayer::DownloadFile()
     lbDebug->runAction(CCRepeatForever::create(CCBlink::create(1.0f, 1)));
 
     cocos2d::extension::ParseQuery* query = new cocos2d::extension::ParseQuery("DataFile");
-    query->findObjectsCompleted.Set(this, (Delegate<CCArray*, ParseError*>::MemberFun)&DreamBookLayer::DownloadComplet);
+    query->findObjectsCompleted.Set(this, (Delegate<CCArray*, ParseError*>::MemberFun)&DreamBookLayer::FindCompleted);
     query->findObjects();
     query->release();
 }
