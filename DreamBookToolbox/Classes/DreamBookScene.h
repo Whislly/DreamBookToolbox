@@ -64,6 +64,8 @@ public:
     void readyUploadFile();
 
     void UploadComplet(cocos2d::extension::FileInfo* fileInfo, cocos2d::extension::ParseError* error);
+    void DownloadFile();
+    void DownloadComplet(cocos2d::CCArray* array, cocos2d::extension::ParseError* error);
 
     DreamBookLayer();
     ~DreamBookLayer();

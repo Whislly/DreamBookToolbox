@@ -217,7 +217,7 @@ void DreamBookLayer::saveDataToCloud( CCObject* pSender )
     lbDebug->setPosition(ccp(CCDirector::sharedDirector()->getWinSize().width * 0.5f, CCDirector::sharedDirector()->getWinSize().height * 0.5f));
     lbDebug->runAction(CCRepeatForever::create(CCBlink::create(1.0f, 1)));
     m_designLayer->saveData();
-    //this->file->uploadFile(CCFileUtils::sharedFileUtils()->getWritablePath().c_str(), USER_DEFAULT_NAME);
+    this->file->uploadFile(CCFileUtils::sharedFileUtils()->getWritablePath().c_str(), USER_DEFAULT_NAME);
 }
 
 // on "init" you need to initialize your instance
@@ -277,7 +277,7 @@ bool DreamBookLayer::init()
         addChild(saveButton);
         saveButton->setPosition(ccp(CCDirector::sharedDirector()->getWinSize().width - 130, 30));
 
-        m_designLayer->loadData();
+        this->DownloadFile();
 
         bRet = true;
     } while (0);
@@ -343,4 +343,35 @@ void DreamBookLayer::readyUploadFile()
 
 	file = new ParseFile();
 	file->uploadFileCompleted.Set(this, (Delegate<FileInfo*, ParseError*>::MemberFun)&DreamBookLayer::UploadComplet);
+}
+
+void DreamBookLayer::DownloadComplet( cocos2d::CCArray* array, cocos2d::extension::ParseError* error )
+{
+    if (array && array->count() > 0)
+    {
+        ParseObject* obj = (ParseObject*)array->objectAtIndex(0);
+        const char* url = obj->Get<const char*>("url");
+        ParseFile* file = new ParseFile();
+        std::string filePath = CCFileUtils::sharedFileUtils()->getWritablePath() + USER_DEFAULT_NAME;
+        file->downloadFile(url, filePath.c_str());
+        array->removeAllObjects();
+
+        m_designLayer->loadData();
+    }
+
+    removeChildByTag(98, true);
+}
+
+void DreamBookLayer::DownloadFile()
+{
+    CCLabelTTF* lbDebug = CCLabelTTF::create("Download check...", "Arial", 40);
+    lbDebug->setColor(ccWHITE);
+    addChild(lbDebug, 1, 98);
+    lbDebug->setPosition(ccp(CCDirector::sharedDirector()->getWinSize().width * 0.5f, CCDirector::sharedDirector()->getWinSize().height * 0.5f));
+    lbDebug->runAction(CCRepeatForever::create(CCBlink::create(1.0f, 1)));
+
+    cocos2d::extension::ParseQuery* query = new cocos2d::extension::ParseQuery("DataFile");
+    query->findObjectsCompleted.Set(this, (Delegate<CCArray*, ParseError*>::MemberFun)&DreamBookLayer::DownloadComplet);
+    query->findObjects();
+    query->release();
 }
