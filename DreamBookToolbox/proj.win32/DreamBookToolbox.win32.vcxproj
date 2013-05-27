@@ -127,7 +127,14 @@
     <None Include="..\Resources\font09.png" />
     <None Include="..\Resources\PlayBox.plist" />
     <None Include="..\Resources\PlayBox.png" />
+    <None Include="..\Resources\resources.plist" />
+    <None Include="..\Resources\resources.png" />
     <None Include="..\Resources\save.png" />
+    <None Include="..\Resources\spineboy.atlas" />
+    <None Include="..\Resources\spineboy.json" />
+    <None Include="..\Resources\spineboy.png" />
+    <None Include="..\Resources\stars.png" />
+    <None Include="..\Resources\z.plist" />
     <None Include="res\DreamBookToolbox.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -164,6 +171,7 @@
     <ClInclude Include="..\Classes\MultiBodyQueryCallback.h" />
     <ClInclude Include="..\Classes\ObserveLayer.h" />
     <ClInclude Include="..\Classes\ObserveLayerContainer.h" />
+    <ClInclude Include="..\Classes\PhysicalBodyScene.h" />
     <ClInclude Include="..\Classes\PhysicsSprite.h" />
     <ClInclude Include="..\Classes\PhysicsTechLayer.h" />
     <ClInclude Include="..\Classes\PhysicsTechScene.h" />
@@ -210,6 +218,7 @@
     <ClCompile Include="..\Classes\MultiBodyQueryCallback.cpp" />
     <ClCompile Include="..\Classes\ObserveLayer.cpp" />
     <ClCompile Include="..\Classes\ObserveLayerContainer.cpp" />
+    <ClCompile Include="..\Classes\PhysicalBodyScene.cpp" />
     <ClCompile Include="..\Classes\PhysicsSprite.cpp" />
     <ClCompile Include="..\Classes\PhysicsTechLayer.cpp" />
     <ClCompile Include="..\Classes\PhysicsTechScene.cpp" />

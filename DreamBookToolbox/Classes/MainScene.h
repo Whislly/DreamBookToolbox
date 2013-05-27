@@ -35,6 +35,8 @@ public:
 
     void menuKongRongCallback( CCObject* pSender );
 
+    void menuPhysicalBodyCallback( CCObject* pSender );
+
 	/*
 	CCLabelTTF* lbDebug;
 

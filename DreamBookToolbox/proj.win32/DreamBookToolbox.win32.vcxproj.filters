@@ -70,6 +70,9 @@
     <Filter Include="Extra\Common">
       <UniqueIdentifier>{0d6971d7-7c4c-4548-a111-97f2443e9a86}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Extra\PhysicalBody">
+      <UniqueIdentifier>{f8623b61-9f27-4504-b833-c7f011a9fc7d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\DreamBookToolbox.ico">
@@ -91,6 +94,27 @@
       <Filter>resource</Filter>
     </None>
     <None Include="..\Resources\save.png">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\resources.plist">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\resources.png">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\spineboy.atlas">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\spineboy.json">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\spineboy.png">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\stars.png">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\z.plist">
       <Filter>resource</Filter>
     </None>
   </ItemGroup>
@@ -247,6 +271,9 @@
     <ClInclude Include="..\Classes\CCTransitionParticle.h">
       <Filter>Extra\Common</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\PhysicalBodyScene.h">
+      <Filter>Extra\PhysicalBody</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -374,6 +401,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\CCTransitionParticle.cpp">
       <Filter>Extra\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PhysicalBodyScene.cpp">
+      <Filter>Extra\PhysicalBody</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

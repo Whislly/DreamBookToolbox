@@ -10,6 +10,7 @@
 #include "ParseQuery.h"
 #include "CCTransitionParticle.h"
 #include "StoryScene.h"
+#include "PhysicalBodyScene.h"
 
 USING_NS_CC;
 
@@ -40,6 +41,11 @@ void MainLayer::menuKongRongCallback( CCObject* pSender )
     CCParticleFlower* flower = CCParticleFlower::create();
     flower->setTexture(CCTextureCache::sharedTextureCache()->addImage("stars.png"));
     CCDirector::sharedDirector()->replaceScene(CCTransitionParticle::create(1.0f, StoryLayer::scene(), flower));
+}
+
+void MainLayer::menuPhysicalBodyCallback( CCObject* pSender )
+{
+    CCDirector::sharedDirector()->replaceScene(CCTransitionPageTurn::create(1.0f, PhysicalBodyLayer::scene(), false));
 }
 
 void MainLayer::menuCloseCallback( CCObject* pSender )
@@ -169,6 +175,10 @@ bool MainLayer::init()
 
         label = CCLabelTTF::create("DancingBone", "Arial", 46);
         pMenuItem = CCMenuItemLabel::create(label, this, menu_selector(MainLayer::menuDancingBoneCallback));
+        pMenu->addChild(pMenuItem);
+
+        label = CCLabelTTF::create("Boy Model", "Arial", 46);
+        pMenuItem = CCMenuItemLabel::create(label, this, menu_selector(MainLayer::menuPhysicalBodyCallback));
         pMenu->addChild(pMenuItem);
 
         label = CCLabelTTF::create("Kong Rong Gave Away Bigger Pear", "Arial", 46);
