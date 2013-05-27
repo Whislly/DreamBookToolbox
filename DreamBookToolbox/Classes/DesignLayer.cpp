@@ -218,6 +218,7 @@ void DesignLayer::loadData()
         pActionSprite->setTag(pInt->getValue());
         pActionSprite->load();
         addSpriteEx(pActionSprite);
+        pActionSprite->readStatus(0.0f);
     }
 }
 

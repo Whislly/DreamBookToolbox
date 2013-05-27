@@ -51,14 +51,13 @@ typedef void (cocos2d::CCObject::*SEL_ImportElementsHandler)(cocos2d::CCObject* 
     {                                                                                                                          \
         if((__array__)->data->num > 0)                                                                                         \
         {                                                                                                                      \
-            CCObject* __object__ = NULL;                                                                                       \
             for(CCObject** __arr__ = (__array__)->data->arr, **__end__ = (__array__)->data->arr + (__array__)->data->num-1;    \
-            __arr__ <= __end__ && (((__object__) = *__arr__) != NULL/* || true*/);                                             \
+            __arr__ <= __end__ && ((*__arr__) != NULL/* || true*/);                                             \
             __arr__++)                                                                                                         \
             {                                                                                                                  \
-                if ((__object__))                                                                                              \
+                if ((*__arr__))                                                                                              \
                 {                                                                                                              \
-                    (__object__)->release();                                                                                   \
+                    (*__arr__)->release();                                                                                   \
                 }                                                                                                              \
             }                                                                                                                  \
         }                                                                                                                      \

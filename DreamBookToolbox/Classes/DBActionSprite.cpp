@@ -256,7 +256,32 @@ void DBActionSprite::PressDelayEvent(CCObject* pSender)
 void DBActionSprite::load()
 {
     this->m_data->load(getTag());
-    
+    int count = m_data->m_resourceFileArray->count();
+    if (count > 0)
+    {
+        CCArray* resourceArray = m_data->m_resourceFileArray;
+        this->initWithFile(((CCString*)resourceArray->objectAtIndex(0))->getCString());
+
+        if (count > 1)
+        {
+            CCObject* pObj = NULL;
+            CCArray* moreFrames = CCArray::createWithCapacity(count);
+            CCARRAY_FOREACH(resourceArray, pObj)
+            {
+                CCString* path = (CCString*)pObj;
+                CCTexture2D *pTexture = CCTextureCache::sharedTextureCache()->addImage(path->getCString());
+                if (pTexture)
+                {
+                    CCRect rect = CCRectZero;
+                    rect.size = pTexture->getContentSize();
+                    CCSpriteFrame* pFrame = CCSpriteFrame::create(path->getCString(), rect);
+                    moreFrames->addObject(pFrame);
+                }
+            }
+            CCAnimation* animation = CCAnimation::createWithSpriteFrames(moreFrames, 0.25f);
+            this->runAction(CCRepeatForever::create(CCAnimate::create(animation)));
+        }
+    }
 }
 
 DBActionSprite* DBActionSprite::create()
