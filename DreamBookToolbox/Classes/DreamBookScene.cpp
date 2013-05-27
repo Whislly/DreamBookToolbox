@@ -102,7 +102,6 @@ void DreamBookLayer::activeCell( CCObject* pSender )
         CCSize contentSize = m_designLayer->getContentSize();
         CCPoint position = ccp(contentSize.width * RandomFloat(0.01f, 1.0f), contentSize.height * RandomFloat(0.01f, 1.0f));
         newSprite->setPosition(position);
-        newSprite->setVoiceEnabeld(true);
 
         //////////////////////////////////////////////////////////////////////////
         ///Fixed the issue of copies for Actions

@@ -12,6 +12,9 @@ DBActionSprite::DBActionSprite()
     , m_voiceContent(NULL)
     , m_finishedActionListener(NULL)
     , m_finishedActionSelector(NULL)
+    , m_isBreak(false)
+    , m_inputListener(NULL)
+    , m_inputSelector(NULL)
 {
     m_data = DBData::create();
     m_data->retain();
@@ -182,6 +185,20 @@ void DBActionSprite::transform( float time )
 
 void DBActionSprite::step( float time )
 {
+    if (m_isBreak)
+    {
+        return;
+    }
+
+    if (this->m_data->getDBPropertyData(m_time)->getInputContent())
+    {
+        m_isBreak = true;
+        if (m_inputSelector && m_inputListener)
+        {
+            (m_inputListener->*m_inputSelector)(this);
+        }
+    }
+
     int temp = (int)(time * 10);
     this->m_time += (temp * 0.1);
 
@@ -215,42 +232,6 @@ void DBActionSprite::setEnableTime( bool isTime )
         m_endTime = m_time;
         this->unschedule(schedule_selector(DBActionSprite::step));
     }
-}
-
-void DBActionSprite::setVoiceEnabeld( bool isEnabled )
-{
-    if (isEnabled)
-    {
-        setSelectorForLongClick(this, menu_selector(DBActionSprite::PressDelayEvent));
-    }
-    else
-    {
-        setSelectorForLongClick(NULL, NULL);
-    }
-}
-
-void DBActionSprite::PressDelayEvent(CCObject* pSender)
-{
-	PropertyInput *input1 = PropertyInput::create();
-
-	//sprite - 1
-	input1->sprite = CCSprite::create("Images/PhysicsTech/Prop_Quality.png");
-	input1->sprite->setAnchorPoint(cocos2d::CCPointZero);
-	input1->sprite->setPosition(ccp(0, 100));
-	input1->addChild(input1->sprite);
-	//input - sprite - 1
-	input1->inputSprite = CCSprite::create("Images/PhysicsTech/QualityInput.png");
-	input1->inputSprite->setAnchorPoint(cocos2d::CCPointZero);
-	input1->inputSprite->setPosition(ccp(input1->sprite->getPositionX() + 32 + 5, 95));
-	input1->addChild(input1->inputSprite);
-	//input - 1
-	input1->text->setPosition(ccp(input1->sprite->getPositionX() + 32 + 25, 105));
-	input1->inputRect = CCSize(100, 20);
-	input1->text->setContentSize(input1->inputRect);		
-
-	input1->OnEnter();
-
-	this->addChild(input1);
 }
 
 void DBActionSprite::load()
@@ -296,4 +277,34 @@ DBActionSprite* DBActionSprite::create()
     }
     CC_SAFE_DELETE(pActionSprite);
     return NULL;
+}
+
+void DBActionSprite::setInputContent( const char* inputContent, float time )
+{
+    if (m_status == kDesignStatus)
+    {
+        m_data->getDBPropertyData(time)->setInputContent(inputContent);
+    }
+}
+
+void DBActionSprite::checkInputContent( const char* inputContent )
+{
+    CCString* correctContent = m_data->getDBPropertyData(m_time)->getInputContent();
+    if (strstr(inputContent, correctContent->getCString()))
+    {
+        m_isBreak = false;
+    }
+    else
+    {
+        if (m_inputSelector && m_inputListener)
+        {
+            (m_inputListener->*m_inputSelector)(this);
+        }
+    }
+}
+
+void DBActionSprite::setSelectorForInput( CCObject *target, SEL_MenuHandler inputSelector )
+{
+    m_inputListener = target;
+    m_inputSelector = inputSelector;
 }

@@ -5,13 +5,18 @@ USING_NS_CC;
 DBPropertyData::DBPropertyData()
     : m_pos(ccp(-999, -999))
     , m_scale(1.0f)
+    , m_inputContent(NULL)
 {
 
 }
 
 DBPropertyData::~DBPropertyData()
 {
-
+    if (m_inputContent)
+    {
+        m_inputContent->release();
+        m_inputContent = NULL;
+    }
 }
 
 DBPropertyData* DBPropertyData::create()
@@ -47,6 +52,9 @@ void DBPropertyData::save( int tag, int time )
 
     sprintf(key, "tag%d_time%d_scale", tag, time);
     pUserData->setFloatForKey(key, m_scale);
+
+    sprintf(key, "tag%d_time%d_input", tag, time);
+    pUserData->setStringForKey(key, m_inputContent->getCString());
 }
 
 void DBPropertyData::load( int tag, int time )
@@ -72,4 +80,18 @@ void DBPropertyData::load( int tag, int time )
 
     sprintf(key, "tag%d_time%d_scale", tag, time);
     m_scale = pUserData->getFloatForKey(key);
+
+    sprintf(key, "tag%d_time%d_input", tag, time);
+    m_inputContent = CCString::create(pUserData->getStringForKey(key));
+    m_inputContent->retain();
+}
+
+void DBPropertyData::setInputContent( const char* content )
+{
+    if (m_inputContent)
+    {
+        m_inputContent->release();
+    }
+    m_inputContent = CCString::create(content);
+    m_inputContent->retain();
 }

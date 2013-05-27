@@ -3,6 +3,8 @@
 
 #include "cocos2d.h"
 #include "CCSpriteEx.h"
+#include "PropertyLayer.h"
+#include "DBActionSprite.h"
 
 class DesignLayer : public cocos2d::CCLayerColor
 {
@@ -36,7 +38,7 @@ private:
     void addFinishedActionCount();
     cocos2d::CCSpriteEx*       m_enlarge;
     cocos2d::CCSpriteEx*       m_reduce;
-    cocos2d::CCSprite*         m_currentSprite;
+    DBActionSprite*         m_currentSprite;
     void enlarge(cocos2d::CCObject* pSender);
     void reduce(cocos2d::CCObject* pSender);
     void showScaleToolButtons(cocos2d::CCObject* pSender);
@@ -47,6 +49,11 @@ private:
 public:
     void saveData();
     void loadData();
+    void waitInput(cocos2d::CCObject* pSender);
+    void voiceRecognition(const char* voiceContent);
+    void voiceRecognition(cocos2d::CCObject* pSender);
+private:
+    PropertyInput* m_input;
 };
 
 #endif  // __DesignLayer_H__

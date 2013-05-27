@@ -2,9 +2,9 @@
 
 PropertyInput::PropertyInput(void)
 {
-		this->text = NULL;
-		this->sprite = NULL;
-		this->propertyType = PropertyType_None;
+    this->text = NULL;
+    this->sprite = NULL;
+    this->propertyType = PropertyType_None;
 }
 
 PropertyInput::~PropertyInput()
@@ -13,29 +13,39 @@ PropertyInput::~PropertyInput()
 
 bool PropertyInput::init()
 {
-		this->text = CCTextFieldTTF::textFieldWithPlaceHolder("", CCSize(0, 0), kCCTextAlignmentLeft, "Thonburi", 20);
-		this->text->setAnchorPoint(cocos2d::CCPointZero);
-		this->addChild(this->text);
+	this->text = CCTextFieldTTF::textFieldWithPlaceHolder("", CCSize(0, 0), kCCTextAlignmentLeft, "Thonburi", 20);
+	this->text->setAnchorPoint(cocos2d::CCPointZero);
+	this->addChild(this->text);
 
-		return true;
+	return true;
 }
 
 CCRect PropertyInput::GetRangeRect()
 {
-		CCPoint start = this->text->getPosition();
-		CCRect rect = CCRect(start.x, start.y, this->inputRect.width, this->inputRect.height);
+	CCPoint start = this->text->getPosition();
+	CCRect rect = CCRect(start.x, start.y, this->inputRect.width, this->inputRect.height);
 
-		return rect;
+	return rect;
 }
 
 void PropertyInput::OnEnter()
 {
-		this->text->attachWithIME();
+	this->text->attachWithIME();
 }
 
 void PropertyInput::OnLeave()
 {
-		this->text->detachWithIME();
+	this->text->detachWithIME();
+    if (m_leaveListener && m_leaveSelector)
+    {
+        (m_leaveListener->*m_leaveSelector)(this);
+    }
+}
+
+void PropertyInput::setSelectorForLeave( cocos2d::CCObject *target, cocos2d::SEL_MenuHandler leaveSelector )
+{
+    m_leaveListener = target;
+    m_leaveSelector = leaveSelector;
 }
 
 
@@ -51,56 +61,56 @@ PropertyLayer::~PropertyLayer(void)
 
 bool PropertyLayer::init()
 {
-		{
-				PropertyInput *input1 = PropertyInput::create();
+	{
+		PropertyInput *input1 = PropertyInput::create();
 
-				//sprite - 1
-				input1->sprite = CCSprite::create("Images/PhysicsTech/Prop_Quality.png");
-				input1->sprite->setAnchorPoint(cocos2d::CCPointZero);
-				input1->sprite->setPosition(ccp(0, 100));
-				input1->addChild(input1->sprite);
-				//input - sprite - 1
-				input1->inputSprite = CCSprite::create("Images/PhysicsTech/QualityInput.png");
-				input1->inputSprite->setAnchorPoint(cocos2d::CCPointZero);
-				input1->inputSprite->setPosition(ccp(input1->sprite->getPositionX() + 32 + 5, 95));
-				input1->addChild(input1->inputSprite);
-				//input - 1
-				input1->text->setPosition(ccp(input1->sprite->getPositionX() + 32 + 25, 105));
-				input1->inputRect = CCSize(100, 20);
-				input1->text->setContentSize(input1->inputRect);
-				//prop - type - 1
-				input1->propertyType = PropertyType_Mass;
-				//add
-				this->nodeArray->addObject(input1);
-				this->addChild(input1);
-		}
+		//sprite - 1
+		input1->sprite = CCSprite::create("Images/PhysicsTech/Prop_Quality.png");
+		input1->sprite->setAnchorPoint(cocos2d::CCPointZero);
+		input1->sprite->setPosition(ccp(0, 100));
+		input1->addChild(input1->sprite);
+		//input - sprite - 1
+		input1->inputSprite = CCSprite::create("Images/PhysicsTech/QualityInput.png");
+		input1->inputSprite->setAnchorPoint(cocos2d::CCPointZero);
+		input1->inputSprite->setPosition(ccp(input1->sprite->getPositionX() + 32 + 5, 95));
+		input1->addChild(input1->inputSprite);
+		//input - 1
+		input1->text->setPosition(ccp(input1->sprite->getPositionX() + 32 + 25, 105));
+		input1->inputRect = CCSize(100, 20);
+		input1->text->setContentSize(input1->inputRect);
+		//prop - type - 1
+		input1->propertyType = PropertyType_Mass;
+		//add
+		this->nodeArray->addObject(input1);
+		this->addChild(input1);
+	}
 
-		{		
-				PropertyInput *input2 = PropertyInput::create();
-				//sprite - 2
-				input2->sprite = CCSprite::create("Images/PhysicsTech/Prop_IsStatic.png");
-				input2->sprite->setAnchorPoint(cocos2d::CCPointZero);
-				input2->sprite->setPosition(ccp(50, 60));
-				input2->addChild(input2->sprite);
-				//input - sprite - 2
-				input2->inputSprite = CCSprite::create("Images/PhysicsTech/StaticInput.png");
-				input2->inputSprite->setAnchorPoint(cocos2d::CCPointZero);
-				input2->inputSprite->setPosition(ccp(input2->sprite->getPositionX() + 32 + 5, 55));
-				input2->addChild(input2->inputSprite);
-				//input - 2
-				input2->text->setPosition(ccp(input2->sprite->getPositionX() + 32 + 25, 65));
-				input2->inputRect = CCSize(100, 20);
-				input2->text->setContentSize(input2->inputRect);
-				//prop - type - 1
-				input2->propertyType = PropertyType_Static;
-				//add
-				this->nodeArray->addObject(input2);
-				this->addChild(input2);
-		}
+	{		
+		PropertyInput *input2 = PropertyInput::create();
+		//sprite - 2
+		input2->sprite = CCSprite::create("Images/PhysicsTech/Prop_IsStatic.png");
+		input2->sprite->setAnchorPoint(cocos2d::CCPointZero);
+		input2->sprite->setPosition(ccp(50, 60));
+		input2->addChild(input2->sprite);
+		//input - sprite - 2
+		input2->inputSprite = CCSprite::create("Images/PhysicsTech/StaticInput.png");
+		input2->inputSprite->setAnchorPoint(cocos2d::CCPointZero);
+		input2->inputSprite->setPosition(ccp(input2->sprite->getPositionX() + 32 + 5, 55));
+		input2->addChild(input2->inputSprite);
+		//input - 2
+		input2->text->setPosition(ccp(input2->sprite->getPositionX() + 32 + 25, 65));
+		input2->inputRect = CCSize(100, 20);
+		input2->text->setContentSize(input2->inputRect);
+		//prop - type - 1
+		input2->propertyType = PropertyType_Static;
+		//add
+		this->nodeArray->addObject(input2);
+		this->addChild(input2);
+	}
 
-		this->setVisible(false);
+	this->setVisible(false);
 
-		return true;
+	return true;
 }
 
 void PropertyLayer::draw()
@@ -150,53 +160,53 @@ void PropertyLayer::draw()
 
 void PropertyLayer::SetProperty(PropertyType type, void* data)
 {
-		PropertyInput *found = NULL;
+	PropertyInput *found = NULL;
 
-		//fiind the corresoding property type
-		int count = this->nodeArray->count();
-		for (int i = 0; i < count; i++)
+	//fiind the corresoding property type
+	int count = this->nodeArray->count();
+	for (int i = 0; i < count; i++)
+	{
+		PropertyInput *input = (PropertyInput*)this->nodeArray->objectAtIndex(i);
+		if (input->propertyType == type)
 		{
-				PropertyInput *input = (PropertyInput*)this->nodeArray->objectAtIndex(i);
-				if (input->propertyType == type)
-				{
-						found = input;
-						break;
-				}
+            found = input;
+            break;
 		}
+	}
 
-		//if no found, return
-		if (found == NULL)
-		{
-				return;
-		}
+	//if no found, return
+	if (found == NULL)
+	{
+		return;
+	}
 
-		switch (type)
-		{
-		case PropertyType_Static:
-				{
-						bool *b = (bool*)data;
-						bool isStatic = *b;
-						if (isStatic)
-						{
-								found->text->setString("true");
-						}
-						else
-						{
-								found->text->setString("false");
-						}
-				}
-				break;
-		case PropertyType_Mass:
-				{
-						float *f = (float*)data;
-						float mass = *f;
-						char s[16];
-						sprintf(s, "%f", mass);
-						found->text->setString(s);
-				}
-				break;
-		default:
-				break;
-		}
+	switch (type)
+	{
+	case PropertyType_Static:
+        {
+            bool *b = (bool*)data;
+            bool isStatic = *b;
+            if (isStatic)
+            {
+                found->text->setString("true");
+            }
+            else
+            {
+                found->text->setString("false");
+            }
+        }
+        break;
+	case PropertyType_Mass:
+        {
+            float *f = (float*)data;
+            float mass = *f;
+            char s[16];
+            sprintf(s, "%f", mass);
+            found->text->setString(s);
+        }
+        break;
+	default:
+		break;
+	}
 }
 

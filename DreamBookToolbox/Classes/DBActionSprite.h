@@ -36,8 +36,6 @@ public:
     virtual void ccTouchEnded( cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent );
     virtual void ccTouchMoved( cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent );
     virtual void ccTouchCancelled( cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent );
-
-    virtual void setVoiceEnabeld(bool isEnabled);
 protected:
     void touchMovedDesign(cocos2d::CCTouch *pTouch);
     void transform(float time);
@@ -58,6 +56,14 @@ public:
     void save();
     void load();
     static DBActionSprite* create();
+protected:
+    bool m_isBreak;
+    cocos2d::CCObject*        m_inputListener;
+    cocos2d::SEL_MenuHandler  m_inputSelector;
+public:
+    void setInputContent(const char* inputContent, float time);
+    void checkInputContent(const char* inputContent);
+    virtual void setSelectorForInput(cocos2d::CCObject *target, cocos2d::SEL_MenuHandler inputSelector);
 };
 
 #endif  // __DBAction_Sprite_H__

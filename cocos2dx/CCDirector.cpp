@@ -165,12 +165,6 @@ bool CCDirector::init(void)
     
 CCDirector::~CCDirector(void)
 {
-    if(this->m_voiceRecoTarget)
-    {
-        this->m_voiceRecoTarget->release();
-        this->m_voiceRecoTarget = NULL;
-    }
-
     CCLOG("cocos2d: deallocing CCDirector %p", this);
 
     CC_SAFE_RELEASE(m_pFPSLabel);
@@ -949,7 +943,6 @@ CCAccelerometer* CCDirector::getAccelerometer()
 void CCDirector::setVoiceRecognitionTarget( CCNode* pTarget, SEL_VoiceRecognitionHandler selector )
 {
     this->m_voiceRecoTarget = pTarget;
-    this->m_voiceRecoTarget->retain();
     this->m_voiceRecoSelector = selector;
 }
 

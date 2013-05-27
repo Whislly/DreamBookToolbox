@@ -30,6 +30,7 @@ DesignLayer::DesignLayer()
     , m_enlarge(NULL)
     , m_reduce(NULL)
     , m_currentSprite(NULL)
+    , m_input(NULL)
 {
     m_enlarge = CCSpriteEx::create("enhance.png");
     addChild(m_enlarge, 5);
@@ -44,6 +45,24 @@ DesignLayer::DesignLayer()
     //m_reduce->setPosition(ccp(300, 300));
     m_reduce->setSelectorForSingleClick(this, menu_selector(DesignLayer::reduce));
     m_reduce->setVisible(false);
+
+    m_input = PropertyInput::create();
+    //sprite - 1
+    m_input->sprite = CCSprite::create("Images/PhysicsTech/Prop_Quality.png");
+    m_input->sprite->setAnchorPoint(cocos2d::CCPointZero);
+    m_input->sprite->setPosition(ccp(0, 100));
+    m_input->addChild(m_input->sprite);
+    //input - sprite - 1
+    m_input->inputSprite = CCSprite::create("Images/PhysicsTech/QualityInput.png");
+    m_input->inputSprite->setAnchorPoint(cocos2d::CCPointZero);
+    m_input->inputSprite->setPosition(ccp(m_input->sprite->getPositionX() + 32 + 5, 95));
+    m_input->addChild(m_input->inputSprite);
+    //input - 1
+    m_input->text->setPosition(ccp(m_input->sprite->getPositionX() + 32 + 25, 105));
+    m_input->inputRect = CCSize(100, 20);
+    m_input->text->setContentSize(m_input->inputRect);
+    this->addChild(m_input);
+    m_input->setVisible(false);
 }
 
 DesignLayer::~DesignLayer()
@@ -336,15 +355,20 @@ void DesignLayer::reduce( cocos2d::CCObject* pSender )
 
 void DesignLayer::showScaleToolButtons( cocos2d::CCObject* pSender )
 {
-    CCSprite* pSprite = (CCSprite*)pSender;
+    DBActionSprite* pSprite = (DBActionSprite*)pSender;
     CCPoint pos = pSprite->getPosition();
-    CCSize contentSize = pSprite->getContentSize();
     m_enlarge->setVisible(true);
     m_reduce->setVisible(true);
+    m_input->setVisible(true);
+
     m_enlarge->setPosition(ccpAdd(pos, ccp(40.0f, 0.0f)));
     m_enlarge->runAction(CCShow::create());
     m_reduce->setPosition(ccpSub(pos, ccp(40.0f, 0.0f)));
     m_reduce->runAction(CCShow::create());
+
+    m_input->setPosition(ccpSub(pos, ccp(0.0f, 40.0f)));
+    m_input->runAction(CCShow::create());
+
     m_currentSprite = pSprite;
 }
 
@@ -353,10 +377,18 @@ bool DesignLayer::ccTouchBegan( CCTouch *pTouch, CCEvent *pEvent )
     CCPoint touchLocation = pTouch->getLocation();
     if (!m_reduce->boundingBox().containsPoint(touchLocation) && 
         !m_enlarge->boundingBox().containsPoint(touchLocation) &&
+        !m_input->boundingBox().containsPoint(touchLocation) &&
         m_currentSprite && (!m_currentSprite->boundingBox().containsPoint(touchLocation)))
     {
         m_enlarge->setVisible(false);
         m_reduce->setVisible(false);
+        m_input->setVisible(false);
+        const char* content = m_input->text->getString();
+        if (content && strlen(content) > 0)
+        {
+            m_currentSprite->setInputContent(content, m_time);
+            m_currentSprite->setSelectorForInput(this, menu_selector(DesignLayer::waitInput));
+        }
     }
     return false;
 }
@@ -365,10 +397,51 @@ void DesignLayer::onEnter()
 {
     CCLayerColor::onEnter();
     CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, 0/*priority=??*/, false);
+    #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+    CCDirector::sharedDirector()->setVoiceRecognitionTarget(this, voiceRecognition_selector(DesignLayer::voiceRecognition));
+    #endif
 }
 
 void DesignLayer::onExit()
 {
     CCDirector::sharedDirector()->getTouchDispatcher()->removeDelegate(this);
+    #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+    CCDirector::sharedDirector()->setVoiceRecognitionTarget(NULL, NULL);
+    #endif
     CCLayerColor::onExit();
+}
+
+void DesignLayer::voiceRecognition( const char* voiceContent )
+{
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+    if (m_currentSprite)
+    {
+        m_currentSprite->checkInputContent(voiceContent);
+    }
+#endif
+}
+
+void DesignLayer::voiceRecognition( cocos2d::CCObject* pSender )
+{
+#if (CC_TARGET_PLATFORM != CC_PLATFORM_ANDROID)
+    m_input->setSelectorForLeave(NULL, NULL);
+    if (m_currentSprite)
+    {
+        m_currentSprite->checkInputContent(m_input->text->getString());
+    }
+#endif
+}
+
+void DesignLayer::waitInput( cocos2d::CCObject* pSender )
+{
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+    this->activeVoiceService();
+#else
+    DBActionSprite* pSprite = (DBActionSprite*)pSender;
+    CCPoint pos = pSprite->getPosition();
+    m_input->setVisible(true);
+    m_input->runAction(CCShow::create());
+    m_input->setPosition(ccpSub(pos, ccp(0.0f, 40.0f)));
+    m_input->setSelectorForLeave(this, menu_selector(DesignLayer::voiceRecognition));
+#endif
 }

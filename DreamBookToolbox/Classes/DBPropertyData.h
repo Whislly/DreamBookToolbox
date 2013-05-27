@@ -16,6 +16,9 @@ public:
     CC_SYNTHESIZE(float, m_scale, Scale);
     void save(int tag, int time);
     void load(int tag, int time);
+protected:
+    CC_SYNTHESIZE_READONLY(cocos2d::CCString*, m_inputContent, InputContent);
+    void setInputContent(const char* content);
 };
 
 #endif  // __DBPropertyData_H__
