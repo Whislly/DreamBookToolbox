@@ -135,7 +135,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
+    <ClInclude Include="..\Classes\CCPlaceInterval.h" />
     <ClInclude Include="..\Classes\CCSpriteEx.h" />
+    <ClInclude Include="..\Classes\CCTransitionParticle.h" />
     <ClInclude Include="..\Classes\CommonHelper.h" />
     <ClInclude Include="..\Classes\CustomUserData.h" />
     <ClInclude Include="..\Classes\DancingBoneLayer.h" />
@@ -172,6 +174,8 @@
     <ClInclude Include="..\Classes\PosQuery.h" />
     <ClInclude Include="..\Classes\PropertyLayer.h" />
     <ClInclude Include="..\Classes\SampleGestures.h" />
+    <ClInclude Include="..\Classes\StoryChatLayer.h" />
+    <ClInclude Include="..\Classes\StoryScene.h" />
     <ClInclude Include="..\Classes\ToyBrick.h" />
     <ClInclude Include="..\Classes\ToyBrickScene.h" />
     <ClInclude Include="..\Classes\ToyContact.h" />
@@ -182,7 +186,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
+    <ClCompile Include="..\Classes\CCPlaceInterval.cpp" />
     <ClCompile Include="..\Classes\CCSpriteEx.cpp" />
+    <ClCompile Include="..\Classes\CCTransitionParticle.cpp" />
     <ClCompile Include="..\Classes\CommonHelper.cpp" />
     <ClCompile Include="..\Classes\CustomUserData.cpp" />
     <ClCompile Include="..\Classes\DancingBoneLayer.cpp" />
@@ -213,6 +219,8 @@
     <ClCompile Include="..\Classes\PositionQueryCallback.cpp" />
     <ClCompile Include="..\Classes\PosQuery.cpp" />
     <ClCompile Include="..\Classes\PropertyLayer.cpp" />
+    <ClCompile Include="..\Classes\StoryChatLayer.cpp" />
+    <ClCompile Include="..\Classes\StoryScene.cpp" />
     <ClCompile Include="..\Classes\ToyBrick.cpp" />
     <ClCompile Include="..\Classes\ToyBrickScene.cpp" />
     <ClCompile Include="..\Classes\ToyContact.cpp" />

@@ -8,6 +8,8 @@
 #include "ParseObject.h"
 #include "ParseFile.h"
 #include "ParseQuery.h"
+#include "CCTransitionParticle.h"
+#include "StoryScene.h"
 
 USING_NS_CC;
 
@@ -31,6 +33,13 @@ void MainLayer::menuToyBrickCallback( CCObject* pSender )
 void MainLayer::menuDancingBoneCallback( CCObject* pSender )
 {
     CCDirector::sharedDirector()->replaceScene(CCTransitionPageTurn::create(1.0f, DancingBoneScene::create(), false));
+}
+
+void MainLayer::menuKongRongCallback( CCObject* pSender )
+{
+    CCParticleFlower* flower = CCParticleFlower::create();
+    flower->setTexture(CCTextureCache::sharedTextureCache()->addImage("stars.png"));
+    CCDirector::sharedDirector()->replaceScene(CCTransitionParticle::create(1.0f, StoryLayer::scene(), flower));
 }
 
 void MainLayer::menuCloseCallback( CCObject* pSender )
@@ -122,6 +131,8 @@ bool MainLayer::init()
         CCSpriteFrameCache* cache = CCSpriteFrameCache::sharedSpriteFrameCache();
         cache->addSpriteFramesWithFile("PlayBox.plist", "PlayBox.png");
 
+        cache->addSpriteFramesWithFile("resources.plist");
+
         // 1. Add a menu item with "X" image, which is clicked to quit the program.
 
         // Create a "close" menu item with close icon, it's an auto release object.
@@ -158,6 +169,10 @@ bool MainLayer::init()
 
         label = CCLabelTTF::create("DancingBone", "Arial", 46);
         pMenuItem = CCMenuItemLabel::create(label, this, menu_selector(MainLayer::menuDancingBoneCallback));
+        pMenu->addChild(pMenuItem);
+
+        label = CCLabelTTF::create("Kong Rong Gave Away Bigger Pear", "Arial", 46);
+        pMenuItem = CCMenuItemLabel::create(label, this, menu_selector(MainLayer::menuKongRongCallback));
         pMenu->addChild(pMenuItem);
 
         pMenu->alignItemsVertically();

@@ -61,6 +61,15 @@
     <Filter Include="source\Scenes\ToyBrick">
       <UniqueIdentifier>{67c35023-b92f-4bb2-b444-d46272d59f2d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Extra">
+      <UniqueIdentifier>{8b24d0b2-86c0-4fef-8a3e-6757b48c30f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Extra\KongRong">
+      <UniqueIdentifier>{6a69b8e4-b7b1-48fd-b71a-614cd9b2fc15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Extra\Common">
+      <UniqueIdentifier>{0d6971d7-7c4c-4548-a111-97f2443e9a86}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\DreamBookToolbox.ico">
@@ -226,6 +235,18 @@
     <ClInclude Include="..\Classes\FrameSprite.h">
       <Filter>include\Common</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\StoryChatLayer.h">
+      <Filter>Extra\KongRong</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\StoryScene.h">
+      <Filter>Extra\KongRong</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CCPlaceInterval.h">
+      <Filter>Extra\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CCTransitionParticle.h">
+      <Filter>Extra\Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -341,6 +362,18 @@
     </ClCompile>
     <ClCompile Include="..\Classes\FrameSprite.cpp">
       <Filter>source\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\StoryChatLayer.cpp">
+      <Filter>Extra\KongRong</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\StoryScene.cpp">
+      <Filter>Extra\KongRong</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\CCPlaceInterval.cpp">
+      <Filter>Extra\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\CCTransitionParticle.cpp">
+      <Filter>Extra\Common</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

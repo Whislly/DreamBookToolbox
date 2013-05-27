@@ -32,6 +32,9 @@ public:
     void menuCloseCallback(CCObject* pSender);
 
 	void menuDancingBoneCallback( CCObject* pSender );
+
+    void menuKongRongCallback( CCObject* pSender );
+
 	/*
 	CCLabelTTF* lbDebug;
 
