@@ -216,7 +216,8 @@ void DreamBookLayer::saveDataToCloud( CCObject* pSender )
     lbDebug->setPosition(ccp(CCDirector::sharedDirector()->getWinSize().width * 0.5f, CCDirector::sharedDirector()->getWinSize().height * 0.5f));
     lbDebug->runAction(CCRepeatForever::create(CCBlink::create(1.0f, 1)));
     m_designLayer->saveData();
-    this->file->deleteFile(this->object->Get<const char*>("name"));
+	this->file->uploadFile(CCFileUtils::sharedFileUtils()->getWritablePath().c_str(), USER_DEFAULT_NAME);
+	this->file->deleteFile(this->object->Get<const char*>("name"));
 }
 
 // on "init" you need to initialize your instance
@@ -352,7 +353,7 @@ void DreamBookLayer::DeleteCompleted( bool isSuccess, cocos2d::extension::ParseE
 {
 	if (isSuccess)
 	{
-		this->file->uploadFile(CCFileUtils::sharedFileUtils()->getWritablePath().c_str(), USER_DEFAULT_NAME);
+		
 	}
     removeChildByTag(98, true);
 }

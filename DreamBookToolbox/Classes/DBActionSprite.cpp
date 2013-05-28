@@ -37,8 +37,8 @@ DBActionSprite* DBActionSprite::createWithTexture( cocos2d::CCTexture2D *pTextur
     if (pActionSprite && pActionSprite->initWithTexture(pTexture, rect))
     {
         pActionSprite->autorelease();
-        pActionSprite->m_data = DBData::create();
-        pActionSprite->m_data->retain();
+        /*pActionSprite->m_data = DBData::create();
+        pActionSprite->m_data->retain();*/
         return pActionSprite;
     }
     CC_SAFE_DELETE(pActionSprite);
@@ -271,8 +271,8 @@ DBActionSprite* DBActionSprite::create()
     if (pActionSprite)
     {
         pActionSprite->autorelease();
-        pActionSprite->m_data = DBData::create();
-        pActionSprite->m_data->retain();
+        /*pActionSprite->m_data = DBData::create();
+        pActionSprite->m_data->retain();*/
         return pActionSprite;
     }
     CC_SAFE_DELETE(pActionSprite);
