@@ -157,7 +157,8 @@ void DBData::load( int tag )
     int resourceFileCount = pUserData->getIntegerForKey(key);
     if (resourceFileCount > 0)
     {
-        m_resourceFileArray = CCArray::createWithCapacity(resourceFileCount);
+        //m_resourceFileArray = CCArray::createWithCapacity(resourceFileCount);
+		m_resourceFileArray->removeAllObjects();
         for (int i = 0; i < resourceFileCount; i++)
         {
             sprintf(key, "tag%d_frame%d", tag, i);
