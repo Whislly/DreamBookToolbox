@@ -71,6 +71,8 @@ public:
     void DownloadFile();
     void FindCompleted(cocos2d::CCArray* array, cocos2d::extension::ParseError* error);
 
+    void loadDataToObserveLayer();
+
     DreamBookLayer();
     ~DreamBookLayer();
 };

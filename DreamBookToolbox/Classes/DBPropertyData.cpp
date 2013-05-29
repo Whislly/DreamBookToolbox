@@ -53,8 +53,11 @@ void DBPropertyData::save( int tag, int time )
     sprintf(key, "tag%d_time%d_scale", tag, time);
     pUserData->setFloatForKey(key, m_scale);
 
-    sprintf(key, "tag%d_time%d_input", tag, time);
-    pUserData->setStringForKey(key, m_inputContent->getCString());
+    if(m_inputContent)
+    {
+        sprintf(key, "tag%d_time%d_input", tag, time);
+        pUserData->setStringForKey(key, m_inputContent->getCString());
+    }
 }
 
 void DBPropertyData::load( int tag, int time )

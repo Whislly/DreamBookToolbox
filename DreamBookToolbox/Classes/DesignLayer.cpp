@@ -359,15 +359,15 @@ void DesignLayer::showScaleToolButtons( cocos2d::CCObject* pSender )
     CCPoint pos = pSprite->getPosition();
     m_enlarge->setVisible(true);
     m_reduce->setVisible(true);
-    m_input->setVisible(true);
+    //m_input->setVisible(true);
 
     m_enlarge->setPosition(ccpAdd(pos, ccp(40.0f, 0.0f)));
     m_enlarge->runAction(CCShow::create());
     m_reduce->setPosition(ccpSub(pos, ccp(40.0f, 0.0f)));
     m_reduce->runAction(CCShow::create());
 
-    m_input->setPosition(ccpSub(pos, ccp(0.0f, 40.0f)));
-    m_input->runAction(CCShow::create());
+    /*m_input->setPosition(ccpSub(pos, ccp(0.0f, 40.0f)));
+    m_input->runAction(CCShow::create());*/
 
     m_currentSprite = pSprite;
 }

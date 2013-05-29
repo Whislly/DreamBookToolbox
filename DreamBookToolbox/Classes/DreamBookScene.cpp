@@ -380,11 +380,41 @@ void DreamBookLayer::FindCompleted( cocos2d::CCArray* array, cocos2d::extension:
     removeChildByTag(98, true);
 }
 
+void DreamBookLayer::loadDataToObserveLayer()
+{
+    CCArray* pChildren = m_designLayer->getChildren();
+    for (int i = 0; i < m_designLayer->getChildrenCount(); i++)
+    {
+        DBActionSprite* pSprite = (DBActionSprite*)(pChildren->objectAtIndex(i));
+        if (pSprite && !m_observeLayer->getChildByTag(pSprite->getTag()))
+        {
+            CCSpriteEx* pCell = CCSpriteEx::createWithTexture(pSprite->getTexture(), pSprite->getTextureRect());
+            pCell->setSelectorForSingleClick(this, menu_selector(DreamBookLayer::activeCell));
+            pCell->setSelectorForDoubleClick(this, menu_selector(DreamBookLayer::activeActions));
+            pCell->addResourcePath(pSprite->getResourceFileArray());
+            m_observeLayer->addCell(pCell);
+
+            cocos2d::CCArray *arr = pSprite->getAllActions();
+            if (arr && arr->count() > 0)
+            {
+                for (int j = 0; j < arr->count(); j++)
+                {
+                    cocos2d::CCAction *act = (cocos2d::CCAction*)arr->objectAtIndex(j);
+                    pCell->runAction(act);
+                }
+                //CCPoint position = pCell->getPosition();
+                //pCell->setPosition(ccp(position.x - 15, position.y - 15));
+            }
+        }
+    }
+}
+
 void DreamBookLayer::DownloadCompleted( const char* path, cocos2d::extension::ParseError* error )
 {
     if (path)
     {
         m_designLayer->loadData();
+        loadDataToObserveLayer();
     }
 
     removeChildByTag(98, true);
