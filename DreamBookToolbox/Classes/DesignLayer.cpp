@@ -1,6 +1,9 @@
 #include "DesignLayer.h"
 #include "DBActionSprite.h"
 #include "CommonHelper.h"
+#include "document.h"
+#include "filestream.h"
+#include "prettywriter.h"
 
 USING_NS_CC;
 
@@ -155,90 +158,51 @@ void DesignLayer::runChildrenActions( int tag )
 
 void DesignLayer::saveData()
 {
-    CCObject* pObj = NULL;
+	std::string fileName = CCFileUtils::sharedFileUtils()->getWritablePath() + "data.json";
+	FILE* file = fopen(fileName.c_str(), "w");
+	rapidjson::FileStream stream(file);
+
+	rapidjson::PrettyWriter<rapidjson::FileStream> writer(stream);
+    
+	writer.StartArray();
+	CCObject* pObj = NULL;
     CCArray* pChildren = getChildren();
-
-    char key[255] = {0};
-    char content[255] = {0};
-    int idx = 0;
-    CCUserDefault* pUserData = CCUserDefault::sharedUserDefault();
-    CCARRAY_FOREACH(pChildren, pObj)
-    {
-        CCNode* pNode = (CCNode*)pObj;
-        if (pNode->getTag() == -1)
-        {
-            continue;
-        }
-        sprintf(key, "tagArray%d", idx);
-        sprintf(content, "%s,%d", content, pNode->getTag());
-        if (strlen(content + 1) >= 248)
-        {
-            pUserData->setStringForKey(key, content + 1);
-            idx++;
-            memset(content, 0, 255);
-        }
-    }
-    if (strlen(content + 1) > 0)
-    {
-        pUserData->setStringForKey(key, content + 1);
-    }
-
     CCARRAY_FOREACH(pChildren, pObj)
     {
         DBActionSprite* pActionSprite = (DBActionSprite*)(pObj);
         if (pActionSprite && (pActionSprite->getTag() != -1))
         {
-            pActionSprite->save();
+            pActionSprite->save(writer);
         }
     }
+	writer.EndArray();
+
+	fclose(file);
 }
 
 void DesignLayer::loadData()
 {
-    CCUserDefault* pUserData = CCUserDefault::sharedUserDefault();
-    int idx = 0;
-    char key[255] = {0};
-    sprintf(key, "tagArray%d", idx);
-    char content[255] = {0};
-    sprintf(content, "%s", pUserData->getStringForKey(key).c_str());
-    CCArray* pIntArray = NULL;
-    while(strlen(content) > 0)
-    {
-        if (!pIntArray)
-        {
-            pIntArray = CommonHelper::getIntArray(content);
-        }
-        else
-        {
-            CCArray* anotherIntArray = CommonHelper::getIntArray(content);
-            if (anotherIntArray)
-            {
-                pIntArray->addObjectsFromArray(anotherIntArray);
-            }
-        }
+	std::string fileName = CCFileUtils::sharedFileUtils()->getWritablePath() + "data.json";
+	FILE* file = fopen(fileName.c_str(), "r");
+	rapidjson::FileStream stream(file);
 
-        if (strlen(content) < 248)
-        {
-            break;
-        }
-        else
-        {
-            idx++;
-            sprintf(key, "tagArray%d", idx);
-            sprintf(content, "%s", pUserData->getStringForKey(key).c_str());
-        }
-    }
+	rapidjson::Document doc;
+	doc.ParseStream<0>(stream);
 
-    CCObject* pObj = NULL;
-    CCARRAY_FOREACH(pIntArray, pObj)
-    {
-        CCInteger* pInt = (CCInteger*)pObj;
-        DBActionSprite* pActionSprite = DBActionSprite::create();
-        pActionSprite->setTag(pInt->getValue());
-        pActionSprite->load();
-        addSpriteEx(pActionSprite);
-        pActionSprite->readStatus(0.0f);
-    }
+	if (doc.IsArray())
+	{
+		for (unsigned int i = 0; i < doc.Size(); ++i)
+		{
+			rapidjson::Value& value = doc[i];
+			DBActionSprite* pActionSprite = DBActionSprite::create();
+			pActionSprite->setTag(value["Tag"].GetInt());
+			pActionSprite->load(value);
+			addSpriteEx(pActionSprite);
+			pActionSprite->readStatus(0.0f);
+		}
+	}
+
+	fclose(file);
 }
 
 void DesignLayer::addFinishedActionCount()
@@ -262,7 +226,7 @@ void DesignLayer::runChildrenActions()
     m_time = 0.0f;
     setEnableTime(true);
 
-    for (int i = 0; i < getChildrenCount(); i++)
+    for (unsigned int i = 0; i < getChildrenCount(); i++)
     {
         DBActionSprite* pActionSprite = (DBActionSprite*)(this->getChildByTag(i));
         if (pActionSprite)

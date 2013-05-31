@@ -41,51 +41,29 @@ void DBPropertyData::setPosition( cocos2d::CCPoint& pos )
     m_pos = CCPoint(pos.x, pos.y);
 }
 
-void DBPropertyData::save( int tag, int time )
+void DBPropertyData::save( rapidjson::PrettyWriter<rapidjson::FileStream>& write )
 {
-    CCUserDefault* pUserData = CCUserDefault::sharedUserDefault();
-    char key[255];
-    char content[255];
-    sprintf(key, "tag%d_time%d_position", tag, time);
-    sprintf(content, "(%.3f,%.3f)", m_pos.x, m_pos.y);
-    pUserData->setStringForKey(key, content);
+	write.String("X");
+	write.Double(m_pos.x);
 
-    sprintf(key, "tag%d_time%d_scale", tag, time);
-    pUserData->setFloatForKey(key, m_scale);
+	write.String("Y");
+	write.Double(m_pos.y);
+   
+	write.String("Scale");
+	write.Double(m_scale);
 
-    if(m_inputContent)
-    {
-        sprintf(key, "tag%d_time%d_input", tag, time);
-        pUserData->setStringForKey(key, m_inputContent->getCString());
-    }
+	write.String("Input");
+    write.String(m_inputContent?m_inputContent->getCString():"");
 }
 
-void DBPropertyData::load( int tag, int time )
+void DBPropertyData::load( rapidjson::Value& data )
 {
-    CCUserDefault* pUserData = CCUserDefault::sharedUserDefault();
-    char key[255];
-    char content[255];
+    m_pos.x = data["X"].GetDouble();
+    m_pos.y = data["Y"].GetDouble();
 
-    sprintf(key, "tag%d_time%d_position", tag, time);
-    sprintf(content, "%s", pUserData->getStringForKey(key).c_str());
+    m_scale = data["Scale"].GetDouble();
 
-    int idx = 0;
-    int count = strlen(content);
-    for (; idx < count; idx++)
-    {
-        if (content[idx] == ',')
-        {
-            break;
-        }
-    }
-    m_pos.x = CCString::createWithData((const unsigned char*)(content + 1), idx - 1)->floatValue();
-    m_pos.y = CCString::createWithData((const unsigned char*)(content + idx + 1), count - idx - 2)->floatValue();
-
-    sprintf(key, "tag%d_time%d_scale", tag, time);
-    m_scale = pUserData->getFloatForKey(key);
-
-    sprintf(key, "tag%d_time%d_input", tag, time);
-    m_inputContent = CCString::create(pUserData->getStringForKey(key));
+	m_inputContent = CCString::create(data["Input"].GetString());
     m_inputContent->retain();
 }
 

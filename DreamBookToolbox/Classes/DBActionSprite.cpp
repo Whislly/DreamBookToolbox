@@ -168,9 +168,16 @@ void DBActionSprite::excuteAction( float time, cocos2d::CCObject *target, cocos2
     }
 }
 
-void DBActionSprite::save()
+void DBActionSprite::save(rapidjson::PrettyWriter<rapidjson::FileStream>& write)
 {
-    this->m_data->save(this->getTag());
+	write.StartObject();
+
+	write.String("Tag");
+	write.Int(this->getTag());
+
+    this->m_data->save(write);
+
+	write.EndObject();
 }
 
 void DBActionSprite::transform( float time )
@@ -234,9 +241,9 @@ void DBActionSprite::setEnableTime( bool isTime )
     }
 }
 
-void DBActionSprite::load()
+void DBActionSprite::load(rapidjson::Value& value)
 {
-    this->m_data->load(getTag());
+    this->m_data->load(value);
     int count = m_data->m_resourceFileArray->count();
     if (count > 0)
     {

@@ -99,106 +99,52 @@ void DBData::removeDBPropertyData( float startTime, float endTime )
     }
 }
 
-void DBData::save(int tag)
+void DBData::save( rapidjson::PrettyWriter<rapidjson::FileStream>& write )
 {
-    CCUserDefault* pUserData = CCUserDefault::sharedUserDefault();
-    CCObject* pObj = NULL;
-    char key[255] = {0};
-    int idx = 0;
+	write.String("File");
+	write.StartArray();
     if(m_resourceFileArray)
     {
-        sprintf(key, "tag%d_frameCount", tag);
-        pUserData->setIntegerForKey(key, m_resourceFileArray->count());
+		CCObject* pObj;
         CCARRAY_FOREACH(m_resourceFileArray, pObj)
         {
             CCString* str = (CCString*)pObj;
-            sprintf(key, "tag%d_frame%d", tag, idx);
-            pUserData->setStringForKey(key, str->m_sString);
-            idx++;
+			write.String(str->getCString(), (size_t)str->length());
         }
     }
+	write.EndArray();
 
-    char content[255] = {0};
-    idx = 0;
-    CCArray* keyArrays = m_dic->allKeys();
-    CCARRAY_FOREACH(keyArrays, pObj)
-    {
-        CCInteger* pKey = (CCInteger*)pObj;
-        sprintf(key, "tag%d_propertyDataArray%d", tag, idx);
-        sprintf(content, "%s,%d", content, pKey->getValue());
-        if (strlen(content + 1) >= 248)
-        {
-            pUserData->setStringForKey(key, content + 1);
-            idx++;
-            memset(content, 0, 255);
-        }
-    }
-    if (strlen(content + 1) > 0)
-    {
-        pUserData->setStringForKey(key, content + 1);
-    }
-
+	write.String("Data");
     CCDictElement* pElement;
+	write.StartArray();
     CCDICT_FOREACH(m_dic, pElement)
     {
+		write.StartObject();
+
+		write.String("Time");
+		write.Int(pElement->getIntKey());
+
         DBPropertyData* pPropertyData = (DBPropertyData*)pElement->getObject();
-        pPropertyData->save(tag, pElement->getIntKey());
+        pPropertyData->save(write);
+		
+		write.EndObject();
     }
-    pUserData->flush();
+    write.EndArray();
 }
 
-void DBData::load( int tag )
+void DBData::load( rapidjson::Value& value )
 {
-    CCUserDefault* pUserData = CCUserDefault::sharedUserDefault();
-    CCObject* pObj = NULL;
-    char key[255] = {0};
-    int idx = 0;
-    sprintf(key, "tag%d_frameCount", tag);
-    int resourceFileCount = pUserData->getIntegerForKey(key);
-    if (resourceFileCount > 0)
-    {
-        //m_resourceFileArray = CCArray::createWithCapacity(resourceFileCount);
-		m_resourceFileArray->removeAllObjects();
-        for (int i = 0; i < resourceFileCount; i++)
-        {
-            sprintf(key, "tag%d_frame%d", tag, i);
-            CCString* pStr = CCString::create(pUserData->getStringForKey(key));
+	rapidjson::Value& fileArray = value["File"];
+	if (fileArray.IsArray())
+	{
+		for (unsigned int i = 0; i < fileArray.Size(); ++i)
+		{
+			CCString* pStr = CCString::create(fileArray[i].GetString());
             m_resourceFileArray->addObject(pStr);
-        }
-    }
+		}
+	}
 
-    sprintf(key, "tag%d_propertyDataArray%d", tag, idx);
-    char content[255] = {0};
-    sprintf(content, "%s", pUserData->getStringForKey(key).c_str());
-    CCArray* pIntArray = NULL;
-    while(strlen(content) > 0)
-    {
-        if (!pIntArray)
-        {
-            pIntArray = CommonHelper::getIntArray(content);
-        }
-        else
-        {
-            CCArray* anotherIntArray = CommonHelper::getIntArray(content);
-            if (anotherIntArray)
-            {
-                pIntArray->addObjectsFromArray(anotherIntArray);
-            }
-        }
-
-        if (strlen(content) < 248)
-        {
-            break;
-        }
-        else
-        {
-            idx++;
-            sprintf(key, "tag%d_propertyDataArray%d", tag, idx);
-            sprintf(content, "%s", pUserData->getStringForKey(key).c_str());
-        }
-    }
-
-    if (m_dic)
+	if (m_dic)
     {
         m_dic->removeAllObjects();
     }
@@ -206,13 +152,19 @@ void DBData::load( int tag )
     {
         m_dic = CCDictionary::create();
     }
-    CCARRAY_FOREACH(pIntArray, pObj)
-    {
-        CCInteger* pInt = (CCInteger*)pObj;
-        DBPropertyData* pPropertyData = DBPropertyData::create();
-        pPropertyData->load(tag, pInt->getValue());
-        m_dic->setObject(pPropertyData, pInt->getValue());
-    }
+
+	rapidjson::Value& dataArray = value["Data"];
+	if (dataArray.IsArray())
+	{
+		for (unsigned int i = 0; i < dataArray.Size(); ++i)
+		{
+			rapidjson::Value& data = dataArray[i];
+			DBPropertyData* pPropertyData = DBPropertyData::create();
+			pPropertyData->load(data);
+			m_dic->setObject(pPropertyData, data["Time"].GetInt());
+		}
+
+	}
 }
 
 void DBData::addResourcePath( char* path )

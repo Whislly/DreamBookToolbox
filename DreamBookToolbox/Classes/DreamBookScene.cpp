@@ -216,7 +216,7 @@ void DreamBookLayer::saveDataToCloud( CCObject* pSender )
     lbDebug->setPosition(ccp(CCDirector::sharedDirector()->getWinSize().width * 0.5f, CCDirector::sharedDirector()->getWinSize().height * 0.5f));
     lbDebug->runAction(CCRepeatForever::create(CCBlink::create(1.0f, 1)));
     m_designLayer->saveData();
-	this->file->uploadFile(CCFileUtils::sharedFileUtils()->getWritablePath().c_str(), USER_DEFAULT_NAME);
+	this->file->uploadFile(CCFileUtils::sharedFileUtils()->getWritablePath().c_str(), "data.json");
 	this->file->deleteFile(this->object->Get<const char*>("name"));
 }
 
@@ -320,13 +320,17 @@ DreamBookLayer::~DreamBookLayer()
 
 void DreamBookLayer::UploadCompleted( FileInfo* fileInfo, ParseError* error )
 {
-    removeChildByTag(99, true);
     if (fileInfo)
     {
         object->Set("url", fileInfo->GetUrl().c_str());
         object->Set("name", fileInfo->GetFileName().c_str());
+		object->saveCompleted.Set(this,  (Delegate<bool, ParseError*>::MemberFun)&DreamBookLayer::SaveCompleted);
         object->save();
     }
+	else
+	{
+		removeChildByTag(99, true);
+	}
 }
 
 void DreamBookLayer::readyUploadFile()
@@ -344,18 +348,13 @@ void DreamBookLayer::readyUploadFile()
 	parse.setMasterKey("doMxP88XvGkICRrI3gPcCdwWMI26QZfzPMKER33m");
 
 	file = new ParseFile();
-	file->deleteFileCompleted.Set(this, (Delegate<bool, ParseError*>::MemberFun)&DreamBookLayer::DeleteCompleted);
 	file->uploadFileCompleted.Set(this, (Delegate<FileInfo*, ParseError*>::MemberFun)&DreamBookLayer::UploadCompleted);
 	file->downloadFileCompleted.Set(this, (Delegate<const char*, ParseError*>::MemberFun)&DreamBookLayer::DownloadCompleted);
 }
 
-void DreamBookLayer::DeleteCompleted( bool isSuccess, cocos2d::extension::ParseError* error )
+void DreamBookLayer::SaveCompleted(bool isSuccess, cocos2d::extension::ParseError* error)
 {
-	if (isSuccess)
-	{
-		
-	}
-    removeChildByTag(98, true);
+	removeChildByTag(99, true);
 }
 
 void DreamBookLayer::FindCompleted( cocos2d::CCArray* array, cocos2d::extension::ParseError* error )
@@ -366,7 +365,7 @@ void DreamBookLayer::FindCompleted( cocos2d::CCArray* array, cocos2d::extension:
 		this->object->retain();
 
         const char* url = this->object->Get<const char*>("url");
-        std::string filePath = CCFileUtils::sharedFileUtils()->getWritablePath() + USER_DEFAULT_NAME;
+        std::string filePath = CCFileUtils::sharedFileUtils()->getWritablePath() + "data.json";
         this->file->downloadFile(url, filePath.c_str());
         array->removeAllObjects();
     }
@@ -375,9 +374,9 @@ void DreamBookLayer::FindCompleted( cocos2d::CCArray* array, cocos2d::extension:
 		this->object = new ParseObject("DataFile");
 		this->object->Add("url", "");
 		this->object->Add("name", "");
-	}
 
-    removeChildByTag(98, true);
+		removeChildByTag(98, true);
+	}
 }
 
 void DreamBookLayer::loadDataToObserveLayer()
@@ -386,7 +385,7 @@ void DreamBookLayer::loadDataToObserveLayer()
     for (int i = 0; i < m_designLayer->getChildrenCount(); i++)
     {
         DBActionSprite* pSprite = (DBActionSprite*)(pChildren->objectAtIndex(i));
-        if (pSprite && !m_observeLayer->getChildByTag(pSprite->getTag()))
+        if (pSprite && pSprite->getTag() != -1 && !m_observeLayer->getChildByTag(pSprite->getTag()))
         {
             CCSpriteEx* pCell = CCSpriteEx::createWithTexture(pSprite->getTexture(), pSprite->getTextureRect());
             pCell->setSelectorForSingleClick(this, menu_selector(DreamBookLayer::activeCell));

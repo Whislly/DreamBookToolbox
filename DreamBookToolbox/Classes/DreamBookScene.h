@@ -65,7 +65,7 @@ public:
     void saveDataToCloud(CCObject* pSender);
     void readyUploadFile();
 
-    void DeleteCompleted(bool isSuccess, cocos2d::extension::ParseError* error);
+    void SaveCompleted(bool isSuccess, cocos2d::extension::ParseError* error);
     void UploadCompleted(cocos2d::extension::FileInfo* fileInfo, cocos2d::extension::ParseError* error);
     void DownloadCompleted(const char* path, cocos2d::extension::ParseError* error);
     void DownloadFile();

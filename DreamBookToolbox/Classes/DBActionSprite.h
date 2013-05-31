@@ -6,6 +6,9 @@
 #include "DBData.h"
 #include "DBPropertyData.h"
 #include "Define.h"
+#include "prettywriter.h"
+#include "filestream.h"
+#include "document.h"
 
 enum EnumStatus
 {
@@ -53,8 +56,8 @@ protected:
     cocos2d::CCObject*       m_finishedActionListener;
     cocos2d::SEL_CallFunc    m_finishedActionSelector;
 public:
-    void save();
-    void load();
+    void save(rapidjson::PrettyWriter<rapidjson::FileStream>& write);
+    void load(rapidjson::Value& value);
     static DBActionSprite* create();
 protected:
     bool m_isBreak;

@@ -223,6 +223,9 @@ void ParseFile::uploadFileContentFinished(CCNode* sender, void* param)
 
 void ParseFile::downloadFile(const char* url, const char* savePathName)
 {
+	CCString* strSavePathName = CCString::create(savePathName);
+	strSavePathName->retain();
+
 	ParseManager::instance()->request(CCHttpRequest::kHttpGet,
 		url,
 		0,
@@ -231,12 +234,12 @@ void ParseFile::downloadFile(const char* url, const char* savePathName)
 		(SEL_CallFuncND)&ParseFile::downloadFileFinished,
 		0,
 		false,
-		(void*)savePathName);
+		(void*)strSavePathName);
 }
 
 void ParseFile::downloadFileFinished(CCNode* sender, void* param)
 {
-	const char* savePathName = 0;
+	CCString* savePathName = 0;
 	ParseError* error = new ParseError();
 
 	CCHttpResponse* response = (CCHttpResponse*)param;
@@ -245,11 +248,11 @@ void ParseFile::downloadFileFinished(CCNode* sender, void* param)
 	{
 		FILE* file = 0;
 		const char* errorMsg = 0;
-		savePathName = (const char*)response->getHttpRequest()->getUserData();
+		savePathName = (CCString*)response->getHttpRequest()->getUserData();
 		std::vector<char>* responseData = response->getResponseData();
 		do
 		{
-			file = fopen(savePathName, "wb");
+			file = fopen(savePathName->getCString(), "wb");
 			if (file == 0)
 			{
 				errorMsg = "error open file!";
@@ -286,7 +289,9 @@ void ParseFile::downloadFileFinished(CCNode* sender, void* param)
 		}
 	}
 
-	this->downloadFileCompleted(savePathName, error);
+	this->downloadFileCompleted(savePathName?savePathName->getCString():0, error);
+
+	savePathName->release();
 
 	delete error;
 }

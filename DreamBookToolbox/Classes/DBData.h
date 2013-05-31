@@ -3,6 +3,9 @@
 
 #include "cocos2d.h"
 #include "DBPropertyData.h"
+#include "prettywriter.h"
+#include "filestream.h"
+#include "document.h"
 
 class DBData : public cocos2d::CCObject
 {
@@ -18,8 +21,8 @@ public:
     void removeDBPropertyData(float startTime, float endTime);
     CC_SYNTHESIZE(float, m_startTime, StartTime);
     CC_SYNTHESIZE(float, m_endTime, EndTime);
-    void save(int tag);
-    void load(int tag);
+    void save(rapidjson::PrettyWriter<rapidjson::FileStream>& write);
+    void load(rapidjson::Value& value);
 public:
     void addResourcePath(char* path);
     void addResourcePath(cocos2d::CCArray* pathArray);

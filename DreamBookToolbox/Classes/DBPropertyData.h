@@ -2,6 +2,9 @@
 #define __DBPropertyData_H__
 
 #include "cocos2d.h"
+#include "prettywriter.h"
+#include "filestream.h"
+#include "document.h"
 
 class DBPropertyData : public cocos2d::CCObject
 {
@@ -14,8 +17,8 @@ public:
     cocos2d::CCPoint getPosition();    
     void setPosition(cocos2d::CCPoint& pos);
     CC_SYNTHESIZE(float, m_scale, Scale);
-    void save(int tag, int time);
-    void load(int tag, int time);
+    void save(rapidjson::PrettyWriter<rapidjson::FileStream>& write);
+    void load(rapidjson::Value& data);
 protected:
     CC_SYNTHESIZE_READONLY(cocos2d::CCString*, m_inputContent, InputContent);
     void setInputContent(const char* content);
