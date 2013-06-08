@@ -184,6 +184,10 @@ void DesignLayer::loadData()
 {
 	std::string fileName = CCFileUtils::sharedFileUtils()->getWritablePath() + "data.json";
 	FILE* file = fopen(fileName.c_str(), "r");
+    if (!file)
+    {
+        return;
+    }
 	rapidjson::FileStream stream(file);
 
 	rapidjson::Document doc;
