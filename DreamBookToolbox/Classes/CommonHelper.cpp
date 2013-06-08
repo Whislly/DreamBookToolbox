@@ -48,7 +48,6 @@ b2World* CommonHelper::CreateWorld()
 		world->SetAllowSleeping(true);
 		world->SetContinuousPhysics(true);
 
-		//TODO here : contact 
 		//ToyContact *contact = new ToyContact();
 		//world->SetContactListener(contact);
 

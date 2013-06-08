@@ -73,6 +73,15 @@
     <Filter Include="Extra\PhysicalBody">
       <UniqueIdentifier>{f8623b61-9f27-4504-b833-c7f011a9fc7d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\Scenes\DancingBone">
+      <UniqueIdentifier>{ac75ca57-8daf-4c16-a80b-55f5fd9a8252}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\Scenes\DancingBone">
+      <UniqueIdentifier>{68c71c8c-ddfa-4f34-b98b-1ac5d7b79d31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\Scenes\EFTest">
+      <UniqueIdentifier>{42e29e1d-d494-40e4-890a-714dbb09e171}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\DreamBookToolbox.ico">
@@ -172,12 +181,6 @@
     <ClInclude Include="..\Classes\DBPropertyData.h">
       <Filter>include\Common</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\DreamBookScene.h">
-      <Filter>include\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\PhysicsTechScene.h">
-      <Filter>include\Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\CustomUserData.h">
       <Filter>include\Scenes\PhysicsTech</Filter>
     </ClInclude>
@@ -205,9 +208,6 @@
     <ClInclude Include="..\Classes\KeyboardNotificationLayer.h">
       <Filter>include\Common</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\PosQuery.h">
-      <Filter>include\Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\CommonHelper.h">
       <Filter>include\Common</Filter>
     </ClInclude>
@@ -223,9 +223,6 @@
     <ClInclude Include="..\Classes\ToyLayer.h">
       <Filter>include\Scenes\ToyBrick</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\ToyBrickScene.h">
-      <Filter>include\Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\DynamicLayerContainer.h">
       <Filter>include\Scenes\DreamBook\Import</Filter>
     </ClInclude>
@@ -240,18 +237,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\IInputNotifier.h">
       <Filter>include\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\DancingBoneLayer.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\DancingBoneMenuLayer.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\DancingBoneScene.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\MultiBodyQueryCallback.h">
-      <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\FileSprite.h">
       <Filter>include\Common</Filter>
@@ -273,6 +258,39 @@
     </ClInclude>
     <ClInclude Include="..\Classes\PhysicalBodyScene.h">
       <Filter>Extra\PhysicalBody</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DancingBoneLayer.h">
+      <Filter>include\Scenes\DancingBone</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DancingBoneMenuLayer.h">
+      <Filter>include\Scenes\DancingBone</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DancingBoneScene.h">
+      <Filter>include\Scenes\DancingBone</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ToyBrickScene.h">
+      <Filter>include\Scenes\ToyBrick</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DreamBookScene.h">
+      <Filter>include\Scenes\DreamBook</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PhysicsTechScene.h">
+      <Filter>include\Scenes\PhysicsTech</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PosQuery.h">
+      <Filter>include\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MultiBodyQueryCallback.h">
+      <Filter>include\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\EFTestScene.h">
+      <Filter>source\Scenes\EFTest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\EFTestLayer.h">
+      <Filter>source\Scenes\EFTest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DockTogetherSpore.h">
+      <Filter>source\Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -308,12 +326,6 @@
     </ClCompile>
     <ClCompile Include="..\Classes\DBPropertyData.cpp">
       <Filter>source\Common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\DreamBookScene.cpp">
-      <Filter>source\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\PhysicsTechScene.cpp">
-      <Filter>source\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\CustomUserData.cpp">
       <Filter>source\Scenes\PhysicsTech</Filter>
@@ -357,9 +369,6 @@
     <ClCompile Include="..\Classes\ToyLayer.cpp">
       <Filter>source\Scenes\ToyBrick</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\ToyBrickScene.cpp">
-      <Filter>source\Scenes</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\DynamicLayerContainer.cpp">
       <Filter>source\Scenes\DreamBook\Import</Filter>
     </ClCompile>
@@ -371,18 +380,6 @@
     </ClCompile>
     <ClCompile Include="..\Classes\PicShowLayer.cpp">
       <Filter>source\Scenes\DreamBook\Import</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\DancingBoneLayer.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\DancingBoneMenuLayer.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\DancingBoneScene.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\MultiBodyQueryCallback.cpp">
-      <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\FileSprite.cpp">
       <Filter>source\Common</Filter>
@@ -404,6 +401,36 @@
     </ClCompile>
     <ClCompile Include="..\Classes\PhysicalBodyScene.cpp">
       <Filter>Extra\PhysicalBody</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\DancingBoneLayer.cpp">
+      <Filter>source\Scenes\DancingBone</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\DancingBoneMenuLayer.cpp">
+      <Filter>source\Scenes\DancingBone</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\DancingBoneScene.cpp">
+      <Filter>source\Scenes\DancingBone</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PhysicsTechScene.cpp">
+      <Filter>source\Scenes\PhysicsTech</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\DreamBookScene.cpp">
+      <Filter>source\Scenes\DreamBook</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ToyBrickScene.cpp">
+      <Filter>source\Scenes\ToyBrick</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MultiBodyQueryCallback.cpp">
+      <Filter>source\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\EFTestScene.cpp">
+      <Filter>source\Scenes\EFTest</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\EFTestLayer.cpp">
+      <Filter>source\Scenes\EFTest</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\DockTogetherSpore.cpp">
+      <Filter>source\Common</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
