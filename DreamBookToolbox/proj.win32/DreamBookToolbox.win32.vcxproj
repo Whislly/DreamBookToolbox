@@ -155,7 +155,10 @@
     <ClInclude Include="..\Classes\DBPropertyData.h" />
     <ClInclude Include="..\Classes\Define.h" />
     <ClInclude Include="..\Classes\DesignLayer.h" />
+    <ClInclude Include="..\Classes\DockTogetherSpore.h" />
     <ClInclude Include="..\Classes\DynamicLayerContainer.h" />
+    <ClInclude Include="..\Classes\EFTestLayer.h" />
+    <ClInclude Include="..\Classes\EFTestScene.h" />
     <ClInclude Include="..\Classes\EnumObserverOrientation.h" />
     <ClInclude Include="..\Classes\FileSprite.h" />
     <ClInclude Include="..\Classes\FrameSprite.h" />
@@ -206,7 +209,10 @@
     <ClCompile Include="..\Classes\DBData.cpp" />
     <ClCompile Include="..\Classes\DBPropertyData.cpp" />
     <ClCompile Include="..\Classes\DesignLayer.cpp" />
+    <ClCompile Include="..\Classes\DockTogetherSpore.cpp" />
     <ClCompile Include="..\Classes\DynamicLayerContainer.cpp" />
+    <ClCompile Include="..\Classes\EFTestLayer.cpp" />
+    <ClCompile Include="..\Classes\EFTestScene.cpp" />
     <ClCompile Include="..\Classes\FileSprite.cpp" />
     <ClCompile Include="..\Classes\FrameSprite.cpp" />
     <ClCompile Include="..\Classes\GeometricRecognizer.cpp" />

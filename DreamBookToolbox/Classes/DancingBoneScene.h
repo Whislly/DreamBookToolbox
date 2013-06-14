@@ -19,11 +19,11 @@ USING_NS_CC;
 class DancingBoneScene : public CCScene
 {
 public:
-		DancingBoneScene(void);
-		~DancingBoneScene(void);
+	DancingBoneScene(void);
+	~DancingBoneScene(void);
 
-		virtual bool init();
-		CREATE_FUNC(DancingBoneScene);
+	virtual bool init();
+	CREATE_FUNC(DancingBoneScene);
 };
 
 #endif

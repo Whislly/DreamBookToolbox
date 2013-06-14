@@ -11,6 +11,7 @@
 #include "CCTransitionParticle.h"
 #include "StoryScene.h"
 #include "PhysicalBodyScene.h"
+#include "EFTestScene.h"
 
 USING_NS_CC;
 
@@ -55,6 +56,11 @@ void MainLayer::menuCloseCallback( CCObject* pSender )
 
     // "close" menu item clicked
     CCDirector::sharedDirector()->end();
+}
+
+void MainLayer::menuEFTestCallback( CCObject* pSender )
+{
+	CCDirector::sharedDirector()->replaceScene(CCTransitionPageTurn::create(1.0f, EFTestScene::create(), false));
 }
 
 //void MainLayer::UploadComplet(FileInfo* fileInfo, ParseError* error)
@@ -183,6 +189,10 @@ bool MainLayer::init()
 
         label = CCLabelTTF::create("Kong Rong Gave Away Bigger Pear", "Arial", 46);
         pMenuItem = CCMenuItemLabel::create(label, this, menu_selector(MainLayer::menuKongRongCallback));
+        pMenu->addChild(pMenuItem);
+
+        label = CCLabelTTF::create("EF Test", "Arial", 46);
+        pMenuItem = CCMenuItemLabel::create(label, this, menu_selector(MainLayer::menuEFTestCallback));
         pMenu->addChild(pMenuItem);
 
         pMenu->alignItemsVertically();

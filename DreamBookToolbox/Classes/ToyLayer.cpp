@@ -31,7 +31,6 @@ bool ToyLayer::init()
 		world->SetAllowSleeping(true);
 		world->SetContinuousPhysics(true);
 
-		//TODO here : contact 
 		//ToyContact *contact = new ToyContact();
 		//world->SetContactListener(contact);
 

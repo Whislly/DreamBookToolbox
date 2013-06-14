@@ -37,6 +37,8 @@ public:
 
     void menuPhysicalBodyCallback( CCObject* pSender );
 
+	void menuEFTestCallback( CCObject* pSender );
+
 	/*
 	CCLabelTTF* lbDebug;
 
