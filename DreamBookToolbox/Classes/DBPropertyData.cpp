@@ -53,7 +53,7 @@ void DBPropertyData::save( rapidjson::PrettyWriter<rapidjson::FileStream>& write
 	write.Double(m_scale);
 
 	write.String("Input");
-    write.String(m_inputContent?m_inputContent->getCString():"");
+    write.String(m_inputContent ? m_inputContent->getCString() : "");
 }
 
 void DBPropertyData::load( rapidjson::Value& data )
