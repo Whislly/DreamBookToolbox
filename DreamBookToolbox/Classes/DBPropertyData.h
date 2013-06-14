@@ -20,7 +20,9 @@ public:
     void save(rapidjson::PrettyWriter<rapidjson::FileStream>& write);
     void load(rapidjson::Value& data);
 protected:
-    CC_SYNTHESIZE_READONLY(cocos2d::CCString*, m_inputContent, InputContent);
+    cocos2d::CCString* m_inputContent;
+public:
+    const char* getInputContent();
     void setInputContent(const char* content);
 };
 

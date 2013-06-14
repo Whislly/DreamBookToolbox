@@ -51,9 +51,8 @@ public:
     void loadData();
     void waitInput(cocos2d::CCObject* pSender);
     void voiceRecognition(const char* voiceContent);
-    void voiceRecognition(cocos2d::CCObject* pSender);
 private:
-    PropertyInput* m_input;
+    CCTextFieldTTF* m_input;
 };
 
 #endif  // __DesignLayer_H__

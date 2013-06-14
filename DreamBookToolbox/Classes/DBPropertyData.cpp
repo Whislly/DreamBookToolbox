@@ -76,3 +76,15 @@ void DBPropertyData::setInputContent( const char* content )
     m_inputContent = CCString::create(content);
     m_inputContent->retain();
 }
+
+const char* DBPropertyData::getInputContent()
+{
+    if (m_inputContent)
+    {
+        return m_inputContent->getCString();
+    }
+    else
+    {
+        return "";
+    }
+}

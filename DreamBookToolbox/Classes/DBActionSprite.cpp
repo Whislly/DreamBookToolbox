@@ -197,7 +197,7 @@ void DBActionSprite::step( float time )
         return;
     }
 
-    if (this->m_data->getDBPropertyData(m_time)->getInputContent())
+    if (strlen(this->m_data->getDBPropertyData(m_time)->getInputContent()) > 0)
     {
         m_isBreak = true;
         if (m_inputSelector && m_inputListener)
@@ -296,8 +296,8 @@ void DBActionSprite::setInputContent( const char* inputContent, float time )
 
 void DBActionSprite::checkInputContent( const char* inputContent )
 {
-    CCString* correctContent = m_data->getDBPropertyData(m_time)->getInputContent();
-    if (strstr(inputContent, correctContent->getCString()))
+    const char* correctContent = m_data->getDBPropertyData(m_time)->getInputContent();
+    if (strstr(inputContent, correctContent))
     {
         m_isBreak = false;
     }

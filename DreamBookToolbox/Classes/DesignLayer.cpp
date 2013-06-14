@@ -49,22 +49,8 @@ DesignLayer::DesignLayer()
     m_reduce->setSelectorForSingleClick(this, menu_selector(DesignLayer::reduce));
     m_reduce->setVisible(false);
 
-    m_input = PropertyInput::create();
-    //sprite - 1
-    m_input->sprite = CCSprite::create("Images/PhysicsTech/Prop_Quality.png");
-    m_input->sprite->setAnchorPoint(cocos2d::CCPointZero);
-    m_input->sprite->setPosition(ccp(0, 100));
-    m_input->addChild(m_input->sprite);
-    //input - sprite - 1
-    m_input->inputSprite = CCSprite::create("Images/PhysicsTech/QualityInput.png");
-    m_input->inputSprite->setAnchorPoint(cocos2d::CCPointZero);
-    m_input->inputSprite->setPosition(ccp(m_input->sprite->getPositionX() + 32 + 5, 95));
-    m_input->addChild(m_input->inputSprite);
-    //input - 1
-    m_input->text->setPosition(ccp(m_input->sprite->getPositionX() + 32 + 25, 105));
-    m_input->inputRect = CCSize(100, 20);
-    m_input->text->setContentSize(m_input->inputRect);
-    this->addChild(m_input);
+    m_input = CCTextFieldTTF::textFieldWithPlaceHolder("", "Thonburi", 36);
+    this->addChild(m_input, 99);
     m_input->setVisible(false);
 }
 
@@ -325,6 +311,7 @@ void DesignLayer::showScaleToolButtons( cocos2d::CCObject* pSender )
 {
     DBActionSprite* pSprite = (DBActionSprite*)pSender;
     CCPoint pos = pSprite->getPosition();
+    CCSize size = pSprite->getContentSize();
     m_enlarge->setVisible(true);
     m_reduce->setVisible(true);
     //m_input->setVisible(true);
@@ -334,30 +321,56 @@ void DesignLayer::showScaleToolButtons( cocos2d::CCObject* pSender )
     m_reduce->setPosition(ccpSub(pos, ccp(40.0f, 0.0f)));
     m_reduce->runAction(CCShow::create());
 
-    /*m_input->setPosition(ccpSub(pos, ccp(0.0f, 40.0f)));
-    m_input->runAction(CCShow::create());*/
+    m_input->setPosition(ccpAdd(pos, ccp(0.0f, size.height * 0.6f)));
+    m_input->attachWithIME();
+    m_input->runAction(CCShow::create());
+    m_input->setString("");
 
     m_currentSprite = pSprite;
 }
 
 bool DesignLayer::ccTouchBegan( CCTouch *pTouch, CCEvent *pEvent )
 {
-    CCPoint touchLocation = pTouch->getLocation();
-    if (!m_reduce->boundingBox().containsPoint(touchLocation) && 
-        !m_enlarge->boundingBox().containsPoint(touchLocation) &&
-        !m_input->boundingBox().containsPoint(touchLocation) &&
-        m_currentSprite && (!m_currentSprite->boundingBox().containsPoint(touchLocation)))
+    if(m_input->isVisible())
     {
-        m_enlarge->setVisible(false);
-        m_reduce->setVisible(false);
-        m_input->setVisible(false);
-        const char* content = m_input->text->getString();
-        if (content && strlen(content) > 0)
+        CCPoint touchLocation = pTouch->getLocation();
+        if (m_enlarge->isVisible() && m_reduce->isVisible())
         {
-            m_currentSprite->setInputContent(content, m_time);
-            m_currentSprite->setSelectorForInput(this, menu_selector(DesignLayer::waitInput));
+            if (!m_reduce->boundingBox().containsPoint(touchLocation) && 
+                !m_enlarge->boundingBox().containsPoint(touchLocation) &&
+                !m_input->boundingBox().containsPoint(touchLocation) &&
+                m_currentSprite && (!m_currentSprite->boundingBox().containsPoint(touchLocation)))
+            {
+                m_enlarge->setVisible(false);
+                m_reduce->setVisible(false);
+                m_input->setVisible(false);
+                m_input->detachWithIME();
+                const char* content = m_input->getString();
+                if (content && strlen(content) > 0)
+                {
+                    m_currentSprite->setInputContent(content, m_time);
+                    m_currentSprite->setSelectorForInput(this, menu_selector(DesignLayer::waitInput));
+                }
+            }
+        }
+        else
+        {
+            if (!m_input->boundingBox().containsPoint(touchLocation) &&
+                m_currentSprite && (!m_currentSprite->boundingBox().containsPoint(touchLocation)))
+            {
+                m_input->setVisible(false);
+                m_input->detachWithIME();
+                #if (CC_TARGET_PLATFORM != CC_PLATFORM_ANDROID)
+                this->voiceRecognition(m_input->getString());
+                #endif
+            }
+            else
+            {
+
+            }
         }
     }
+    
     return false;
 }
 
@@ -381,23 +394,10 @@ void DesignLayer::onExit()
 
 void DesignLayer::voiceRecognition( const char* voiceContent )
 {
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
     if (m_currentSprite)
     {
         m_currentSprite->checkInputContent(voiceContent);
     }
-#endif
-}
-
-void DesignLayer::voiceRecognition( cocos2d::CCObject* pSender )
-{
-#if (CC_TARGET_PLATFORM != CC_PLATFORM_ANDROID)
-    m_input->setSelectorForLeave(NULL, NULL);
-    if (m_currentSprite)
-    {
-        m_currentSprite->checkInputContent(m_input->text->getString());
-    }
-#endif
 }
 
 void DesignLayer::waitInput( cocos2d::CCObject* pSender )
@@ -407,9 +407,10 @@ void DesignLayer::waitInput( cocos2d::CCObject* pSender )
 #else
     DBActionSprite* pSprite = (DBActionSprite*)pSender;
     CCPoint pos = pSprite->getPosition();
+    CCSize size = pSprite->getContentSize();
     m_input->setVisible(true);
     m_input->runAction(CCShow::create());
-    m_input->setPosition(ccpSub(pos, ccp(0.0f, 40.0f)));
-    m_input->setSelectorForLeave(this, menu_selector(DesignLayer::voiceRecognition));
+    m_input->setPosition(ccpSub(pos, ccp(0.0f, size.height * 0.6f)));
+    m_input->attachWithIME();
 #endif
 }
