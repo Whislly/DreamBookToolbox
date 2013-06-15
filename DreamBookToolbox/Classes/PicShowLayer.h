@@ -18,25 +18,25 @@ USING_NS_CC;
 class PicShowLayer : public CCLayerColor
 {
 private:
-		CCSprite* currentSelect;
+	CCSprite* currentSelect;
 public:
-		int startIndex;
-		//int elementCount;
-		CCArray *elementArr;
+	int startIndex;
+	//int elementCount;
+	CCArray *elementArr;
 
-		PicShowLayer(void);
-		~PicShowLayer(void);
+	PicShowLayer(void);
+	~PicShowLayer(void);
 
-		static PicShowLayer* create(int startIndex);
+	static PicShowLayer* create(int startIndex);
 
-		virtual bool init();
-		virtual void draw();
-		void update(float dt);
+	virtual bool init();
+	virtual void draw();
+	void update(float dt);
 
-		virtual void ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent);
-		virtual void ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent);
-		virtual void ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent);
-		virtual void ccTouchesCancelled(CCSet *pTouches, CCEvent *pEvent);
+	virtual void ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent);
+	virtual void ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent);
+	virtual void ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent);
+	virtual void ccTouchesCancelled(CCSet *pTouches, CCEvent *pEvent);
 };
 
 #endif

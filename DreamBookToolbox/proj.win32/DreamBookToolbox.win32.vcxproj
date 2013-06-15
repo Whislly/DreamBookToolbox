@@ -155,6 +155,7 @@
     <ClInclude Include="..\Classes\DBPropertyData.h" />
     <ClInclude Include="..\Classes\Define.h" />
     <ClInclude Include="..\Classes\DesignLayer.h" />
+    <ClInclude Include="..\Classes\DockMoveSpore.h" />
     <ClInclude Include="..\Classes\DockTogetherSpore.h" />
     <ClInclude Include="..\Classes\DynamicLayerContainer.h" />
     <ClInclude Include="..\Classes\EFTestLayer.h" />
@@ -209,6 +210,7 @@
     <ClCompile Include="..\Classes\DBData.cpp" />
     <ClCompile Include="..\Classes\DBPropertyData.cpp" />
     <ClCompile Include="..\Classes\DesignLayer.cpp" />
+    <ClCompile Include="..\Classes\DockMoveSpore.cpp" />
     <ClCompile Include="..\Classes\DockTogetherSpore.cpp" />
     <ClCompile Include="..\Classes\DynamicLayerContainer.cpp" />
     <ClCompile Include="..\Classes\EFTestLayer.cpp" />

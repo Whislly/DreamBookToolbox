@@ -82,6 +82,12 @@
     <Filter Include="source\Scenes\EFTest">
       <UniqueIdentifier>{42e29e1d-d494-40e4-890a-714dbb09e171}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\Scenes\NikeTest">
+      <UniqueIdentifier>{9faa6a86-7841-40c8-94d5-d453b9b4e2ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\Spore">
+      <UniqueIdentifier>{023d9038-255a-45c4-b49a-b2fbb8d3df22}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\DreamBookToolbox.ico">
@@ -289,8 +295,11 @@
     <ClInclude Include="..\Classes\EFTestLayer.h">
       <Filter>source\Scenes\EFTest</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\DockMoveSpore.h">
+      <Filter>source\Spore</Filter>
+    </ClInclude>
     <ClInclude Include="..\Classes\DockTogetherSpore.h">
-      <Filter>source\Common</Filter>
+      <Filter>source\Spore</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -429,8 +438,11 @@
     <ClCompile Include="..\Classes\EFTestLayer.cpp">
       <Filter>source\Scenes\EFTest</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\DockMoveSpore.cpp">
+      <Filter>source\Spore</Filter>
+    </ClCompile>
     <ClCompile Include="..\Classes\DockTogetherSpore.cpp">
-      <Filter>source\Common</Filter>
+      <Filter>source\Spore</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

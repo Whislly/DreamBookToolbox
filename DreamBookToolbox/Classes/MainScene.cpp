@@ -191,7 +191,7 @@ bool MainLayer::init()
         pMenuItem = CCMenuItemLabel::create(label, this, menu_selector(MainLayer::menuKongRongCallback));
         pMenu->addChild(pMenuItem);
 
-        label = CCLabelTTF::create("EF Test", "Arial", 46);
+        label = CCLabelTTF::create("Dock Test", "Arial", 46);
         pMenuItem = CCMenuItemLabel::create(label, this, menu_selector(MainLayer::menuEFTestCallback));
         pMenu->addChild(pMenuItem);
 

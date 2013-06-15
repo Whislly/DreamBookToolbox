@@ -12,12 +12,21 @@
 #include "Define.h"
 
 #include "DockTogetherSpore.h"
+#include "DockMoveSpore.h"
+
 #include "MainScene.h"
 
 USING_NS_CC;
 
 class EFTestLayer : public CCLayer
 {
+private:
+	CCPoint offset;
+	CCSprite* currentSelect;
+	CCArray *elementArr;
+
+	DockTogetherSpore *togetherSpore;
+	DockMoveSpore *moveSpore;
 public:
 	EFTestLayer(void);
 	~EFTestLayer(void);
@@ -26,6 +35,11 @@ public:
 	CREATE_FUNC(EFTestLayer);
 
 	void menuBackCallback( CCObject* pSender );
+
+	virtual void ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent);
+	virtual void ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent);
+	virtual void ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent);
+	virtual void ccTouchesCancelled(CCSet *pTouches, CCEvent *pEvent);
 };
 
 #endif
