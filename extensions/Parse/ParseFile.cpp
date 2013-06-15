@@ -291,6 +291,7 @@ void ParseFile::downloadFileFinished(CCNode* sender, void* param)
 
 	this->downloadFileCompleted(savePathName?savePathName->getCString():0, error);
 
+	savePathName = (CCString*)response->getHttpRequest()->getUserData();
 	savePathName->release();
 
 	delete error;

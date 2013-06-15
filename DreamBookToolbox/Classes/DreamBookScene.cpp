@@ -361,7 +361,7 @@ void DreamBookLayer::FindCompleted( cocos2d::CCArray* array, cocos2d::extension:
 {
     if (array && array->count() > 0)
     {
-        this->object = (ParseObject*)array->objectAtIndex(0);
+        this->object = (ParseObject*)array->objectAtIndex(array->count() - 1);
 		this->object->retain();
 
         const char* url = this->object->Get<const char*>("url");
