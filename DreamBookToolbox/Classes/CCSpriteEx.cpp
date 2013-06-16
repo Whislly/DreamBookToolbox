@@ -250,7 +250,14 @@ CCSpriteEx::CCSpriteEx()
 
 CCSpriteEx::~CCSpriteEx()
 {
-    CCARRAY_RELEASE(m_resourceFileArray);
+    if (m_resourceFileArray)
+    {
+        m_resourceFileArray->removeAllObjects();
+        //arrayMakeObjectsPerformSelector(m_resourceFileArray, release, CCString*);
+        //m_resourceFileArray->release();
+        m_resourceFileArray->release();
+    }
+    m_resourceFileArray = NULL;
 }
 
 cocos2d::CCArray* CCSpriteEx::getResourceFileArray()

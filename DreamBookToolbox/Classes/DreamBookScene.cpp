@@ -220,6 +220,34 @@ void DreamBookLayer::saveDataToCloud( CCObject* pSender )
 	this->file->deleteFile(this->object->Get<const char*>("name"));
 }
 
+void DreamBookLayer::ClearData( CCObject* pSender )
+{
+    CCObject* pObj = NULL;
+    CCArray* pChildren = m_observeLayer->getCells();
+    int count = pChildren->count();
+    for (int i = count - 1; i >= 0; i--)
+    {
+        CCNode* pChild = (CCNode*)(pChildren->objectAtIndex(i));
+        int tag = pChild->getTag();
+        if (pChild && (pChild->getTag() != 0))
+        {
+            m_observeLayer->removeCell(pChild->getTag(), true);
+        }
+    }
+
+    pChildren = m_designLayer->getChildren();
+    count = pChildren->count();
+    for (int i = count - 1; i >= 0; i--)
+    {
+        CCNode* pChild = (CCNode*)(pChildren->objectAtIndex(i));
+        int tag = pChild->getTag();
+        if (pChild && (pChild->getTag() != -1))
+        {
+            m_designLayer->removeChildByTag(pChild->getTag(), true);
+        }
+    }
+}
+
 // on "init" you need to initialize your instance
 bool DreamBookLayer::init()
 {
@@ -239,22 +267,7 @@ bool DreamBookLayer::init()
         // 1. Add a menu item with "X" image, which is clicked to quit the program.
 
         // Create a "close" menu item with close icon, it's an auto release object.
-        CCMenuItemSprite *pBackItem = CCMenuItemSprite::create(
-            CCSprite::createWithSpriteFrameName("b1.png"), CCSprite::createWithSpriteFrameName("b2.png"), this,
-            menu_selector(DreamBookLayer::menuBackCallback));
-        CC_BREAK_IF(! pBackItem);
-
-        // Place the menu item bottom-right conner.
-        pBackItem->setPosition(ccp(CCDirector::sharedDirector()->getWinSize().width - 50, 25));
-
-        // Create a menu with the "close" menu item, it's an auto release object.
-        CCMenu* pMenu = CCMenu::create(pBackItem, NULL);
-        pMenu->setPosition(CCPointZero);
-        CC_BREAK_IF(! pMenu);
-
-        // Add the menu to HelloWorld layer as a child layer.
-        this->addChild(pMenu, 1);
-
+        
         /*CCSize winSize = CCDirector::sharedDirector()->getWinSize();
         for (int i = 0; i < 10; i++)
         {
@@ -270,12 +283,22 @@ bool DreamBookLayer::init()
         this->addDesignLayer();
 
         this->readyUploadFile();
+        
+        CCMenuItemImage *saveButton = CCMenuItemImage::create("save.png", "save.png", this, menu_selector(DreamBookLayer::saveDataToCloud) );
+       saveButton->setScale(0.5f);
+        CCMenuItemImage *clearButton = CCMenuItemImage::create("Clear.png", "Clear.png", this, menu_selector(DreamBookLayer::ClearData) );
+        clearButton->setScale(0.5f);
 
-        CCSpriteEx* saveButton = CCSpriteEx::create("save.png");
-        saveButton->setSelectorForSingleClick(this, menu_selector(DreamBookLayer::saveDataToCloud));
-        saveButton->setScale(0.5f);
-        addChild(saveButton);
-        saveButton->setPosition(ccp(CCDirector::sharedDirector()->getWinSize().width - 130, 30));
+        CCMenuItemSprite *pBackItem = CCMenuItemSprite::create(
+            CCSprite::createWithSpriteFrameName("b1.png"), CCSprite::createWithSpriteFrameName("b2.png"), this,
+            menu_selector(DreamBookLayer::menuBackCallback));
+        CC_BREAK_IF(! pBackItem);
+
+        CCMenu *menu = CCMenu::create(clearButton, saveButton, pBackItem, NULL);
+        addChild(menu, 1);
+        //menu->setScale(0.5f);
+        menu->alignItemsHorizontally();
+        menu->setPosition(ccp(CCDirector::sharedDirector()->getWinSize().width - 130, 30));      
 
         this->DownloadFile();
 

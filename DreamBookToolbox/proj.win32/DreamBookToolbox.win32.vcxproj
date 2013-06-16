@@ -122,6 +122,7 @@
     </Midl>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="..\Resources\Clear.png" />
     <None Include="..\Resources\fire.png" />
     <None Include="..\Resources\font09.fnt" />
     <None Include="..\Resources\font09.png" />

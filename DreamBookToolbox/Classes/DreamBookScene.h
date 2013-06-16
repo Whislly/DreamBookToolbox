@@ -73,6 +73,8 @@ public:
 
     void loadDataToObserveLayer();
 
+    void ClearData(CCObject* pSender);
+
     DreamBookLayer();
     ~DreamBookLayer();
 };

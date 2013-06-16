@@ -331,7 +331,7 @@ void DesignLayer::showScaleToolButtons( cocos2d::CCObject* pSender )
 
 bool DesignLayer::ccTouchBegan( CCTouch *pTouch, CCEvent *pEvent )
 {
-    if(m_input->isVisible())
+    if(m_input && m_input->isVisible())
     {
         CCPoint touchLocation = pTouch->getLocation();
         if (m_enlarge->isVisible() && m_reduce->isVisible())

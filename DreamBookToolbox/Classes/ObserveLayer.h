@@ -36,6 +36,7 @@ public:
     virtual void draw();
     void addCell(cocos2d::CCSprite* newCell);
     void removeCell(int cellTag, bool cleanup);
+    cocos2d::CCArray* getCells();
 
     cocos2d::CCSprite* getLastCell();
 

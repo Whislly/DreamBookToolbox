@@ -357,6 +357,11 @@ cocos2d::CCSprite* ObserveLayer::getLastCell()
     return this->m_container->getLastCell();
 }
 
+cocos2d::CCArray* ObserveLayer::getCells()
+{
+    return m_container->getChildren();
+}
+
 //////////////////////////////////////////////////////////////////////////
 ///Clip EndRegion
 //////////////////////////////////////////////////////////////////////////
