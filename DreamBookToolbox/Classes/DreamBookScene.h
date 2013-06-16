@@ -10,9 +10,6 @@
 #include "ObserveLayer.h"
 #include "PicPickupLayer.h"
 
-#include "Parse\ParseError.h"
-#include "Parse\ParseFile.h"
-
 #include "Parse.h"
 #include "Delegate.h"
 #include "ParseObject.h"
