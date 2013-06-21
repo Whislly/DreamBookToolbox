@@ -21,17 +21,72 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
-package org.cocos2dx.DreamBookToolbox;
+package fleet.DreamTower.com;
+
+import java.util.ArrayList;
 
 import org.cocos2dx.lib.Cocos2dxActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.speech.RecognizerIntent;
+import android.widget.Toast;
 
-public class DreamBookToolbox extends Cocos2dxActivity{
+public class DreamTower extends Cocos2dxActivity{
 
+	private static Handler handler; 
+    private final static int HANDLER_Active_Voice = 1;
+    private static final int VOICE_RECOGNITION_REQUEST_CODE = 1234;  
+    
+    public static void startupVoiceService() { 
+        Message msg = new Message(); 
+        msg.what = HANDLER_Active_Voice; 
+        handler.sendMessage(msg); 
+    } 
+    
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
+		handler = new Handler() { 
+            public void handleMessage(Message msg) { 
+                switch (msg.what) { 
+                case HANDLER_Active_Voice: 
+                	try{
+                        Intent intent=new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);  
+                        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+                        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "开始语音");  
+                        startActivityForResult(intent, VOICE_RECOGNITION_REQUEST_CODE);  
+                        }catch (Exception e) {  
+                            e.printStackTrace();  
+                            Toast.makeText(getApplicationContext(), "找不到语音设备", 1).show();  
+                        }  
+                    break; 
+                } 
+            } 
+        };
 	}
+	
+	@Override  
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {  
+        // TODO Auto-generated method stub  
+        //回调获取从谷歌得到的数据   
+        if(requestCode==VOICE_RECOGNITION_REQUEST_CODE && resultCode==RESULT_OK){  
+            //取得语音的字符  
+            ArrayList<String> results=data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);  
+              
+            String resultString=""; 
+            if(results.size() > 0){
+            	resultString = results.get(0).toLowerCase();
+            }
+            //for(int i=0;i<results.size();i++){  
+            //    resultString+=results.get(i);  
+            //}  
+            //Toast.makeText(this, resultString, 1).show();  
+            voiceRecogition(resultString);
+        }  
+        super.onActivityResult(requestCode, resultCode, data);  
+    }  
 	
     static {
          System.loadLibrary("game");
