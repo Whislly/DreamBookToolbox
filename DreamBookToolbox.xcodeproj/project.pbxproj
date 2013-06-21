@@ -329,6 +329,29 @@
 		25371027173FADC400ABA4AE /* PlayBox.tps in Resources */ = {isa = PBXBuildFile; fileRef = 25370F37173FADC400ABA4AE /* PlayBox.tps */; };
 		25371028173FADC400ABA4AE /* TheDesignOfEverydayThings.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 25370F38173FADC400ABA4AE /* TheDesignOfEverydayThings.pdf */; };
 		2537102A173FC7EA00ABA4AE /* Images in Resources */ = {isa = PBXBuildFile; fileRef = 25371029173FC7E900ABA4AE /* Images */; };
+		25A4A64E176E026D00FD896B /* CCPlaceInterval.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 25A4A638176E026D00FD896B /* CCPlaceInterval.cpp */; };
+		25A4A64F176E026D00FD896B /* CCTransitionParticle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 25A4A63A176E026D00FD896B /* CCTransitionParticle.cpp */; };
+		25A4A650176E026D00FD896B /* DockMoveSpore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 25A4A63C176E026D00FD896B /* DockMoveSpore.cpp */; };
+		25A4A651176E026D00FD896B /* DockTogetherSpore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 25A4A63E176E026D00FD896B /* DockTogetherSpore.cpp */; };
+		25A4A652176E026D00FD896B /* EFTestLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 25A4A640176E026D00FD896B /* EFTestLayer.cpp */; };
+		25A4A653176E026D00FD896B /* EFTestScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 25A4A642176E026D00FD896B /* EFTestScene.cpp */; };
+		25A4A654176E026D00FD896B /* FileSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 25A4A644176E026D00FD896B /* FileSprite.cpp */; };
+		25A4A655176E026D00FD896B /* FrameSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 25A4A646176E026D00FD896B /* FrameSprite.cpp */; };
+		25A4A656176E026D00FD896B /* PhysicalBodyScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 25A4A648176E026D00FD896B /* PhysicalBodyScene.cpp */; };
+		25A4A657176E026D00FD896B /* StoryChatLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 25A4A64A176E026D00FD896B /* StoryChatLayer.cpp */; };
+		25A4A658176E026D00FD896B /* StoryScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 25A4A64C176E026D00FD896B /* StoryScene.cpp */; };
+		25A638D1176E0A2700F3812E /* b3.png in Resources */ = {isa = PBXBuildFile; fileRef = 25A637B4176E0A2700F3812E /* b3.png */; };
+		25A639D8176E0A2700F3812E /* resources.plist in Resources */ = {isa = PBXBuildFile; fileRef = 25A638CA176E0A2700F3812E /* resources.plist */; };
+		25A639D9176E0A2700F3812E /* resources.png in Resources */ = {isa = PBXBuildFile; fileRef = 25A638CB176E0A2700F3812E /* resources.png */; };
+		25A639DA176E0A2700F3812E /* save.png in Resources */ = {isa = PBXBuildFile; fileRef = 25A638CC176E0A2700F3812E /* save.png */; };
+		25A639DB176E0A2700F3812E /* small.png in Resources */ = {isa = PBXBuildFile; fileRef = 25A638CD176E0A2700F3812E /* small.png */; };
+		25A639DC176E0A2700F3812E /* spineboy.png in Resources */ = {isa = PBXBuildFile; fileRef = 25A638CE176E0A2700F3812E /* spineboy.png */; };
+		25A639DD176E0A2700F3812E /* stars.png in Resources */ = {isa = PBXBuildFile; fileRef = 25A638CF176E0A2700F3812E /* stars.png */; };
+		25A639DE176E0A2700F3812E /* z.plist in Resources */ = {isa = PBXBuildFile; fileRef = 25A638D0176E0A2700F3812E /* z.plist */; };
+		25A639E5176E0A9200F3812E /* Clear.png in Resources */ = {isa = PBXBuildFile; fileRef = 25A639E0176E0A9200F3812E /* Clear.png */; };
+		25A639E6176E0A9200F3812E /* enhance.png in Resources */ = {isa = PBXBuildFile; fileRef = 25A639E1176E0A9200F3812E /* enhance.png */; };
+		25A639E8176E0A9200F3812E /* spineboy.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 25A639E3176E0A9200F3812E /* spineboy.atlas */; };
+		25A639E9176E0A9200F3812E /* spineboy.json in Resources */ = {isa = PBXBuildFile; fileRef = 25A639E4176E0A9200F3812E /* spineboy.json */; };
 		25D5C8DD173FFCC100412635 /* DancingBoneLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 25D5C8D5173FFCC100412635 /* DancingBoneLayer.cpp */; };
 		25D5C8DE173FFCC100412635 /* DancingBoneMenuLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 25D5C8D7173FFCC100412635 /* DancingBoneMenuLayer.cpp */; };
 		25D5C8DF173FFCC100412635 /* DancingBoneScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 25D5C8D9173FFCC100412635 /* DancingBoneScene.cpp */; };
@@ -1020,6 +1043,40 @@
 		25370F37173FADC400ABA4AE /* PlayBox.tps */ = {isa = PBXFileReference; lastKnownFileType = file; name = PlayBox.tps; path = Resources/PlayBox.tps; sourceTree = "<group>"; };
 		25370F38173FADC400ABA4AE /* TheDesignOfEverydayThings.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = TheDesignOfEverydayThings.pdf; path = Resources/TheDesignOfEverydayThings.pdf; sourceTree = "<group>"; };
 		25371029173FC7E900ABA4AE /* Images */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Images; path = Resources/Images; sourceTree = "<group>"; };
+		25A4A638176E026D00FD896B /* CCPlaceInterval.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCPlaceInterval.cpp; path = Classes/CCPlaceInterval.cpp; sourceTree = "<group>"; };
+		25A4A639176E026D00FD896B /* CCPlaceInterval.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCPlaceInterval.h; path = Classes/CCPlaceInterval.h; sourceTree = "<group>"; };
+		25A4A63A176E026D00FD896B /* CCTransitionParticle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCTransitionParticle.cpp; path = Classes/CCTransitionParticle.cpp; sourceTree = "<group>"; };
+		25A4A63B176E026D00FD896B /* CCTransitionParticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCTransitionParticle.h; path = Classes/CCTransitionParticle.h; sourceTree = "<group>"; };
+		25A4A63C176E026D00FD896B /* DockMoveSpore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DockMoveSpore.cpp; path = Classes/DockMoveSpore.cpp; sourceTree = "<group>"; };
+		25A4A63D176E026D00FD896B /* DockMoveSpore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DockMoveSpore.h; path = Classes/DockMoveSpore.h; sourceTree = "<group>"; };
+		25A4A63E176E026D00FD896B /* DockTogetherSpore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DockTogetherSpore.cpp; path = Classes/DockTogetherSpore.cpp; sourceTree = "<group>"; };
+		25A4A63F176E026D00FD896B /* DockTogetherSpore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DockTogetherSpore.h; path = Classes/DockTogetherSpore.h; sourceTree = "<group>"; };
+		25A4A640176E026D00FD896B /* EFTestLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EFTestLayer.cpp; path = Classes/EFTestLayer.cpp; sourceTree = "<group>"; };
+		25A4A641176E026D00FD896B /* EFTestLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EFTestLayer.h; path = Classes/EFTestLayer.h; sourceTree = "<group>"; };
+		25A4A642176E026D00FD896B /* EFTestScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EFTestScene.cpp; path = Classes/EFTestScene.cpp; sourceTree = "<group>"; };
+		25A4A643176E026D00FD896B /* EFTestScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EFTestScene.h; path = Classes/EFTestScene.h; sourceTree = "<group>"; };
+		25A4A644176E026D00FD896B /* FileSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FileSprite.cpp; path = Classes/FileSprite.cpp; sourceTree = "<group>"; };
+		25A4A645176E026D00FD896B /* FileSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileSprite.h; path = Classes/FileSprite.h; sourceTree = "<group>"; };
+		25A4A646176E026D00FD896B /* FrameSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FrameSprite.cpp; path = Classes/FrameSprite.cpp; sourceTree = "<group>"; };
+		25A4A647176E026D00FD896B /* FrameSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FrameSprite.h; path = Classes/FrameSprite.h; sourceTree = "<group>"; };
+		25A4A648176E026D00FD896B /* PhysicalBodyScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PhysicalBodyScene.cpp; path = Classes/PhysicalBodyScene.cpp; sourceTree = "<group>"; };
+		25A4A649176E026D00FD896B /* PhysicalBodyScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhysicalBodyScene.h; path = Classes/PhysicalBodyScene.h; sourceTree = "<group>"; };
+		25A4A64A176E026D00FD896B /* StoryChatLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StoryChatLayer.cpp; path = Classes/StoryChatLayer.cpp; sourceTree = "<group>"; };
+		25A4A64B176E026D00FD896B /* StoryChatLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StoryChatLayer.h; path = Classes/StoryChatLayer.h; sourceTree = "<group>"; };
+		25A4A64C176E026D00FD896B /* StoryScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StoryScene.cpp; path = Classes/StoryScene.cpp; sourceTree = "<group>"; };
+		25A4A64D176E026D00FD896B /* StoryScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StoryScene.h; path = Classes/StoryScene.h; sourceTree = "<group>"; };
+		25A637B4176E0A2700F3812E /* b3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = b3.png; path = Resources/b3.png; sourceTree = "<group>"; };
+		25A638CA176E0A2700F3812E /* resources.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = resources.plist; path = Resources/resources.plist; sourceTree = "<group>"; };
+		25A638CB176E0A2700F3812E /* resources.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = resources.png; path = Resources/resources.png; sourceTree = "<group>"; };
+		25A638CC176E0A2700F3812E /* save.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = save.png; path = Resources/save.png; sourceTree = "<group>"; };
+		25A638CD176E0A2700F3812E /* small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = small.png; path = Resources/small.png; sourceTree = "<group>"; };
+		25A638CE176E0A2700F3812E /* spineboy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = spineboy.png; path = Resources/spineboy.png; sourceTree = "<group>"; };
+		25A638CF176E0A2700F3812E /* stars.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = stars.png; path = Resources/stars.png; sourceTree = "<group>"; };
+		25A638D0176E0A2700F3812E /* z.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = z.plist; path = Resources/z.plist; sourceTree = "<group>"; };
+		25A639E0176E0A9200F3812E /* Clear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Clear.png; path = Resources/Clear.png; sourceTree = "<group>"; };
+		25A639E1176E0A9200F3812E /* enhance.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = enhance.png; path = Resources/enhance.png; sourceTree = "<group>"; };
+		25A639E3176E0A9200F3812E /* spineboy.atlas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = spineboy.atlas; path = Resources/spineboy.atlas; sourceTree = "<group>"; };
+		25A639E4176E0A9200F3812E /* spineboy.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = spineboy.json; path = Resources/spineboy.json; sourceTree = "<group>"; };
 		25D5C8D5173FFCC100412635 /* DancingBoneLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DancingBoneLayer.cpp; path = Classes/DancingBoneLayer.cpp; sourceTree = "<group>"; };
 		25D5C8D6173FFCC100412635 /* DancingBoneLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DancingBoneLayer.h; path = Classes/DancingBoneLayer.h; sourceTree = "<group>"; };
 		25D5C8D7173FFCC100412635 /* DancingBoneMenuLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DancingBoneMenuLayer.cpp; path = Classes/DancingBoneMenuLayer.cpp; sourceTree = "<group>"; };
@@ -1126,6 +1183,18 @@
 		25370803173F9D7C00ABA4AE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				25A639E0176E0A9200F3812E /* Clear.png */,
+				25A639E1176E0A9200F3812E /* enhance.png */,
+				25A639E3176E0A9200F3812E /* spineboy.atlas */,
+				25A639E4176E0A9200F3812E /* spineboy.json */,
+				25A637B4176E0A2700F3812E /* b3.png */,
+				25A638CA176E0A2700F3812E /* resources.plist */,
+				25A638CB176E0A2700F3812E /* resources.png */,
+				25A638CC176E0A2700F3812E /* save.png */,
+				25A638CD176E0A2700F3812E /* small.png */,
+				25A638CE176E0A2700F3812E /* spineboy.png */,
+				25A638CF176E0A2700F3812E /* stars.png */,
+				25A638D0176E0A2700F3812E /* z.plist */,
 				25371029173FC7E900ABA4AE /* Images */,
 				25370E3B173FADC400ABA4AE /* Add.png */,
 				25370E3C173FADC400ABA4AE /* b1.png */,
@@ -2265,6 +2334,28 @@
 		25370B96173F9D8400ABA4AE /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				25A4A638176E026D00FD896B /* CCPlaceInterval.cpp */,
+				25A4A639176E026D00FD896B /* CCPlaceInterval.h */,
+				25A4A63A176E026D00FD896B /* CCTransitionParticle.cpp */,
+				25A4A63B176E026D00FD896B /* CCTransitionParticle.h */,
+				25A4A63C176E026D00FD896B /* DockMoveSpore.cpp */,
+				25A4A63D176E026D00FD896B /* DockMoveSpore.h */,
+				25A4A63E176E026D00FD896B /* DockTogetherSpore.cpp */,
+				25A4A63F176E026D00FD896B /* DockTogetherSpore.h */,
+				25A4A640176E026D00FD896B /* EFTestLayer.cpp */,
+				25A4A641176E026D00FD896B /* EFTestLayer.h */,
+				25A4A642176E026D00FD896B /* EFTestScene.cpp */,
+				25A4A643176E026D00FD896B /* EFTestScene.h */,
+				25A4A644176E026D00FD896B /* FileSprite.cpp */,
+				25A4A645176E026D00FD896B /* FileSprite.h */,
+				25A4A646176E026D00FD896B /* FrameSprite.cpp */,
+				25A4A647176E026D00FD896B /* FrameSprite.h */,
+				25A4A648176E026D00FD896B /* PhysicalBodyScene.cpp */,
+				25A4A649176E026D00FD896B /* PhysicalBodyScene.h */,
+				25A4A64A176E026D00FD896B /* StoryChatLayer.cpp */,
+				25A4A64B176E026D00FD896B /* StoryChatLayer.h */,
+				25A4A64C176E026D00FD896B /* StoryScene.cpp */,
+				25A4A64D176E026D00FD896B /* StoryScene.h */,
 				25D5C8D5173FFCC100412635 /* DancingBoneLayer.cpp */,
 				25D5C8D6173FFCC100412635 /* DancingBoneLayer.h */,
 				25D5C8D7173FFCC100412635 /* DancingBoneMenuLayer.cpp */,
@@ -2474,6 +2565,18 @@
 				25371027173FADC400ABA4AE /* PlayBox.tps in Resources */,
 				25371028173FADC400ABA4AE /* TheDesignOfEverydayThings.pdf in Resources */,
 				2537102A173FC7EA00ABA4AE /* Images in Resources */,
+				25A638D1176E0A2700F3812E /* b3.png in Resources */,
+				25A639D8176E0A2700F3812E /* resources.plist in Resources */,
+				25A639D9176E0A2700F3812E /* resources.png in Resources */,
+				25A639DA176E0A2700F3812E /* save.png in Resources */,
+				25A639DB176E0A2700F3812E /* small.png in Resources */,
+				25A639DC176E0A2700F3812E /* spineboy.png in Resources */,
+				25A639DD176E0A2700F3812E /* stars.png in Resources */,
+				25A639DE176E0A2700F3812E /* z.plist in Resources */,
+				25A639E5176E0A9200F3812E /* Clear.png in Resources */,
+				25A639E6176E0A9200F3812E /* enhance.png in Resources */,
+				25A639E8176E0A9200F3812E /* spineboy.atlas in Resources */,
+				25A639E9176E0A9200F3812E /* spineboy.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2792,6 +2895,17 @@
 				25D5C8F6173FFDD900412635 /* ParseObject.cpp in Sources */,
 				25D5C8F7173FFDD900412635 /* ParseQuery.cpp in Sources */,
 				25FC8A051748776B009A5DA6 /* ParseFile.cpp in Sources */,
+				25A4A64E176E026D00FD896B /* CCPlaceInterval.cpp in Sources */,
+				25A4A64F176E026D00FD896B /* CCTransitionParticle.cpp in Sources */,
+				25A4A650176E026D00FD896B /* DockMoveSpore.cpp in Sources */,
+				25A4A651176E026D00FD896B /* DockTogetherSpore.cpp in Sources */,
+				25A4A652176E026D00FD896B /* EFTestLayer.cpp in Sources */,
+				25A4A653176E026D00FD896B /* EFTestScene.cpp in Sources */,
+				25A4A654176E026D00FD896B /* FileSprite.cpp in Sources */,
+				25A4A655176E026D00FD896B /* FrameSprite.cpp in Sources */,
+				25A4A656176E026D00FD896B /* PhysicalBodyScene.cpp in Sources */,
+				25A4A657176E026D00FD896B /* StoryChatLayer.cpp in Sources */,
+				25A4A658176E026D00FD896B /* StoryScene.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
