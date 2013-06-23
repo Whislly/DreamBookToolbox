@@ -198,7 +198,7 @@ bool MainLayer::init()
         pMenu->alignItemsVertically();
         this->addChild(pMenu);
 
-        pMenu->setPosition(ccp(winSize.width * 0.5F, winSize.height * 0.7F));
+        pMenu->setPosition(ccp(winSize.width * 0.5F, winSize.height * 0.6F));
 
 		/*this->lbDebug = CCLabelTTF::create("Start", "Arial", 24);
 		this->lbDebug->setColor(ccc3(255, 255, 1));
