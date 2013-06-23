@@ -101,7 +101,7 @@ bool PhysicsTechLayer::init()
 		//enable
 		this->setTouchEnabled( true );
 		this->setAccelerometerEnabled( true );
-
+		//
 
 		//=================== Common Setting =====================
 		scheduleUpdate();
@@ -360,11 +360,5 @@ void PhysicsTechLayer::SetProperty(PropertyLayer *layer, b2Body *object)
 				}
 		}
 }
-
-
-
-
-
-
 
 

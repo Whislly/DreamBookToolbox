@@ -1,43 +1,34 @@
 #include "PhysicsTechScene.h"
 
-#include "MenuLayer.h"
-#include "PropertyLayer.h"
-#include "PhysicsTechLayer.h"
+PhysicsTechScene::PhysicsTechScene(void)
+{
+}
 
-USING_NS_CC;
+PhysicsTechScene::~PhysicsTechScene()
+{
+}
 
 bool PhysicsTechScene::init()
 {
-    bool bRet = false;
-    do 
-    {
-        //////////////////////////////////////////////////////////////////////////
-        // super init first
-        //////////////////////////////////////////////////////////////////////////
+	b2World* world = CommonHelper::CreateWorld();
 
-        CC_BREAK_IF(! CCScene::init());
+	//Menu Layer
+	MenuLayer *menu = MenuLayer::create(world);
+	this->addChild(menu, 0);
 
-        //////////////////////////////////////////////////////////////////////////
-        // add your codes below...
-        //////////////////////////////////////////////////////////////////////////
+	//Property Layer
+	PropertyLayer *prop = PropertyLayer::create(world);
+	this->addChild(prop, 2);
 
-        b2World* world = CommonHelper::CreateWorld();
+	//Main Layer
+	PhysicsTechLayer *tcLayer = PhysicsTechLayer::create(world);
+	tcLayer->propertyLayer = prop;
+	this->addChild(tcLayer, 1);
 
-        //Menu Layer
-        MenuLayer *menu = MenuLayer::create(world);
-        this->addChild(menu, 0);
+	if(CCDirector::sharedDirector()->isPaused())
+	{
+		CCDirector::sharedDirector()->resume();
+	}
 
-        //Property Layer
-        PropertyLayer *prop = PropertyLayer::create(world);
-        this->addChild(prop, 2);
-
-        //Main Layer
-        PhysicsTechLayer *tcLayer = PhysicsTechLayer::create(world);
-        tcLayer->propertyLayer = prop;
-        this->addChild(tcLayer, 1);
-
-        bRet = true;
-    } while (0);
-
-    return bRet;
+	return true;
 }
