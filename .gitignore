@@ -32,6 +32,7 @@ ipch/
 *.opensdf
 
 # Ignore files build by ndk and eclipse
+libgame.so
 bin/
 obj/
 gen/
