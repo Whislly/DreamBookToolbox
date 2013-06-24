@@ -47,23 +47,24 @@ public abstract class Cocos2dxActivity extends Activity implements Cocos2dxHelpe
 	
 	private Cocos2dxGLSurfaceView mGLSurfaceView;
 	private Cocos2dxHandler mHandler;
-	private static Context sContext = null;
-	
-	public static Context getContext() {
-		return sContext;
-	}
-	
+
+	// ===========================================================
+	// Methods
+	// ===========================================================
+
+	protected static native void nativeVoiceReco(final String voiceContent);
+
 	// ===========================================================
 	// Constructors
 	// ===========================================================
-	
+
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		sContext = this;
+		
     	this.mHandler = new Cocos2dxHandler(this);
 
-    	this.init();
+    	this.mGLSurfaceView = onCreateView();
 
 		Cocos2dxHelper.init(this, this);
 	}
@@ -76,6 +77,10 @@ public abstract class Cocos2dxActivity extends Activity implements Cocos2dxHelpe
 	// Methods for/from SuperClass/Interfaces
 	// ===========================================================
 
+	protected void voiceRecogition(final String voiceContent){
+		nativeVoiceReco(voiceContent);
+	}
+	
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -116,8 +121,10 @@ public abstract class Cocos2dxActivity extends Activity implements Cocos2dxHelpe
 	// ===========================================================
 	// Methods
 	// ===========================================================
-	public void init() {
-		
+	
+    public Cocos2dxGLSurfaceView onCreateView() {
+    	// Init handler
+    			
     	// FrameLayout
         ViewGroup.LayoutParams framelayout_params =
             new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
@@ -136,38 +143,19 @@ public abstract class Cocos2dxActivity extends Activity implements Cocos2dxHelpe
         framelayout.addView(edittext);
 
         // Cocos2dxGLSurfaceView
-        this.mGLSurfaceView = this.onCreateView();
+        Cocos2dxGLSurfaceView gLSurfaceView = new Cocos2dxGLSurfaceView(this);
 
         // ...add to FrameLayout
-        framelayout.addView(this.mGLSurfaceView);
+        framelayout.addView(gLSurfaceView);
 
-        // Switch to supported OpenGL (ARGB888) mode on emulator
-        if (isAndroidEmulator())
-           this.mGLSurfaceView.setEGLConfigChooser(8 , 8, 8, 8, 16, 0);
-
-        this.mGLSurfaceView.setCocos2dxRenderer(new Cocos2dxRenderer());
-        this.mGLSurfaceView.setCocos2dxEditText(edittext);
+        gLSurfaceView.setCocos2dxRenderer(new Cocos2dxRenderer());
+        gLSurfaceView.setCocos2dxEditText(edittext);
 
         // Set framelayout as the content view
 		setContentView(framelayout);
-	}
-	
-    public Cocos2dxGLSurfaceView onCreateView() {
-    	return new Cocos2dxGLSurfaceView(this);
+		
+		return gLSurfaceView;
     }
-
-   private final static boolean isAndroidEmulator() {
-      String model = Build.MODEL;
-      Log.d(TAG, "model=" + model);
-      String product = Build.PRODUCT;
-      Log.d(TAG, "product=" + product);
-      boolean isEmulator = false;
-      if (product != null) {
-         isEmulator = product.equals("sdk") || product.contains("_sdk") || product.contains("sdk_");
-      }
-      Log.d(TAG, "isEmulator=" + isEmulator);
-      return isEmulator;
-   }
 
 	// ===========================================================
 	// Inner and Anonymous Classes
