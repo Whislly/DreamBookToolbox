@@ -321,9 +321,9 @@ void DesignLayer::showScaleToolButtons( cocos2d::CCObject* pSender )
     m_reduce->setPosition(ccpSub(pos, ccp(40.0f, 0.0f)));
     m_reduce->runAction(CCShow::create());
 
-    m_input->setPosition(ccpAdd(pos, ccp(0.0f, size.height * 0.6f)));
-    m_input->attachWithIME();
-    m_input->runAction(CCShow::create());
+    //m_input->setPosition(ccpAdd(pos, ccp(0.0f, size.height * 0.6f)));
+    /*m_input->attachWithIME();
+    m_input->runAction(CCShow::create());*/
     m_input->setString("");
 
     m_currentSprite = pSprite;
@@ -338,19 +338,18 @@ bool DesignLayer::ccTouchBegan( CCTouch *pTouch, CCEvent *pEvent )
         {
             if (!m_reduce->boundingBox().containsPoint(touchLocation) && 
                 !m_enlarge->boundingBox().containsPoint(touchLocation) &&
-                !m_input->boundingBox().containsPoint(touchLocation) &&
                 m_currentSprite && (!m_currentSprite->boundingBox().containsPoint(touchLocation)))
             {
                 m_enlarge->setVisible(false);
                 m_reduce->setVisible(false);
-                m_input->setVisible(false);
+                /*m_input->setVisible(false);
                 m_input->detachWithIME();
                 const char* content = m_input->getString();
                 if (content && strlen(content) > 0)
                 {
                     m_currentSprite->setInputContent(content, m_time);
                     m_currentSprite->setSelectorForInput(this, menu_selector(DesignLayer::waitInput));
-                }
+                }*/
             }
         }
         else
@@ -358,11 +357,11 @@ bool DesignLayer::ccTouchBegan( CCTouch *pTouch, CCEvent *pEvent )
             if (!m_input->boundingBox().containsPoint(touchLocation) &&
                 m_currentSprite && (!m_currentSprite->boundingBox().containsPoint(touchLocation)))
             {
-                m_input->setVisible(false);
+                /*m_input->setVisible(false);
                 m_input->detachWithIME();
                 #if (CC_TARGET_PLATFORM != CC_PLATFORM_ANDROID)
                 this->voiceRecognition(m_input->getString());
-                #endif
+                #endif*/
             }
             else
             {
