@@ -69,15 +69,19 @@ CCAffineTransform PhysicsSprite::nodeToParentTransform(void)
 		float c = cosf(radians);
 		float s = sinf(radians);
 
-		if( ! m_obAnchorPointInPoints.equals(CCPointZero) ){
-				x += c*-m_obAnchorPointInPoints.x + -s*-m_obAnchorPointInPoints.y;
-				y += s*-m_obAnchorPointInPoints.x + c*-m_obAnchorPointInPoints.y;
+		// Although scale is not used by physics engines, it is calculated just in case
+		// the sprite is animated (scaled up/down) using actions.
+		// For more info see: http://www.cocos2d-iphone.org/forum/topic/68990
+		if (!m_obAnchorPointInPoints.equals(CCPointZero))
+		{
+			x += ((c * -m_obAnchorPointInPoints.x * m_fScaleX) + (-s * -m_obAnchorPointInPoints.y * m_fScaleY));
+			y += ((s * -m_obAnchorPointInPoints.x * m_fScaleX) + (c * -m_obAnchorPointInPoints.y * m_fScaleY));
 		}
 
 		// Rot, Translate Matrix
-		m_transformToBatch = CCAffineTransformMake( c,  s,
-				-s,    c,
-				x,    y );
+		m_sTransform = CCAffineTransformMake( c * m_fScaleX,	s * m_fScaleX,
+			-s * m_fScaleY,	c * m_fScaleY,
+			x,	y );
 
-		return m_transformToBatch;
+		return m_sTransform;
 }
