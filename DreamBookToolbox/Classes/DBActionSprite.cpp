@@ -28,7 +28,7 @@ DBActionSprite::~DBActionSprite()
         m_data->release();
     }
     m_data = NULL;
-    CCSpriteEx::~CCSpriteEx();
+    //CCSpriteEx::~CCSpriteEx();
 }
 
 DBActionSprite* DBActionSprite::createWithTexture( cocos2d::CCTexture2D *pTexture, const cocos2d::CCRect& rect )

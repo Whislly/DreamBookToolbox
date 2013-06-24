@@ -8,22 +8,35 @@ LOCAL_MODULE_FILENAME := libgame
 
 LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/AppDelegate.cpp \
+                   ../../Classes/CCPlaceInterval.cpp \
                    ../../Classes/CCSpriteEx.cpp \
+                   ../../Classes/CCTransitionParticle.cpp \
                    ../../Classes/CommonHelper.cpp \
                    ../../Classes/CustomUserData.cpp \
                    ../../Classes/DBActionSprite.cpp \
                    ../../Classes/DBData.cpp \
                    ../../Classes/DBPropertyData.cpp \
+                   ../../Classes/DancingBoneLayer.cpp \
+                   ../../Classes/DancingBoneMenuLayer.cpp \
+                   ../../Classes/DancingBoneScene.cpp \
                    ../../Classes/DesignLayer.cpp \
+                   ../../Classes/DockMoveSpore.cpp \
+                   ../../Classes/DockTogetherSpore.cpp \
                    ../../Classes/DreamBookScene.cpp \
                    ../../Classes/DynamicLayerContainer.cpp \
+                   ../../Classes/EFTestLayer.cpp \
+                   ../../Classes/EFTestScene.cpp \
+                   ../../Classes/FileSprite.cpp \
+                   ../../Classes/FrameSprite.cpp \
                    ../../Classes/GeometricRecognizer.cpp \
                    ../../Classes/GestureLayer.cpp \
                    ../../Classes/KeyboardNotificationLayer.cpp \
                    ../../Classes/MainScene.cpp \
                    ../../Classes/MenuLayer.cpp \
+                   ../../Classes/MultiBodyQueryCallback.cpp \
                    ../../Classes/ObserveLayer.cpp \
                    ../../Classes/ObserveLayerContainer.cpp \
+                   ../../Classes/PhysicalBodyScene.cpp \
                    ../../Classes/PhysicsSprite.cpp \
                    ../../Classes/PhysicsTechLayer.cpp \
                    ../../Classes/PhysicsTechScene.cpp \
@@ -33,15 +46,13 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/PosQuery.cpp \
                    ../../Classes/PositionQueryCallback.cpp \
                    ../../Classes/PropertyLayer.cpp \
+                   ../../Classes/StoryChatLayer.cpp \
+                   ../../Classes/StoryScene.cpp \
                    ../../Classes/ToyBrick.cpp \
                    ../../Classes/ToyBrickScene.cpp \
                    ../../Classes/ToyContact.cpp \
                    ../../Classes/ToyLayer.cpp \
                    ../../Classes/VisibleRect.cpp \
-                   ../../Classes/DancingBoneLayer.cpp \
-                   ../../Classes/DancingBoneMenuLayer.cpp \
-                   ../../Classes/DancingBoneScene.cpp \
-                   ../../Classes/MultiBodyQueryCallback.cpp
 
 
                    
@@ -50,6 +61,7 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes \
 					$(LOCAL_PATH)/../../../external/Box2D \
 					$(LOCAL_PATH)/../../../extensions \
 					$(LOCAL_PATH)/../../../cocos2dx \
+					$(LOCAL_PATH)/../../../cocos2dx/cocoa \
 					$(LOCAL_PATH)/../../../cocos2dx/include \
 					$(LOCAL_PATH)/../../../cocos2dx/kazmath/include \
 					$(LOCAL_PATH)/../../../cocos2dx/platform/android \

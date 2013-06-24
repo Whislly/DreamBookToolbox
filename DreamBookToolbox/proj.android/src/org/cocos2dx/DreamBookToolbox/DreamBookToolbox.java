@@ -21,7 +21,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
-package fleet.DreamTower.com;
+package org.cocos2dx.DreamBookToolbox;
 
 import java.util.ArrayList;
 
@@ -34,7 +34,7 @@ import android.os.Message;
 import android.speech.RecognizerIntent;
 import android.widget.Toast;
 
-public class DreamTower extends Cocos2dxActivity{
+public class DreamBookToolbox extends Cocos2dxActivity{
 
 	private static Handler handler; 
     private final static int HANDLER_Active_Voice = 1;

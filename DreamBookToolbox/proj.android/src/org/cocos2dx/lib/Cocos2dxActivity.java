@@ -49,6 +49,12 @@ public abstract class Cocos2dxActivity extends Activity implements Cocos2dxHelpe
 	private Cocos2dxHandler mHandler;
 	private static Context sContext = null;
 	
+	// ===========================================================
+	// Methods
+	// ===========================================================
+
+	protected static native void nativeVoiceReco(final String voiceContent);
+	
 	public static Context getContext() {
 		return sContext;
 	}
@@ -75,6 +81,10 @@ public abstract class Cocos2dxActivity extends Activity implements Cocos2dxHelpe
 	// ===========================================================
 	// Methods for/from SuperClass/Interfaces
 	// ===========================================================
+
+	protected void voiceRecogition(final String voiceContent){
+		nativeVoiceReco(voiceContent);
+	}
 
 	@Override
 	protected void onResume() {

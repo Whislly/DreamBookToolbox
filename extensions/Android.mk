@@ -88,6 +88,16 @@ LOCAL_WHOLE_STATIC_LIBRARIES += chipmunk_static
 LOCAL_CFLAGS += -DCC_ENABLE_CHIPMUNK_INTEGRATION=1
 LOCAL_EXPORT_CFLAGS += -DCC_ENABLE_CHIPMUNK_INTEGRATION=1
 
+LOCAL_C_INCLUDES := $(LOCAL_PATH) \
+                           $(LOCAL_PATH)/CCBReader \
+                           $(LOCAL_PATH)/GUI/CCControlExtension \
+                           $(LOCAL_PATH)/GUI/CCScrollView \
+                           $(LOCAL_PATH)/network \
+						   $(LOCAL_PATH)/../cocos2dx/cocoa \
+                           $(LOCAL_PATH)/Parse \
+                           $(LOCAL_PATH)/rapidjson \
+                           $(LOCAL_PATH)/LocalStorage 
+						   
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH) \
                            $(LOCAL_PATH)/CCBReader \
                            $(LOCAL_PATH)/GUI/CCControlExtension \
