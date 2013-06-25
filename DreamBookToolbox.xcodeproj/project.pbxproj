@@ -26,7 +26,6 @@
 		25370815173F9D7C00ABA4AE /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 25370814173F9D7C00ABA4AE /* Icon.png */; };
 		25370817173F9D7C00ABA4AE /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 25370816173F9D7C00ABA4AE /* Icon@2x.png */; };
 		25370819173F9D7C00ABA4AE /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 25370818173F9D7C00ABA4AE /* iTunesArtwork */; };
-		2537081E173F9D7C00ABA4AE /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2537081D173F9D7C00ABA4AE /* AppController.mm */; };
 		25370821173F9D7C00ABA4AE /* RootViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 25370820173F9D7C00ABA4AE /* RootViewController.mm */; };
 		25370823173F9D7C00ABA4AE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 25370822173F9D7C00ABA4AE /* main.m */; };
 		25370828173F9D7C00ABA4AE /* CCAction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 25370827173F9D7C00ABA4AE /* CCAction.cpp */; };
@@ -352,6 +351,7 @@
 		25A639E6176E0A9200F3812E /* enhance.png in Resources */ = {isa = PBXBuildFile; fileRef = 25A639E1176E0A9200F3812E /* enhance.png */; };
 		25A639E8176E0A9200F3812E /* spineboy.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 25A639E3176E0A9200F3812E /* spineboy.atlas */; };
 		25A639E9176E0A9200F3812E /* spineboy.json in Resources */ = {isa = PBXBuildFile; fileRef = 25A639E4176E0A9200F3812E /* spineboy.json */; };
+		25CEB0D717790EE70079C102 /* testsAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 25CEB0D617790EE70079C102 /* testsAppDelegate.mm */; };
 		25D5C8DD173FFCC100412635 /* DancingBoneLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 25D5C8D5173FFCC100412635 /* DancingBoneLayer.cpp */; };
 		25D5C8DE173FFCC100412635 /* DancingBoneMenuLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 25D5C8D7173FFCC100412635 /* DancingBoneMenuLayer.cpp */; };
 		25D5C8DF173FFCC100412635 /* DancingBoneScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 25D5C8D9173FFCC100412635 /* DancingBoneScene.cpp */; };
@@ -387,8 +387,6 @@
 		25370816173F9D7C00ABA4AE /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "Resources/Icon@2x.png"; sourceTree = "<group>"; };
 		25370818173F9D7C00ABA4AE /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; name = iTunesArtwork; path = Resources/iTunesArtwork; sourceTree = "<group>"; };
 		2537081A173F9D7C00ABA4AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Resources/Info.plist; sourceTree = "<group>"; };
-		2537081C173F9D7C00ABA4AE /* AppController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppController.h; path = ios/AppController.h; sourceTree = "<group>"; };
-		2537081D173F9D7C00ABA4AE /* AppController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppController.mm; path = ios/AppController.mm; sourceTree = "<group>"; };
 		2537081F173F9D7C00ABA4AE /* RootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RootViewController.h; path = ios/RootViewController.h; sourceTree = "<group>"; };
 		25370820173F9D7C00ABA4AE /* RootViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = RootViewController.mm; path = ios/RootViewController.mm; sourceTree = "<group>"; };
 		25370822173F9D7C00ABA4AE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ios/main.m; sourceTree = "<group>"; };
@@ -1077,6 +1075,8 @@
 		25A639E1176E0A9200F3812E /* enhance.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = enhance.png; path = Resources/enhance.png; sourceTree = "<group>"; };
 		25A639E3176E0A9200F3812E /* spineboy.atlas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = spineboy.atlas; path = Resources/spineboy.atlas; sourceTree = "<group>"; };
 		25A639E4176E0A9200F3812E /* spineboy.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = spineboy.json; path = Resources/spineboy.json; sourceTree = "<group>"; };
+		25CEB0D517790EE70079C102 /* testsAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = testsAppDelegate.h; path = ios/testsAppDelegate.h; sourceTree = "<group>"; };
+		25CEB0D617790EE70079C102 /* testsAppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = testsAppDelegate.mm; path = ios/testsAppDelegate.mm; sourceTree = "<group>"; };
 		25D5C8D5173FFCC100412635 /* DancingBoneLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DancingBoneLayer.cpp; path = Classes/DancingBoneLayer.cpp; sourceTree = "<group>"; };
 		25D5C8D6173FFCC100412635 /* DancingBoneLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DancingBoneLayer.h; path = Classes/DancingBoneLayer.h; sourceTree = "<group>"; };
 		25D5C8D7173FFCC100412635 /* DancingBoneMenuLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DancingBoneMenuLayer.cpp; path = Classes/DancingBoneMenuLayer.cpp; sourceTree = "<group>"; };
@@ -1232,8 +1232,8 @@
 		2537081B173F9D7C00ABA4AE /* ios */ = {
 			isa = PBXGroup;
 			children = (
-				2537081C173F9D7C00ABA4AE /* AppController.h */,
-				2537081D173F9D7C00ABA4AE /* AppController.mm */,
+				25CEB0D517790EE70079C102 /* testsAppDelegate.h */,
+				25CEB0D617790EE70079C102 /* testsAppDelegate.mm */,
 				2537081F173F9D7C00ABA4AE /* RootViewController.h */,
 				25370820173F9D7C00ABA4AE /* RootViewController.mm */,
 				25370822173F9D7C00ABA4AE /* main.m */,
@@ -2603,7 +2603,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2537081E173F9D7C00ABA4AE /* AppController.mm in Sources */,
 				25370821173F9D7C00ABA4AE /* RootViewController.mm in Sources */,
 				25370823173F9D7C00ABA4AE /* main.m in Sources */,
 				25370828173F9D7C00ABA4AE /* CCAction.cpp in Sources */,
@@ -2906,6 +2905,7 @@
 				25A4A656176E026D00FD896B /* PhysicalBodyScene.cpp in Sources */,
 				25A4A657176E026D00FD896B /* StoryChatLayer.cpp in Sources */,
 				25A4A658176E026D00FD896B /* StoryScene.cpp in Sources */,
+				25CEB0D717790EE70079C102 /* testsAppDelegate.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2924,8 +2924,6 @@
 					"COCOS2D_DEBUG=1",
 					USE_FILE32API,
 					CC_TARGET_OS_IPHONE,
-					"CC_ENABLE_CHIPMUNK_INTEGRATION=1",
-					"CC_ENABLE_CHIPMUNK_INTEGRATION=0",
 					"CC_ENABLE_BOX2D_INTEGRATION=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
@@ -2957,8 +2955,6 @@
 					NDEBUG,
 					USE_FILE32API,
 					CC_TARGET_OS_IPHONE,
-					"CC_ENABLE_CHIPMUNK_INTEGRATION=1",
-					"CC_ENABLE_CHIPMUNK_INTEGRATION=0",
 					"CC_ENABLE_BOX2D_INTEGRATION=1",
 				);
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;

@@ -56,6 +56,11 @@ void MainLayer::menuCloseCallback( CCObject* pSender )
 
     // "close" menu item clicked
     CCDirector::sharedDirector()->end();
+    
+#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+    exit(0);
+#endif
+
 }
 
 void MainLayer::menuEFTestCallback( CCObject* pSender )

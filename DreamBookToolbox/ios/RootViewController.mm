@@ -1,9 +1,9 @@
+    //
+//  RootViewController.mm
+//  test
 //
-//  DreamBookToolboxAppController.h
-//  DreamBookToolbox
-//
-//  Created by 邓 小虎 on 13-5-12.
-//  Copyright __MyCompanyName__ 2013年. All rights reserved.
+//  Created by Walzer on 11-4-28.
+//  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
 #import "RootViewController.h"
@@ -43,7 +43,7 @@
 // For ios6, use supportedInterfaceOrientations & shouldAutorotate instead
 - (NSUInteger) supportedInterfaceOrientations{
 #ifdef __IPHONE_6_0
-    return UIInterfaceOrientationMaskLandscape;
+    return UIInterfaceOrientationMaskAllButUpsideDown;
 #endif
 }
 
